@@ -1,0 +1,8 @@
+<% if signed_in? %>
+<h2> Chao ban </h2>  
+<% else %>
+  <div class="center hero-unit">
+    <h1>Wellcome </h1>  
+    <%= link_to "Signup now!!!", signup_path, class: "btn btn-large btn-primary"%>
+  </div>
+<% end %>
