@@ -1,8 +1,8 @@
 
-  <% unless @team.owned?(current_user)%>
+  <% unless @group.owned?(current_user)%>
  
   <div id="follow_form">
-  <% if @team.joined?(current_user) %>
+  <% if @group.joined?(current_user) %>
     <%= render 'quit' %>
   <% else %>
     <%= render 'join' %>
