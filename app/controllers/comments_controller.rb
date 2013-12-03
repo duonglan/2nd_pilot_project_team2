@@ -7,24 +7,18 @@ class CommentsController < ApplicationController
     @comments = Comment.all
   end
 
-  # GET /comments/1
-  # GET /comments/1.json
   def show
   end
 
-  # GET /comments/new
   def new
     @comment = Comment.new
   end
 
-  # GET /comments/1/edit
   def edit
   end
 
-  # POST /comments
-  # POST /comments.json
   def create
-    @micropost = Micropost.find(params[:comment][:micropost_id])
+    @micropost = current_user.microposts.find(params[:comment][:micropost_id])
     @comment = @micropost.comments.build(comment_params)
     if @comment.save
       flash[:success] = "Comment created!"
@@ -36,22 +30,6 @@ class CommentsController < ApplicationController
     
   end
 
-  # PATCH/PUT /comments/1
-  # PATCH/PUT /comments/1.json
-  # def update
-  #   respond_to do |format|
-  #     if @comment.update(comment_params)
-  #       format.html { redirect_to @comment, notice: 'Comment was successfully updated.' }
-  #       format.json { head :no_content }
-  #     else
-  #       format.html { render action: 'edit' }
-  #       format.json { render json: @comment.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
-
-  # DELETE /comments/1
-  # DELETE /comments/1.json
   def destroy
     @comment.destroy
     respond_to do |format|
