@@ -2,7 +2,7 @@ Blog::Application.routes.draw do
   resources :comments, only: [:show, :create, :destroy]
   resources :users
   resources :sessions,   only: [:new, :create, :destroy]
-  resources :microposts, only: [:create, :show,:destroy]
+  resources :microposts
   resources :teams
   resources :team_members, only: [:create, :destroy]
   # resources :comments, only: [:show, :create, :destroy]
