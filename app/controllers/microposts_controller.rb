@@ -13,7 +13,7 @@ class MicropostsController < ApplicationController
   end
 
   def new
-    @micropost = Micropost.new
+    @micropost = current_user.microposts.build
   end
 
   def edit
@@ -24,7 +24,7 @@ class MicropostsController < ApplicationController
       @micropost = current_user.microposts.build(micropost_params)
     if @micropost.save
       flash[:success] = "Entry created!"
-      redirect_to root_url
+      redirect_to user_micropost_path current_user, @micropost
     else
       @feed_items = []
       render 'blog/home'
