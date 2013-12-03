@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-FacebookApp::Application.load_tasks
+Blog::Application.load_tasks

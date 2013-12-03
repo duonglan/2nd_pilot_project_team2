@@ -1,13 +1,16 @@
-FacebookApp::Application.routes.draw do
-  get "static_pages/home"
+Blog::Application.routes.draw do
+  resources :comments, only: [:show, :create, :destroy]
   resources :users
-  resources :sessions, only: [:new, :create, :destroy]
-  root  'static_pages#home'
+  resources :sessions,   only: [:new, :create, :destroy]
+  resources :microposts, only: [:create, :show,:destroy]
+  # resources :comments, only: [:show, :create, :destroy]
+  root  'blog#home'
   match '/signup',  to: 'users#new',            via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
   match '/signout', to: 'sessions#destroy',     via: 'delete'
-  resources :groups
-  resources :microposts
+  match '/help',    to: 'blog#help',            via: 'get'
+  # get "blog/home"
+  # get "blog/help"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

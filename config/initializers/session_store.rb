@@ -1,3 +1,3 @@
 # Be sure to restart your server when you modify this file.
 
-FacebookApp::Application.config.session_store :cookie_store, key: '_facebook_app_session'
+Blog::Application.config.session_store :cookie_store, key: '_blog_session'
