@@ -3,12 +3,16 @@ Blog::Application.routes.draw do
   resources :users
   resources :sessions,   only: [:new, :create, :destroy]
   resources :microposts, only: [:create, :show,:destroy]
+  resources :teams
+  resources :team_members, only: [:create, :destroy]
   # resources :comments, only: [:show, :create, :destroy]
   root  'blog#home'
   match '/signup',  to: 'users#new',            via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
   match '/signout', to: 'sessions#destroy',     via: 'delete'
   match '/help',    to: 'blog#help',            via: 'get'
+  match '/creategroup',  to: 'teams#new',            via: 'get'
+  match '/showgroup',  to: 'teams#show',            via: 'get'
   # get "blog/home"
   # get "blog/help"
   # The priority is based upon order of creation: first created -> highest priority.
