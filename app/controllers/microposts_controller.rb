@@ -35,7 +35,7 @@ class MicropostsController < ApplicationController
     @micropost = Micropost.find(params[:id])
     if @micropost.update_attributes(micropost_params)
       flash[:success] = "Micropost updated"
-      redirect_to @micropost
+      redirect_to user_micropost_path current_user, @micropost
     else
       render 'edit'
     end
