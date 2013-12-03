@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
-  has_many :teams,  foreign_key: "owner_id",  dependent: :destroy
-  has_many :joined_teams, class_name:"TeamMember",  dependent: :destroy
+  has_many :groups,  foreign_key: "owner_id",  dependent: :destroy
+  has_many :joined_groups, class_name:"GroupMember",  dependent: :destroy
   has_many :microposts, dependent: :destroy
   before_save { self.email = email.downcase }
   validates :name, presence: true, length: { maximum: 50 } 

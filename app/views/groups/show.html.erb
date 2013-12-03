@@ -1,22 +1,22 @@
-<% provide(:title, @team.name) %>
+<% provide(:title, @group.name) %>
 <div class="row">
   <aside class="span4">
     <section>
       <h1>
-        <%= @team.name %>
+        <%= @group.name %>
       </h1>
       <span>
-	 		Owner: <%= link_to @team.owner.name, @team.owner %>
+	 		Owner: <%= link_to @group.owner.name, @group.owner %>
 	</span>
     </section>
   </aside>
    <div class="span8">
 
    	<%= render 'join_form' if signed_in? %>
-    <% if @team.members.any? %>
-      <h3>Members (<%= @team.members.count %>)</h3>
+    <% if @group.members.any? %>
+      <h3>Members (<%= @group.members.count %>)</h3>
       <ol class="members">
-        <%= render partial: 'teams/member', collection: @members %>
+        <%= render partial: 'groups/member', collection: @members %>
       </ol>
       <%= will_paginate @members %>
     <% end %>
