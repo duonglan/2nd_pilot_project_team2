@@ -1,0 +1,41 @@
+<% provide(:title, "Comment Entry") %>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <h1>
+        <%= gravatar_for @micropost.user %>
+        <%= @micropost.user.name %>
+      </h1>
+    </section>
+  </aside>
+  <div class="span8">
+    <span class="content">
+    	<%= wrap(@micropost.content) %>
+    </span>
+  </div>
+  <div class="custom-form">
+  	<%= form_for Comment.new do |f| %>
+  		<%= render 'shared/error_messages', object: f.object %>
+		<div><%= f.hidden_field :micropost_id, :value => @micropost.id %></div>
+	  	<div class="field">
+	    	<%= f.text_area :content, placeholder: "Compose new comment..." %>
+	  	</div>
+	  	<%= f.submit "Post", class: "btn btn-large btn-primary" %>
+	<% end %>
+	
+  	<div class="span8">
+	    <% if @micropost.comments.any? %>
+	      <h6>Comment (<%= @micropost.comments.count %>)</h6>
+	      	<ol class="microposts">
+        		<% @comments.each do |comment| %>
+        		<li>
+    				
+    				  <p>Content : <%=comment.content %></p>
+				    </li>
+        		<% end %>
+     	 	  </ol>
+      		<%= will_paginate @comments %>  
+	    <% end %>
+  	</div>	
+  </div>
+</div>

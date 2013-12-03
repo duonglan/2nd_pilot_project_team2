@@ -9,4 +9,20 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-FacebookApp::Application.config.secret_key_base = '813f70d8b8543eeba073a6e1075bd51c84b0738c865755fa062d8f72e23fbe8b775724b8aeb3f09004194b7f51642f70b9bfa0c4f4bf27bd60057adb1327d27e'
+
+require 'securerandom'
+
+def secure_token
+  token_file = Rails.root.join('.secret')
+  if File.exist?(token_file)
+    # Use the existing token.
+    File.read(token_file).chomp
+  else
+    # Generate a new token and store it in token_file.
+    token = SecureRandom.hex(64)
+    File.write(token_file, token)
+    token
+  end
+end
+
+Blog::Application.config.secret_key_base = '7fa1b62e2a79767f1bd37d80de4b7c7b70e520a0950436eb3584dbf39a948513f23593362296584c8d28ee55754725efb11130eb758782c871404de602ef0e64'
