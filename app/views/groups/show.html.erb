@@ -5,14 +5,10 @@
       <h1>
         <%= @group.name %>
       </h1>
-      <span>
+    <span>
 	 		Owner: <%= link_to @group.owner.name, @group.owner %>
 	</span>
-    </section>
-  </aside>
-   <div class="span8">
-
-   	<%= render 'join_form' if signed_in? %>
+  <%= render 'join_form' if signed_in? %>
     <% if @group.members.any? %>
       <h3>Members (<%= @group.members.count %>)</h3>
       <ol class="members">
@@ -20,5 +16,6 @@
       </ol>
       <%= will_paginate @members %>
     <% end %>
-  </div>
+    </section>
+  </aside>
 </div>

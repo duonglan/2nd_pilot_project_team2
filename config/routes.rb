@@ -1,9 +1,13 @@
 Blog::Application.routes.draw do
-  resources :comments, only: [:show, :create, :destroy]
-  resources :users
+  resources :users do
+    resources :microposts do
+      resources :comments
+    end
+  end
   resources :sessions,   only: [:new, :create, :destroy]
-  resources :microposts, only: [:create, :show, :destroy, :edit]
-  resources :groups
+  resources :groups do
+    resources :group_microposts
+  end
   resources :group_members, only: [:create, :destroy]
   # resources :comments, only: [:show, :create, :destroy]
   root  'blog#home'

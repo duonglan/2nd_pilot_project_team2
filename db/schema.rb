@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131021043500) do
+ActiveRecord::Schema.define(version: 20131203061246) do
 
   create_table "comments", force: true do |t|
     t.string   "content"
@@ -28,6 +28,15 @@ ActiveRecord::Schema.define(version: 20131021043500) do
   end
 
   add_index "group_members", ["group_id", "user_id"], name: "index_group_members_on_group_id_and_user_id"
+
+  create_table "group_microposts", force: true do |t|
+    t.integer  "group_member_id"
+    t.integer  "user_id"
+    t.integer  "group_id"
+    t.string   "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "groups", force: true do |t|
     t.integer  "owner_id"
