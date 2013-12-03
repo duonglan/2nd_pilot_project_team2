@@ -20,30 +20,30 @@ ActiveRecord::Schema.define(version: 20131021043500) do
     t.datetime "updated_at"
   end
 
-  create_table "microposts", force: true do |t|
-    t.string   "content"
+  create_table "group_members", force: true do |t|
+    t.integer  "group_id"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "team_members", force: true do |t|
-    t.integer  "team_id"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+  add_index "group_members", ["group_id", "user_id"], name: "index_group_members_on_group_id_and_user_id"
 
-  add_index "team_members", ["team_id", "user_id"], name: "index_team_members_on_team_id_and_user_id"
-
-  create_table "teams", force: true do |t|
+  create_table "groups", force: true do |t|
     t.integer  "owner_id"
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "teams", ["owner_id"], name: "index_teams_on_owner_id"
+  add_index "groups", ["owner_id"], name: "index_groups_on_owner_id"
+
+  create_table "microposts", force: true do |t|
+    t.string   "content"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "name"

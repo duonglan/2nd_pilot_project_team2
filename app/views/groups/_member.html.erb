@@ -2,7 +2,7 @@
  		<%= gravatar_for member.user, size: 40 %>
       <%= link_to member.user.name, member.user %>
 
-      <% if current_user?(member.team.owner) && !current_user?(member.user)%> 
+      <% if current_user?(member.group.owner) && !current_user?(member.user)%> 
 
       	
 	   |||| <%= link_to "delete", member, method: :delete,

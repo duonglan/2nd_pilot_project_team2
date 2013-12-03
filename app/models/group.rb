@@ -1,7 +1,7 @@
-class Team < ActiveRecord::Base
+class Group < ActiveRecord::Base
 	belongs_to :owner, class_name: "User"
 
-	has_many :members, class_name:"TeamMember", dependent: :destroy
+	has_many :members, class_name:"GroupMember", dependent: :destroy
 	default_scope -> { order('created_at DESC') }
 
 	validates :owner_id, presence: true
