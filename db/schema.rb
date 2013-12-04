@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20131203061246) do
   create_table "microposts", force: true do |t|
     t.string   "content"
     t.integer  "user_id"
+    t.boolean  "status",     default: true
     t.datetime "created_at"
     t.datetime "updated_at"
   end

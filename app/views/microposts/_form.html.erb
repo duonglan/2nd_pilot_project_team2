@@ -1,21 +1,22 @@
-<%= form_for [current_user, @micropost] do |f| %>
-  <% if @micropost.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@micropost.errors.count, "error") %> prohibited this micropost from being saved:</h2>
-
-      <ul>
-      <% @micropost.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for [current_user, @micropost] do |f| %>
+      <% if @micropost.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@micropost.errors.count, "error") %> prohibited this micropost from being saved:</h2>
+          <ul>
+            <% @micropost.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
     <%= f.label :content %><br>
     <%= f.text_field :content %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+    <%= f.label :status%>  
+    <%= f.radio_button :status, 'true', :checked => true %> Public
+    <%= f.radio_button :status, 'false'%> Private
+    <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
+    <% end %>
+ </div>
+</div>

@@ -15,7 +15,6 @@ class GroupsController < ApplicationController
   	@group = current_user.groups.build if signed_in?
   end
 
-
   def create
   	group = current_user.groups.build(group_params)
   	if group.save
