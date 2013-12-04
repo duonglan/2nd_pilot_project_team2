@@ -17,15 +17,15 @@ class CommentsController < ApplicationController
 
   def create
     @user = User.find(params[:user_id])
-    @micropost = @user.microposts.find(params[:micropost_id])
-    @comment = @micropost.comments.build(comment_params)
+    @micropost = Micropost.find(params[:micropost_id])
+    @comment = @micropost.comments.build( comment_params )
     @comment.update_attributes(user_id: current_user.id)
     if @micropost.save
-      flash[:success] = "Entry created!"
+      flash[:success] = "comment created!"
       redirect_to root_path
     else
-      @feed_items = []
-      render 'blog/home'
+      redirect_to user_micropost_path current_user, @micropost
+      flash[:erro] = "comment blank!"
     end
     
   end
