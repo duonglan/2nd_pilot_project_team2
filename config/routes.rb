@@ -1,5 +1,7 @@
 Blog::Application.routes.draw do
+  get "friendships/new"
   resources :users do
+    resources :friendships
     resources :microposts do
       resources :comments
     end
