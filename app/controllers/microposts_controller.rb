@@ -4,7 +4,9 @@ class MicropostsController < ApplicationController
   # before_action :set_micropost,  only: [:show, :edit, :update, :destroy]
 
   def index
-    @microposts = Micropost.all
+    @user = User.find(params[:user_id])
+    @microposts = @user.microposts
+    
   end
 
   def show
@@ -20,8 +22,8 @@ class MicropostsController < ApplicationController
     @micropost = Micropost.find(params[:id])
   end
 
-   def create
-      @micropost = current_user.microposts.build(micropost_params)
+  def create
+    @micropost = current_user.microposts.build(micropost_params)
     if @micropost.save
       flash[:success] = "Entry created!"
       redirect_to user_micropost_path current_user, @micropost
@@ -33,6 +35,7 @@ class MicropostsController < ApplicationController
 
   def update
     @micropost = Micropost.find(params[:id])
+    @micropost.status = params[:micropost][:status]
     if @micropost.update_attributes(micropost_params)
       flash[:success] = "Micropost updated"
       redirect_to user_micropost_path current_user, @micropost
