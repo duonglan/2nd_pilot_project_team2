@@ -5,13 +5,15 @@ class MicropostsController < ApplicationController
 
   def index
     @user = User.find(params[:user_id])
-    @microposts = @user.microposts
-    
+    @microposts = Micropost.all
+    @micropost = current_user.microposts.build
+    @comments = @micropost.comments.build
   end
 
   def show
-    @micropost = Micropost.find(params[:id])
-    @comments = @micropost.comments.paginate(page: params[:page])
+    @user = User.find(params[:user_id])
+    @microposts = @user.microposts.find(params[:id])
+    @comments = @microposts.comments.build
   end
 
   def new
@@ -26,7 +28,7 @@ class MicropostsController < ApplicationController
     @micropost = current_user.microposts.build(micropost_params)
     if @micropost.save
       flash[:success] = "Entry created!"
-      redirect_to user_micropost_path current_user, @micropost
+      redirect_to user_microposts_path current_user
     else
       @feed_items = []
       render 'blog/home'

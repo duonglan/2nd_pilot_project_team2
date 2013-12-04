@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20131203061246) do
   create_table "comments", force: true do |t|
     t.string   "content"
     t.integer  "micropost_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

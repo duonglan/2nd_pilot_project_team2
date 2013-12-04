@@ -1,33 +1,44 @@
-<h1>Listing microposts</h1>
 <table>
   <body>
-    <div class="span8">
-      <td><%= link_to 'new status',  new_user_micropost_path(current_user) %></td>
-        <% @microposts.each do |micropost| %>
-          <%if current_user?(@user)%>
-            <tr>
-              <td><%= link_to micropost.content, user_micropost_path(current_user, micropost) %></td>
-              <td>
-                <%if micropost.is_public?%>
-                  <%= link_to "Public", edit_user_micropost_path(current_user, micropost) %>
-                <%else%>
-                  <%= link_to "Private", edit_user_micropost_path(current_user, micropost) %>
-                 <%end%>
-              </td>
-              <td><%= link_to 'comment',  user_micropost_path(current_user, micropost) %></td>
-              <td><%= link_to 'Edit',  edit_user_micropost_path(current_user, micropost) %></td>
-              <td><%= link_to 'Destroy', user_micropost_path(current_user, micropost), method: :delete,data: { confirm: 'Are you sure?' } %></td>
-            </tr>
-          <%else%>
+    <%= render "form" %>
+    <% @microposts.each do |micropost| %>
+      <tr>
+        <%if current_user?(@user) %>
+          <td><%= micropost.content %></td>
+          <td>
             <%if micropost.is_public?%>
-              <tr>
-                <td><%= link_to micropost.content, user_micropost_path(current_user, micropost) %></td>
-                <td><%= link_to 'comment',  user_micropost_path(current_user, micropost) %></td>
-              </tr>
+              <%= link_to "Public", edit_user_micropost_path(current_user, micropost) %>
             <%else%>
+              <%= link_to "Private", edit_user_micropost_path(current_user, micropost) %>
+            <%end%>
+          </td>
+          <td><%= link_to 'comment',  user_micropost_path(current_user, micropost) %></td>
+          <td><%= link_to 'Edit',  edit_user_micropost_path(current_user, micropost) %></td>
+          <td><%= link_to 'Destroy', user_micropost_path(current_user, micropost), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <div class="span8">
+            <% if micropost.has_comment? %>
+              <% micropost.comments.each do |comment| %>
+                <tr>
+                  <td><%=comment.user_id%><td>
+                  <td><%= comment.content %></td>
+                </tr>
+              <% end %>
             <% end %>
-          <% end %>
+          </div>
+        <% else %>
+          <td><%= link_to micropost.content, user_micropost_path(current_user, micropost) %></td>
+          <div class="span8">
+            <% if micropost.has_comment? %>
+              <% micropost.comments.each do |comment| %>
+                <tr>
+                  <td><%=comment.user_id%><td>
+                  <td><%= comment.content %></td>
+                </tr>
+              <% end %>
+            <% end %>
+          </div>
         <% end %>
-  </div>
-  </tbody>
+      </tr>
+    <% end %>
+  </body>
 </table>
