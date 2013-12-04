@@ -1,0 +1,14 @@
+<% unless @user.pending_friends.empty? %>
+<% @user.pending_friends.each do |u| %>
+<h1>
+<%= link_to u.name, user_path(u.id) %>
+Since <%= u.created_at.to_s(:long) %>
+<% if signed_in? && @user = current_user %>
+<%= link_to "Add", user_friendship_path(current_user.id,u.id), method: :put, :confirm => 'Accept friend request! Are you sure?'%>
+<h1><%= link_to 'remove', user_friendship_path(current_user.id, u.id), method: :delete, :confirm => 'Reject friend request! Are you sure?' %>
+<% end %>
+<% end %>
+</h1>
+<% else %>
+None
+<% end %>

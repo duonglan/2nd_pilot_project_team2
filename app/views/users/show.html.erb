@@ -1,20 +1,10 @@
-<% provide(:title, @user.name) %>
-<div class="row">
-  <aside class="span4">
-    <section>
-      <h1>
-        <%= gravatar_for @user %>
-        <%= @user.name %>
-      </h1>
-    </section>
-  </aside>
-   <div class="span8">
-    <% if @user.microposts.any? %>
-      <h3>Microposts (<%= @user.microposts.count %>)</h3>
-      <ol class="microposts">
-        <%#= render user_microposts_path current_user %>
-      </ol>
-      <%= will_paginate @microposts %>
-    <% end %>
-  </div>
-</div>
+
+<% if signed_in? %>
+<% unless @user == current_user || current_user.requested_friends.include?(@user) || current_user.friends.include?(@user) || current_user.pending_friends.include?(@user) %>
+ <%= link_to "Add friend", user_friendships_path(@user.id), method: :post, :class => 'btn btn-mini' %>
+<%# form_for(:friendship, :url => user_friendship_path(:user_id => current_user.id, :friend_id => @user.id)) do |f| %>
+<%#= submit_tag "Add to My Friends" %>
+<%# end %>
+<% end %>
+<% link_to "add", user_friendships_path( current_user.id, @user.id), method: :get %>
+<% end %>
