@@ -16,14 +16,16 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @micropost = current_user.microposts.find(params[:comment][:micropost_id])
+    @user = User.find(params[:user_id])
+    @micropost = @user.microposts.find(params[:micropost_id])
     @comment = @micropost.comments.build(comment_params)
-    if @comment.save
-      flash[:success] = "Comment created!"
-      redirect_to @micropost
+    @comment.update_attributes(user_id: current_user.id)
+    if @micropost.save
+      flash[:success] = "Entry created!"
+      redirect_to user_micropost_path current_user, @micropost
     else
       @feed_items = []
-      redirect_to @micropost
+      render 'blog/home'
     end
     
   end
@@ -39,11 +41,8 @@ class CommentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def comment_params
-      params.require(:comment).permit(:name, :content, :micropost_id)
+      params.require(:comment).permit(:content)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def comment_params
-      params.require(:comment).permit(:content, :micropost_id)
-    end
 end

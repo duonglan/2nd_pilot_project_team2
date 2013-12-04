@@ -3,38 +3,62 @@
   <aside class="span4">
     <section>
       <h1>
-        <%= gravatar_for @micropost.user %>
-        <%= @micropost.user.name %>
+        <%= gravatar_for @microposts.user %>
+        <%= @microposts.user.name %>
       </h1>
     </section>
   </aside>
   <div class="span8">
-    <span class="content">
-    	<%= wrap(@micropost.content) %>
-    </span>
-  </div>
-  <div class="custom-form">
-    <%= form_for new_user_micropost_comement_path(current_user, @micropost) do |f| %>
-      <%= render 'shared/error_messages', object: f.object %>
-    <div><%= f.hidden_field :micropost_id, :value => @micropost.id %></div>
-      <div class="field">
-        <%= f.text_area :content, placeholder: "Compose new comment..." %>
-      </div>
-      <%= f.submit "Post", class: "btn btn-large btn-primary" %>
-  <% end %>
-  <div class="span8">
-      <% if @micropost.comments.any? %>
-        <h6>Comment (<%= @micropost.comments.count %>)</h6>
-          <ol class="microposts">
-            <% @comments.each do |comment| %>
-            <li>
-            
-              <p>Content : <%=comment.content %></p>
-            </li>
-            <% end %>
-          </ol>
-          <%= will_paginate @comments %>  
+    <%if current_user?(@user) %>
+      <span class="content">
+      	<%= wrap(@microposts.content) %>
+        <%if @microposts.is_public?%>
+          <%= link_to "Public", edit_user_micropost_path(current_user, @micropost) %>
+        <%else%>
+          <%= link_to "Private", edit_user_micropost_path(current_user, @micropost) %>
+        <%end%>
+      </span>
+      <%= form_for [current_user, @microposts, @comments] do |f| %>
+        <% if @comments.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this micropost from being saved:</h2>
+            <ul>
+              <% @comments.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <span class="field">
+          <%= f.text_field :content %>
+        </span>
+        <span class="actions">
+          <%= f.submit %>
+        </span>
+        <%= render "has_many_comment" %>
       <% end %>
-    </div>  
-  </div> 
+    <% elsif @microposts.is_public?%>
+      <%= wrap(@microposts.content) %>
+      <%= form_for [current_user, @microposts, @comments] do |f| %>
+        <% if @comments.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this micropost from being saved:</h2>
+            <ul>
+              <% @comments.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <span class="field">
+          <%= f.label :content %><br>
+          <%= f.text_field :content %>
+        </span>
+        <span class="actions">
+          <%= f.submit %>
+        </span>
+        <%= render "has_many_comment" %>
+      <% end %>
+    <% end %>
+  </div>
 </div>
