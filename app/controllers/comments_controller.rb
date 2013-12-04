@@ -22,7 +22,7 @@ class CommentsController < ApplicationController
     @comment.update_attributes(user_id: current_user.id)
     if @micropost.save
       flash[:success] = "Entry created!"
-      redirect_to user_micropost_path current_user, @micropost
+      redirect_to root_path
     else
       @feed_items = []
       render 'blog/home'

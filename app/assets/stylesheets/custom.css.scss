@@ -240,6 +240,18 @@ aside {
   background-image: none;
 }
 
-span2{
-  width: 45px;
+.btn-primary {
+  background-color: #69A355;
+}
+
+/* Lists */
+ul.posts {
+  list-style: none;
+
+  li {
+    margin-bottom: 40px;
+    .content {
+      height: 40px;
+    }
+  }
 }

@@ -12,6 +12,13 @@
       <%= f.label :email %>
       <%= f.text_field :email %>
 
+      <%= f.label :birthday, "Birthday" %>
+      <%= f.text_field :birthday, value: l(DateTime.now), class: "date-field" %>
+
+      <%= f.label :sex %>  
+      <%= f.radio_button :sex, 'male', :checked => true %> Male
+      <%= f.radio_button :sex, 'famale'%> Female
+      <%= f.radio_button :sex, 'other'%> Other
       <%= f.label :password %>
       <%= f.password_field :password %>
 

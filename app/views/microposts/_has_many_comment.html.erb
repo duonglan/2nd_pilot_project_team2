@@ -2,7 +2,7 @@
 <% if @microposts.has_comment? %>
   <% @microposts.comments.each do |comment| %>
     <br/>
-    <td><%=comment.user_id%><td>
+    <td><%= comment.user_id %><td>
     <td><%= comment.content %></td>
   <% end %>
 <% end %>

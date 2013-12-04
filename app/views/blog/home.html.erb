@@ -7,10 +7,35 @@
       <section>
         <%= render 'shared/micropost_form' %>
       </section>
+      <section>
+        <%= render 'shared/user_profile' %>
+      </section>
     </aside>
     <div class="span8">
       <h3>New feeds</h3>
-      <%= render 'shared/feed' %>
+      <ul class="posts">
+        <% @microposts.each do |f| %>
+        <li>
+          <%= link_to gravatar_for(f.user), f.user %>
+          <span class="user">
+          <%= link_to f.user.name, f.user %> <%= f.status %>
+          </span>
+          <span class="content">
+            <%= exercept f.content %>
+            
+            <span class="custom-comment">
+                <%= render "shared/comment_form",f:f %>
+            </span>
+          </span>
+          <span class="timestamp">
+            Posted <%= time_ago_in_words(f.created_at) %> ago.
+          </span>
+        </li>
+      <% end %>
+
+      </ul>
+
+
     </div>
   </div>
 <% else %>
