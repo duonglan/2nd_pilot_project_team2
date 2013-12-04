@@ -11,7 +11,6 @@ class GroupsController < ApplicationController
   end
 
   def new
-    binding.pry
   	@group = current_user.groups.build if signed_in?
   end
 

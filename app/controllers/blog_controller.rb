@@ -1,7 +1,10 @@
 class BlogController < ApplicationController
   def home
     if signed_in?
-      redirect_to user_microposts_path(current_user)
+      # @user = @micropost.user
+      @microposts = Micropost.all
+      @micropost = current_user.microposts.build
+      @comments = @micropost.comments.build
     end
  
  end

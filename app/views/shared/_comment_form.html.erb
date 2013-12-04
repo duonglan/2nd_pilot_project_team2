@@ -1,0 +1,24 @@
+<br/>
+<% if f.comments.count != 0 %>
+  <% f.comments.each do |comment| %>
+    <td><%= comment.user_id %><td>
+    <td><%= wrap(comment.content) %></td>
+    <br/>
+  <% end %>
+<% end %>
+<%= form_for [current_user, f, @comments] do |f| %>
+  <% if @comments.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this micropost from being saved:</h2>
+      <ul>
+        <% @comments.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <span class="field">
+    <%= f.text_field :content, placeholder: "Comment.."  %>
+    <td><%= f.submit "Post" %></td>
+  </span>
+<% end %>
