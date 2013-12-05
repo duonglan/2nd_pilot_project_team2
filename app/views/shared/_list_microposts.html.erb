@@ -1,23 +1,23 @@
 <li>
-  <%= link_to gravatar_for(f.user), f.user %>
+  <%= link_to gravatar_for(micropost.user),micropost.user %>
   <span class="user">
-  <%= link_to f.user.name, f.user %>
-     <% if f.is_public? %> Public
+  <%= link_to micropost.user.name, micropost.user %>
+     <% if micropost.is_public? %> Public
      <% else %> Private
      <% end %>
   </span>
   <span class="content">
-    <%= exercept f.content %>
+    <%= exercept micropost.content %>
     
     <span class="custom-comment">
-        <%= render "shared/comment_form",f:f %>
+        <%= render "shared/comment_form",micropost: micropost %>
     </span>
   </span>
   <span class="timestamp">
-    Posted <%= time_ago_in_words(f.created_at) %> ago.
+    Posted <%= time_ago_in_words(micropost.created_at) %> ago.
   </span>
-  <% if f.user_id == current_user.id %>
-    <td><%= link_to 'Edit',  edit_user_micropost_path(current_user, f) %></td>
-    <td><%= link_to 'Del', user_micropost_path(current_user, f), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  <% if micropost.user_id == current_user.id %>
+    <td><%= link_to 'Edit',  edit_user_micropost_path(current_user, micropost) %></td>
+    <td><%= link_to 'Del', user_micropost_path(current_user, micropost), method: :delete, data: { confirm: 'Are you sure?' } %></td>
   <% end %>
 </li>

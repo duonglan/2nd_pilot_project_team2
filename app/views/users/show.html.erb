@@ -1,39 +1,33 @@
 <% provide(:title, @user.name) %>
 <% if signed_in? %>
-  <% unless @user == current_user || current_user.requested_friends.include?(@user) || current_user.friends.include?(@user) || current_user.pending_friends.include?(@user) %>
+  <% unless current_user?(@user) || current_user.requested_friends.include?(@user) || current_user.friends.include?(@user) || current_user.pending_friends.include?(@user) %>
  <%= link_to "Add friend", user_friendships_path(@user.id), method: :post, :class => 'btn btn-mini' %>
   <% end %>
 <% end %>
 <div class="row">
   <aside class="span4">
     <section>
-      <h1>
-        <%= gravatar_for @user %>
-        <%= @user.name %>
-      </h1>
-    </section>
+        <%= render 'shared/user_info', user: @user %>
+      </section>
+      <section>
+        <%= render 'shared/micropost_form', user: @user %>
+      </section>
+      <section>
+        <%= render 'shared/user_profile', user: @user %>
+      </section>
   </aside>
   <div class="span8">
-    <% if @user.microposts.any? %>
-      <h3>Microposts (<%= @user.microposts.count %>)</h3>
-      <ol class="microposts">
-        <% @user.microposts.each do |micropost| %>
-          <% if current_user?(@user) %>
-            <li> 
-              <%= micropost.content %> 
-              <% if micropost.status==true %>public
-              <% else %> private <% end %>
-            </li>
-          <% elsif micropost.status == true %>
-            <li> 
-              <%= micropost.content %> 
-              <% if micropost.status==true %>public
-              <% else %> private <% end %>
-            </li>
-          <% end %>
-        <% end %>
-      </ol>
-      <%= will_paginate @microposts %>
+    <% if current_user?(@user) %><h3> My page</h3>
+    <% else %> <h3> <%= @user.name %>'s time line </h3>
     <% end %>
+      <ul class="posts">
+        <% @microposts.each do |micropost| %>
+          <% if micropost.user_id == current_user.id %>          
+            <%= render "shared/list_microposts", micropost: micropost %>
+          <% elsif micropost.is_public? %>
+            <%= render "shared/list_microposts", micropost: micropost %>
+          <% end %> 
+        <% end %>
+      </ul>
   </div>
 </div>

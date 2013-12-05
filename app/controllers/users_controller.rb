@@ -9,6 +9,11 @@ class UsersController < ApplicationController
   def show
   	@user = User.find(params[:id])
     @microposts = @user.microposts.paginate(page: params[:page])
+    @micropost = current_user.microposts.build
+    @comments = @micropost.comments.build
+    if params[:course]|| params[:comment]
+      redirect_to :back
+    end
   end 
 
   def new
@@ -26,7 +31,7 @@ class UsersController < ApplicationController
     @user.phone_number = params[:user][:phone_number]
     if @user.update_attributes(user_params)
       flash[:success] = "Profile updated"
-      redirect_to root_path
+      redirect_to :back
     else
       render 'edit'
     end
@@ -46,8 +51,7 @@ class UsersController < ApplicationController
  private
 
     def user_params
-      params.require(:user).permit(:name, :email, :password,
-                                   :password_confirmation)
+      params.require(:user).permit(:name, :email, :password,:password_confirmation)
     end
 
     # Before filters
