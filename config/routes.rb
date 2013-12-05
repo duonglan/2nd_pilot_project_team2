@@ -8,8 +8,9 @@ Blog::Application.routes.draw do
   end
   resources :sessions,   only: [:new, :create, :destroy]
   resources :groups do
-    resources :group_microposts
+      resources :group_microposts
   end
+
   resources :group_members, only: [:create, :destroy]
   # resources :comments, only: [:show, :create, :destroy]
   root  'blog#home'
@@ -17,7 +18,6 @@ Blog::Application.routes.draw do
   match '/signin',  to: 'sessions#new',         via: 'get'
   match '/signout', to: 'sessions#destroy',     via: 'delete'
   match '/help',    to: 'blog#help',            via: 'get'
-  match '/creategroup',  to: 'groups#new',            via: 'get'
   # get "blog/home"
   # get "blog/help"
   # The priority is based upon order of creation: first created -> highest priority.

@@ -1,7 +1,6 @@
 class CreateGroupMicroposts < ActiveRecord::Migration
   def change
     create_table :group_microposts do |t|
-      t.integer :group_member_id
       t.integer :user_id
       t.integer :group_id
       t.string :content

@@ -1,14 +1,18 @@
 <% unless @user.pending_friends.empty? %>
+<ul class="friends">
 <% @user.pending_friends.each do |u| %>
-<td>
-  <%= link_to u.name, user_path(u.id) %>
+<li>
   <%= gravatar_for(u, size: 52)%>
-</td>
-<% if signed_in? && @user = current_user %>
-<%= link_to "confirm", user_friendship_path(current_user.id,u.id), method: :put, :confirm => 'Accept friend request! Are you sure?'%>
- / <%= link_to 'not now', user_friendship_path(current_user.id, u.id), method: :delete, :confirm => 'Reject friend request! Are you sure?' %>
-<% end %>
-<% end %>
+  <div class="info">
+    <%= link_to u.name, user_path(u.id) %>
+      <% if signed_in? && @user = current_user %>
+        <%= link_to "confirm", user_friendship_path(current_user.id,u.id), method: :put, :confirm => 'Accept friend request! Are you sure?',:class => 'btn btn-mini' %>
+        <%= link_to 'not now', user_friendship_path(current_user.id, u.id), method: :delete, :confirm => 'Reject friend request! Are you sure?', :class => 'btn btn-mini'  %>
+      <% end %>
+</div>
+    </li>
+    <% end %>
+  </ul>
 <% else %>
 None
 <% end %>
