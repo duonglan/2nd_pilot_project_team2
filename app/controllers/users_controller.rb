@@ -23,9 +23,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.birthday = params[:user][:birthday]
     @user.sex = params[:user][:sex]
+    @user.phone_number = params[:user][:phone_number]
     if @user.update_attributes(user_params)
       flash[:success] = "Profile updated"
-      redirect_to @user
+      redirect_to root_path
     else
       render 'edit'
     end

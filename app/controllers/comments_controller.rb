@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, only: [:show, :edit, :update, :destroy]
+  before_action :signed_in_user
+  # before_action :set_comment, only: [:show, :edit, :update, :destroy]
 
   def index
     @comments = Comment.all
@@ -31,11 +32,9 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment.destroy
-    respond_to do |format|
-      format.html { redirect_to comments_url }
-      format.json { head :no_content }
-    end
+    Comment.find(params[:id]).destroy
+    flash[:success] = "Comment deleted!"
+    redirect_to root_url
   end
 
   private
