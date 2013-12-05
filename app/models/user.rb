@@ -32,6 +32,16 @@ class User < ActiveRecord::Base
     microposts
   end
 
+
+
+def self.search(search)
+  if search
+    find(:all, :conditions => ["name LIKE '%?%'", search[:name]])
+  else
+    find(:all)
+  end
+end
+
   private
 
     def create_remember_token
