@@ -2,12 +2,14 @@ class GroupsController < ApplicationController
   before_action :signed_in_user, only: [:new, :create]
 
   def index
-  	@groups = Group.paginate(page: params[:page], per_page: 3)
+  	@groups = Group.paginate(page: params[:page], per_page: 10)
   end
 
  def show
     @group = Group.find(params[:id])
     @members =  @group.members.paginate(page: params[:page], per_page: 3)
+    @group_micropost = @group.group_microposts.build
+    @group_microposts = @group.group_microposts
   end
 
   def new
@@ -21,7 +23,7 @@ class GroupsController < ApplicationController
   		#before { @micropost = user.microposts.build(user_id: current_user.id) }
   		member.save
       flash[:success] = "New group created!"
-      redirect_to current_user
+      redirect_to groups_path
     else
      # flash.now[:error] = 'Invalid email/password combination'
       render 'new'

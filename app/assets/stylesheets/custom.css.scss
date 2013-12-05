@@ -35,6 +35,10 @@ textarea {
   }
 }
 
+ul {
+  list-style: none;
+}
+
 /* typography */
 
 h1, h2, h3, h4, h5, h6 {
@@ -252,6 +256,18 @@ ul.posts {
     margin-bottom: 40px;
     .content {
       height: 40px;
+    }
+  }
+}
+
+ul.friends {
+  li {
+    margin-bottom: 20px;
+    img {
+      height: 52px;
+    }
+    div.info {
+      height: 60px;
     }
   }
 }

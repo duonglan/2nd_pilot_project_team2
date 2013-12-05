@@ -20,7 +20,7 @@ class CommentsController < ApplicationController
     @micropost = Micropost.find(params[:micropost_id])
     @comment = @micropost.comments.build( comment_params )
     @comment.update_attributes(user_id: current_user.id)
-    if @micropost.save
+    if @comment.save
       flash[:success] = "comment created!"
       redirect_to :back
     else

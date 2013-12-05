@@ -34,7 +34,7 @@ class UsersController < ApplicationController
     @user.phone_number = params[:user][:phone_number]
     if @user.update_attributes(user_params)
       flash[:success] = "Profile updated"
-      redirect_to :back
+      redirect_to @user
     else
       render 'edit'
     end

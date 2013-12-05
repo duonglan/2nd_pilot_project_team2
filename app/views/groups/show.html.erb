@@ -2,20 +2,27 @@
 <div class="row">
   <aside class="span4">
     <section>
-      <h1>
-        <%= @group.name %>
-      </h1>
-    <span>
-	 		Owner: <%= link_to @group.owner.name, @group.owner %>
-	</span>
-  <%= render 'join_form' if signed_in? %>
-    <% if @group.members.any? %>
+      <%= render "shared/group_info"%>
+      <%= render 'join_form' if signed_in? %>
+    </section>
+    <section>
+        <%= render 'shared/group_micropost_form' %>
+    </section>
+    <section>
       <h3>Members (<%= @group.members.count %>)</h3>
+      <% if @group.members.any? %>
       <ol class="members">
         <%= render partial: 'groups/member', collection: @members %>
       </ol>
       <%= will_paginate @members %>
-    <% end %>
-    </section>
+      <% end %>
+    <section>
   </aside>
+    <div class="span8">
+      <h3>News</h3>
+      <ul class="posts">
+        list micro
+      </ul>
+    </div>
+  </div>
 </div>

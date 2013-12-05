@@ -1,13 +1,17 @@
 <% unless @user.requested_friends.empty? %>
-<% @user.requested_friends.each do |u| %>
-<td>
-  <%= link_to u.name, user_path(u.id) %>
-  <%= gravatar_for(u, size: 52)%>
-</td>
-<% if signed_in? && @user = current_user %></br>
-<%= link_to 'cancel request', user_friendship_path(current_user.id, u.id), method: :delete, :confirm => 'Reject friend request! Are you sure?' %>
-<% end %>
-<% end %>
+  <ul class="friends">
+    <% @user.requested_friends.each do |u| %>
+    <li>
+      <%= gravatar_for(u, size: 52)%>
+      <div class="info">
+        <%= link_to u.name, user_path(u.id) %>
+        <% if signed_in? && @user = current_user %></br>
+        <%= link_to 'cancel request', user_friendship_path(current_user.id, u.id), method: :delete, :confirm => 'Reject friend request! Are you sure?',:class => 'btn btn-mini'  %>
+        <% end %>
+      </div>
+    </li>
+    <% end %>
+  </ul>
 <% else %>
 None
 <% end %>
