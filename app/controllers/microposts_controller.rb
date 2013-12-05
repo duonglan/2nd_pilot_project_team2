@@ -13,7 +13,7 @@ class MicropostsController < ApplicationController
   def show
     @users = User.all
     @user = User.find(params[:user_id])
-    @microposts = @user.microposts.find(params[:id])
+    @microposts = Micropost.find(params[:id])
     @comments = @microposts.comments.build
   end
 
@@ -26,13 +26,14 @@ class MicropostsController < ApplicationController
   end
 
   def create
+
     @micropost = current_user.microposts.build(micropost_params)
     if @micropost.save
       flash[:success] = "Entry created!"
       redirect_to root_path
     else
-      @feed_items = []
-      render 'blog/home'
+      flash[:erro] = "Entry blank!"
+      redirect_to user_microposts_path current_user
     end
   end
 
