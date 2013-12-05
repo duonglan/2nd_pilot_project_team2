@@ -3,7 +3,10 @@ class UsersController < ApplicationController
   before_action :correct_user,   only: [:edit, :update]
   
   def index
-    @users = User.paginate(page: params[:page])
+    @search = Search.new(User, params[:search])
+    @search.order = 'name'  # optional
+    @users = @search.run
+    #binding.pry
   end
 
   def show
@@ -14,7 +17,7 @@ class UsersController < ApplicationController
     if params[:course]|| params[:comment]
       redirect_to :back
     end
-  end 
+  end
 
   def new
   	@user = User.new
