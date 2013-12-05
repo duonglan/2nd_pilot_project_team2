@@ -1,4 +1,5 @@
 module SessionsHelper
+EXISTANCE = 0
 
   def sign_in(user)
     remember_token = User.new_remember_token
@@ -49,4 +50,7 @@ module SessionsHelper
     self.status == true
   end
 
+  def has_comment?
+    self.comments.count != EXISTANCE
+  end
 end

@@ -1,7 +1,6 @@
 class MicropostsController < ApplicationController
   before_action :signed_in_user, only: [:create, :destroy]
   before_action :correct_user,   only: :destroy
-  # before_action :set_micropost,  only: [:show, :edit, :update, :destroy]
 
   def index
     @user = User.find(params[:user_id])
@@ -30,7 +29,7 @@ class MicropostsController < ApplicationController
     @micropost = current_user.microposts.build(micropost_params)
     if @micropost.save
       flash[:success] = "Entry created!"
-      redirect_to root_path
+      redirect_to :back
     else
       flash[:erro] = "Entry blank!"
       redirect_to user_microposts_path current_user

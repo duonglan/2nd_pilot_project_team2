@@ -1,9 +1,9 @@
-<%= form_for [current_user, @micropost] do |f| %>
+<%= form_for [user, @micropost] do |micropost| %>
  
   <div class="field">
-    <%= f.text_area :content, placeholder: "Update new status..." %> 
-    <%= f.radio_button :status, 'true', :checked => true %> Public
-    <%= f.radio_button :status, 'false' %> Private
+    <%= micropost.text_area :content, placeholder: "Update new status..." %> 
+    <%= micropost.radio_button :status, 'true', :checked => true %> Public
+    <%= micropost.radio_button :status, 'false' %> Private
   </div><br>
-  <%= f.submit "Post", class: "btn btn-large btn-primary" %>
+  <%= micropost.submit "Post", class: "btn btn-large btn-primary" %>
 <% end %>
