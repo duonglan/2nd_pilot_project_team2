@@ -43,7 +43,7 @@ class MicropostsController < ApplicationController
       flash[:success] = "Micropost updated"
       redirect_to user_micropost_path current_user, @micropost
     else
-      render 'edit'
+      flash[:erro] = "Micropost didn't updated"
     end
   end
 
