@@ -1,9 +1,11 @@
 <% unless @user.requested_friends.empty? %>
 <% @user.requested_friends.each do |u| %>
-<%= link_to u.name, user_path(u.id) %>
-Since <%= u.created_at.to_s(:long) %>
-<% if signed_in? && @user = current_user %>
-<h1><%= link_to 'remove', user_friendship_path(current_user.id, u.id), method: :delete, :confirm => 'Reject friend request! Are you sure?' %></h1>
+<td>
+  <%= link_to u.name, user_path(u.id) %>
+  <%= gravatar_for(u, size: 52)%>
+</td>
+<% if signed_in? && @user = current_user %></br>
+<%= link_to 'cancel request', user_friendship_path(current_user.id, u.id), method: :delete, :confirm => 'Reject friend request! Are you sure?' %>
 <% end %>
 <% end %>
 <% else %>

@@ -1,17 +1,24 @@
-My Friends:
+<h1>Friends</h1>
 <% unless @user == current_user %>
 You do not have permission to access this page!
 <% else %>
-Current Friends:
-<h2>
-<%= render 'friends' %>
-</h2>
-Requested Friends:
-<h2>
-<%= render  'requested_friends' %>
-</h2>
-Pending Friends:
-<h2>
-<%= render  'pending_friends' %>
-<h2>
+<div class="row">
+    <aside class="span4">
+      <section>
+        <h4>All Friends:</h4>
+        <%= render 'friends' %>
+      </section>
+    </aside>
+    <aside class="span4">
+      <section>
+        <h4>Pending Friends:</h4>
+        <%= render  'pending_friends' %>
+      </section>
+      <section>
+        <h4>Friend Requests Sent:</h4>
+        <%= render  'requested_friends' %>
+        
+      </section>
+    </aside>
+</div>
 <% end %>
