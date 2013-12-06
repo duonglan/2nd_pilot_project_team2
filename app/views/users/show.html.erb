@@ -18,7 +18,7 @@
   </aside>
   <div class="span8">
     <% if current_user?(@user) %><h3> My page</h3>
-    <% else %> <h3> <%= @user.name %>'s time line </h3>
+    <% else %> <h3> Time line </h3>
     <% end %>
       <ul class="posts">
         <% @microposts.each do |micropost| %>
