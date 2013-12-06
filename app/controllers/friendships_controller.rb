@@ -28,9 +28,10 @@ class FriendshipsController < ApplicationController
     @friend = User.find(params[:id])
     params[:friendship1] = {user_id: @user.id, friend_id: @friend.id, status: 'accepted'}
     params[:friendship2] = {user_id: @friend.id, friend_id: @user.id, status: 'accepted'}
-    @friendship1 = Friendship.find_by_user_id_and_friend_id(@user.id, @friend.id)
-    @friendship2 = Friendship.find_by_user_id_and_friend_id(@friend.id, @user.id)
-    if @friendship1.update_attributes(friendship1) && @friendship2.update_attributes(friendship2)
+    @friendship1 = Friendship.find_by_user_id_and_friend_id @user.id, @friend.id
+    @friendship2 = Friendship.find_by_user_id_and_friend_id @friend.id, @user.id
+    if @friendship1.update_attributes(friendship1) && @friendship2
+        .update_attributes(friendship2)
       flash[:notice] = 'Friend sucessfully accepted!'
       redirect_to user_friendships_path(current_user)
     else

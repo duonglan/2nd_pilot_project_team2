@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_many :images
   has_many :groups,  foreign_key: "owner_id",  dependent: :destroy
   has_many :joined_groups, class_name:"GroupMember",  dependent: :destroy
   has_many :microposts, dependent: :destroy
