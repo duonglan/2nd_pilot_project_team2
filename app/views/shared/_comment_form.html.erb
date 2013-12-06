@@ -1,12 +1,13 @@
-<br/>
 <% if micropost.has_comment? %>
   <% micropost.comments.each do |comment| %>
-  <div class="comment-display">
-    <td >@<%= comment.user.name %><td> :
-    <td><%= wrap(comment.content) %></td>
-    <% if comment.user_id == current_user.id || comment.user_id == current_user.id%>
-      <td><%= link_to 'Edit',  edit_user_micropost_comment_path(current_user, micropost, comment), class: "non-redirect edit_comment_btn" %></td>
-      <td><%= link_to 'Del', user_micropost_comment_path(current_user, micropost, comment), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <div class="comment-display">
+      @<%= comment.user.name %>:
+      <%= wrap(comment.content) %>
+      <%= render "shared/like_comment", micropost: micropost, comment: comment %>
+      <% if comment.user_id == current_user.id %>
+        <%= link_to 'Edit',  edit_user_micropost_comment_path(current_user, micropost, comment), class: "non-redirect edit_comment_btn" %>
+        <%= link_to 'Del', user_micropost_comment_path(current_user, micropost, comment), method: :delete, data: { confirm: 'Are you sure?' } %>
+      <% end %>
     </div>
     <div class="edit_comment_wrap">
       <%= form_for [current_user, micropost, comment] do |f| %>
@@ -14,22 +15,15 @@
         <%= f.submit "Update", class: "btn btn-primary non-redirect update_comment_btn" %>
       <% end %>
     </div>
-    <% end %>
   <% end %>
 <% end %>
-<%= form_for [current_user, micropost, @comments] do |comment| %>
-  <% if @comments.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this micropost from being saved:</h2>
-      <ul>
-        <% @comments.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
+<br/>
+<% if current_user.friends.include?(@user) || current_user?(@user)%>
+  <%= form_for [current_user, micropost, @comments] do |comment| %>
+    <%= render 'shared/error_messages', object: comment.object %>
+    <span class="field">
+      <%= comment.text_field :content, placeholder: "Comment.."  %>
+      <%= comment.submit "Post" %>
+    </span>
   <% end %>
-  <span class="field">
-    <%= comment.text_field :content, placeholder: "Comment.."  %>
-    <td><%= comment.submit "Post" %></td>
-  </span>
 <% end %>

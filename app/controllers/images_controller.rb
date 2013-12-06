@@ -1,6 +1,5 @@
 class ImagesController < ApplicationController
-  before_action :signed_in_user, only: [:show, :new, :create]
-  before_action :signed_in_user, only: [ :edit, :update]
+  before_action :signed_in_user
   def index
     @image = Image.all
   end

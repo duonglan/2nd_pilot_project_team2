@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   has_many :joined_groups, class_name:"GroupMember",  dependent: :destroy
   has_many :microposts, dependent: :destroy
   has_many :comments, through: :microposts, dependent: :destroy
+  has_many :like_microposts, dependent: :destroy
+  has_many :like_comments, dependent: :destroy
   has_many :friends, :through => :friendships, :conditions => "status = 'accepted'"
   has_many :requested_friends, :through => :friendships, :source => :friend,
    :conditions => "status = 'requested'", :order => :created_at
@@ -27,25 +29,17 @@ class User < ActiveRecord::Base
   def User.encrypt(token)
     Digest::SHA1.hexdigest(token.to_s)
   end
-  
-  def feed
-    # This is preliminary. See "Following users" for the full implementation.
-    microposts
+
+  def search(search)
+    if search
+      find(:all, :conditions => ["name LIKE '%?%'", search[:name]])
+    else
+      find(:all)
+    end
   end
-
-
-
-def self.search(search)
-  if search
-    find(:all, :conditions => ["name LIKE '%?%'", search[:name]])
-  else
-    find(:all)
-  end
-end
 
   private
-
-    def create_remember_token
-      self.remember_token = User.encrypt(User.new_remember_token)
-    end
+  def create_remember_token
+    self.remember_token = User.encrypt(User.new_remember_token)
+  end
 end

@@ -10,10 +10,10 @@ class UsersController < ApplicationController
 
   def show
   	@user = User.find(params[:id])
-    @microposts = @user.microposts.paginate(page: params[:page])
+    @microposts = Micropost.all.paginate(page: params[:page])
     @micropost = current_user.microposts.build
     @comments = @micropost.comments.build
-    if params[:course]|| params[:comment]
+    if params[:micropost]|| params[:comment]
       redirect_to :back
     end
   end

@@ -31,7 +31,7 @@
                 </div>
                 <div class="edit_micropost_wrap">
                   <%= form_for [@group, group_micropost] do |f| %>
-                  <%= f.text_area :content, placeholder: "What's on your mind?" %>
+                  <%= f.text_area :content %>
                   <%= f.submit "Update", class: "btn btn-primary non-redirect update_micropost_btn" %>
                   <% end %>
                 </div>

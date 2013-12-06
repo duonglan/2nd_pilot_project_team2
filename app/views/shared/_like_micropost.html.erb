@@ -1,0 +1,12 @@
+<% if micropost.like_micropost?(current_user) %>
+  <% micropost.like_microposts.each do |f| %>
+    <% if f.user_id == current_user.id %>
+      <%= link_to "unlike", user_micropost_like_micropost_path(@user, micropost, f), method: :delete %>
+    <% end %>
+  <% end %>
+<% else %>
+  <%= link_to "like", user_micropost_path(@user, micropost), method: :patch %>
+<% end %>
+<% if micropost.has_like? %>
+  <%= micropost.like_microposts.count %> person like this
+<% end %>

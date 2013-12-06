@@ -15,9 +15,7 @@
       <h3>New feeds</h3>
       <ul class="posts">
         <% @microposts.each do |micropost| %>
-          <% if micropost.user_id == current_user.id %>
-            <%= render "shared/list_microposts", micropost: micropost %>
-          <% elsif micropost.is_public? %>
+          <% if current_user.id == micropost.friend_id || current_user.friends.include?(micropost.friend_id)%>
             <%= render "shared/list_microposts", micropost: micropost %>
           <% end %>
         <% end %>
