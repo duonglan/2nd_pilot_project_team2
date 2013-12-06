@@ -3,26 +3,80 @@
   <aside class="span4">
     <section>
       <%= render "shared/group_info"%>
-      <%= render 'join_form' if signed_in? %>
+      <%= render "join_form" if signed_in? %>
     </section>
-    <section>
-        <%= render 'shared/group_micropost_form' %>
-    </section>
-    <section>
-      <h3>Members (<%= @group.members.count %>)</h3>
-      <% if @group.members.any? %>
-      <ol class="members">
-        <%= render partial: 'groups/member', collection: @members %>
-      </ol>
-      <%= will_paginate @members %>
-      <% end %>
-    <section>
   </aside>
     <div class="span8">
-      <h3>News</h3>
-      <ul class="posts">
-        list micro
-      </ul>
+      <% if @group.joined?(current_user) %>
+        <h1>____ RECENT POSTS ____</h1>
+        <% if @group_microposts.any? %>
+          <ul class="posts">
+            <% @group_microposts.each do |group_micropost| %>
+              <li>
+                <%= link_to gravatar_for(group_micropost.user),group_micropost.user %>
+                <span class="user">
+                  <%= link_to group_micropost.user.name, group_micropost.user %>
+                </span>
+                <div class="micropost-display">
+                  <span class="content">
+                    <%= exercept group_micropost.content %>   
+                  </span>
+                  <span class="timestamp">
+                    Posted <%= time_ago_in_words(group_micropost.created_at) %> ago.
+                  </span>
+                  <% if current_user?(group_micropost.group.owner) || current_user?(group_micropost.user)%> 
+                    <%= link_to "Edit", edit_group_group_micropost_path(@group, group_micropost),class: "non-redirect edit_micropost_btn" %>
+                    <%= link_to "Del", group_group_micropost_path(@group, group_micropost), method: :delete, data: { confirm: 'Are you sure?' } %>
+                  <% end %>
+                </div>
+                <div class="edit_micropost_wrap">
+                  <%= form_for [@group, group_micropost] do |f| %>
+                  <%= f.text_area :content, placeholder: "What's on your mind?" %>
+                  <%= f.submit "Update", class: "btn btn-primary non-redirect update_micropost_btn" %>
+                  <% end %>
+                </div>
+                <span class="custom-comment">
+                  <%= render "group_comments/form_group_comments", group_micropost: group_micropost %>
+                </span>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+        <%= will_paginate @group_microposts %>
+      <% else %>
+        <h3>All Members (<%= @group.members.count %>)</h3>
+        <% if @group.members.any? %>
+          <% @members.each do |member| %>
+            <li>
+              <%= link_to gravatar_for(member.user),member.user %>
+              <span class="user">
+                <%= link_to member.user.name, member.user %>
+              </span>
+            </li>
+          <% end %>
+          <%= will_paginate @members %>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </div>
+<script>
+  $("a.non-redirect").click(function(event){
+    event.preventDefault();
+});
+
+  $('.edit_micropost_btn').click(function() {
+    $(this).parent().hide();
+    $(this).parent().next('.edit_micropost_wrap').show();
+});
+
+  $('.update_micropost_btn').click(function() {
+    $(this).parent().hide();
+    $(this).parent().prev('.micropost-display').show();
+});
+
+$('.edit_comment_btn').click(function() {
+  $(this).parent().hide();
+  $(this).parent().next('.edit_comment_wrap').show();
+});  
+</script>

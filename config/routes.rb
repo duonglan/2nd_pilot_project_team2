@@ -8,18 +8,18 @@ Blog::Application.routes.draw do
   end
   resources :sessions,   only: [:new, :create, :destroy]
   resources :groups do
-      resources :group_microposts
+    resources :group_microposts do
+      resources :group_comments
+    end
   end
 
   resources :group_members, only: [:create, :destroy]
-  # resources :comments, only: [:show, :create, :destroy]
+
   root  'blog#home'
   match '/signup',  to: 'users#new',            via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
   match '/signout', to: 'sessions#destroy',     via: 'delete'
-  match '/help',    to: 'blog#help',            via: 'get'
-  # get "blog/home"
-  # get "blog/help"
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
