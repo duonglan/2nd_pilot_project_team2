@@ -15,7 +15,8 @@ def index
   end
 
   def edit
-    
+    @group = Group.find(params[:group_id])
+    @group_micropost = GroupMicropost.find(params[:id])
   end
 
   def create
@@ -30,12 +31,20 @@ def index
     redirect_to :back
     
   end
+  
   def update
-    
+    group = Group.find(params[:group_id])
+    group_micropost = group.group_microposts.find(params[:id])
+    if group_micropost.update_attributes(group_micropost_params)
+      flash[:success] = "Post updated"
+      redirect_to group_path group
+    end
   end
 
   def destroy
-    
+    @group_micropost = GroupMicropost.find(params[:id])
+    @group_micropost.destroy
+    redirect_to :back
   end
 
   private

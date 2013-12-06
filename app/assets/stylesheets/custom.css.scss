@@ -271,3 +271,24 @@ ul.friends {
     }
   }
 }
+
+/* Micropost edit form */
+.edit_micropost_wrap {
+  display: none;
+  width: 500px;
+  margin-left: 90px;
+
+  textarea {
+    height: 50px;
+    margin: 5px 0;
+  }
+
+  input[type="submit"] {
+    float: right;
+  }
+}
+
+.group-name {
+  word-wrap: break-word;
+  width: 300px;
+}

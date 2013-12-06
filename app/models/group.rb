@@ -3,6 +3,7 @@ class Group < ActiveRecord::Base
 
 	has_many :members, class_name:"GroupMember", dependent: :destroy
 	has_many :group_microposts, dependent: :destroy
+	has_many :group_comments, dependent: :destroy
 	default_scope -> { order('created_at DESC') }
 
 	validates :owner_id, presence: true

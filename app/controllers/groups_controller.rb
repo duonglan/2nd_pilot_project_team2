@@ -7,9 +7,12 @@ class GroupsController < ApplicationController
 
  def show
     @group = Group.find(params[:id])
-    @members =  @group.members.paginate(page: params[:page], per_page: 3)
+    @members =  @group.members.paginate(page: params[:page], per_page:10)
     @group_micropost = @group.group_microposts.build
     @group_microposts = @group.group_microposts
+      .paginate(page: params[:page], per_page: 10)
+    @group_comment = @group_micropost.group_comments.build
+    @group_comments = @group_micropost.group_comments
   end
 
   def new
@@ -20,17 +23,19 @@ class GroupsController < ApplicationController
   	group = current_user.groups.build(group_params)
   	if group.save
   		member = group.members.build(user_id: current_user.id);
-  		#before { @micropost = user.microposts.build(user_id: current_user.id) }
   		member.save
       flash[:success] = "New group created!"
       redirect_to groups_path
     else
-     # flash.now[:error] = 'Invalid email/password combination'
+      flash.now[:error] = 'Invalid email/password combination'
       render 'new'
     end
   end
 
   def destroy
+    @group = Group.find(params[:id])
+    @group.destroy
+    redirect_to groups_path
   end
 
   private

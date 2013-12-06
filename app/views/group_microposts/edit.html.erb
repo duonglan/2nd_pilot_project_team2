@@ -1,0 +1,21 @@
+<h1>Editing Post</h1>
+<div class="field">
+  <%= form_for [@group, @group_micropost] do |f| %>
+    <% if @group_micropost.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@group_micropost.errors.count, "error") %> prohibited this group_micropost from being saved:
+        </h2>
+        <ul>
+          <% @group_micropost.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+      <%= f.label :content %><br>
+      <%= f.text_field :content%>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+</div>

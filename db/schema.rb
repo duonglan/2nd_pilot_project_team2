@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20131206092050) do
+=======
+ActiveRecord::Schema.define(version: 20131206065441) do
+>>>>>>> comment group micropost
 
   create_table "comments", force: true do |t|
     t.string   "content"
@@ -25,6 +29,15 @@ ActiveRecord::Schema.define(version: 20131206092050) do
     t.integer  "user_id"
     t.integer  "friend_id"
     t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "group_comments", force: true do |t|
+    t.string   "content"
+    t.integer  "user_id"
+    t.integer  "group_id"
+    t.integer  "group_micropost_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
