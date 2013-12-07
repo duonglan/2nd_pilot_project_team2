@@ -1,1 +1,4 @@
-<%= image_tag @image.image.url %>
+
+<h1>New new Image</h1>
+<%= render 'share/image_form' %>
+<%= image_tag @image.image.url(:small) %>

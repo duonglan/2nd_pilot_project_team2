@@ -1,0 +1,7 @@
+<%= form_for(@image), user_album_path, method: :post do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="field">
+    <%= f.text_field :name %>
+  </div>
+  <%= f.submit "create", class: "btn btn-large btn-primary" %>
+<% end %>

@@ -11,11 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20131206092050) do
-=======
-ActiveRecord::Schema.define(version: 20131206065441) do
->>>>>>> comment group micropost
+ActiveRecord::Schema.define(version: 20131207015442) do
+
+  create_table "albums", force: true do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "albums", ["user_id", "created_at"], name: "index_albums_on_user_id_and_created_at"
 
   create_table "comments", force: true do |t|
     t.string   "content"
@@ -69,6 +74,7 @@ ActiveRecord::Schema.define(version: 20131206065441) do
   add_index "groups", ["owner_id"], name: "index_groups_on_owner_id"
 
   create_table "images", force: true do |t|
+    t.integer  "album_id"
     t.integer  "user_id"
     t.string   "image_file_name"
     t.string   "image_content_type"
