@@ -1,3 +1,3 @@
-<%= form_for(@group.members.find_by(user_id: current_user.id), html: { method: :delete }	) do |f| %>
-  <%= f.submit "Quit", class: "btn btn-large btn-primary" %>
+<%= form_for(object.members.find_by(user_id: current_user.id), html: { method: :delete }	) do |f| %>
+  <%= f.submit "Quit", class: "btn btn btn-primary" %>
 <% end %>

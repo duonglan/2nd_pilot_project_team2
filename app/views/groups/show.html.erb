@@ -60,23 +60,3 @@
     </div>
   </div>
 </div>
-<script>
-  $("a.non-redirect").click(function(event){
-    event.preventDefault();
-});
-
-  $('.edit_micropost_btn').click(function() {
-    $(this).parent().hide();
-    $(this).parent().next('.edit_micropost_wrap').show();
-});
-
-  $('.update_micropost_btn').click(function() {
-    $(this).parent().hide();
-    $(this).parent().prev('.micropost-display').show();
-});
-
-$('.edit_comment_btn').click(function() {
-  $(this).parent().hide();
-  $(this).parent().next('.edit_comment_wrap').show();
-});  
-</script>

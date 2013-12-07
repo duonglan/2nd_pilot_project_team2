@@ -13,7 +13,7 @@ class MicropostsController < ApplicationController
     @users = User.all
     @user = User.find(params[:user_id])
     @micropost = Micropost.find(params[:id])
-    @comment = @microposts.comments.build
+    @comment = @micropost.comments.build
   end
 
   def new
@@ -41,7 +41,7 @@ class MicropostsController < ApplicationController
     @micropost.status = params[:micropost][:status]
     if @micropost.update_attributes(micropost_params)
       flash[:success] = "Micropost updated"
-      redirect_to user_micropost_path current_user, @micropost
+      redirect_to :back
     else
       flash[:erro] = "Micropost didn't updated"
     end

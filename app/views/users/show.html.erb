@@ -1,20 +1,20 @@
 <% provide(:title, @user.name) %>
-<% if signed_in? %>
-  <% unless current_user?(@user) || current_user.requested_friends.include?(@user) || current_user.friends.include?(@user) || current_user.pending_friends.include?(@user) %>
- <%= link_to "Add friend", user_friendships_path(@user.id), method: :post, :class => 'btn btn-mini' %>
-  <% end %>
-<% end %>
 <div class="row">
   <aside class="span4">
     <section>
-        <%= render 'shared/user_info', user: @user %>
-      </section>
-      <section>
-        <%= render 'shared/micropost_form', user: @user %>
-      </section>
-      <section>
-        <%= render 'shared/user_profile', user: @user %>
-      </section>
+      <%= render 'shared/user_info', user: @user %>
+      <% if signed_in? %>
+        <% unless current_user?(@user) || current_user.requested_friends.include?(@user) || current_user.friends.include?(@user) || current_user.pending_friends.include?(@user) %>
+            <%= link_to "Add friend", user_friendships_path(@user.id), method: :post, :class => 'btn btn-mini' %>
+        <% end %>
+      <% end %>
+    </section>
+    <section>
+      <%= render 'shared/micropost_form', user: @user %>
+    </section>
+    <section>
+      <%= render 'shared/user_profile', user: @user %>
+    </section>
   </aside>
   <div class="span8">
     <% if current_user?(@user) %><h3> My page</h3>

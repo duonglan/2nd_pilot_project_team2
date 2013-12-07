@@ -13,6 +13,18 @@ class CommentsController < ApplicationController
   end
 
   def edit
+    micropost = Group.find(params[:micropost_id])
+    comment = micropost.comment.find(params[:id])
+  end
+
+  def update
+    @comment = Comment.find(params[:id])
+    if @comment.update_attributes(comment_params)
+      flash[:success] = "Comment updated"
+      redirect_to :back
+    else
+      flash[:erro] = "Comment didn't updated"
+    end
   end
 
   def create
