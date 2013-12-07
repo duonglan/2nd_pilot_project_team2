@@ -11,8 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20131207015442) do
+ActiveRecord::Schema.define(version: 20131209044726) do
 
   create_table "albums", force: true do |t|
     t.string   "name"
@@ -118,6 +117,14 @@ ActiveRecord::Schema.define(version: 20131207015442) do
     t.string   "remember_token"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.string   "cover_file_name"
+    t.string   "cover_content_type"
+    t.integer  "cover_file_size"
+    t.datetime "cover_updated_at"
   end
 
   add_index "users", ["remember_token"], name: "index_users_on_remember_token"
