@@ -1,6 +1,8 @@
 Blog::Application.routes.draw do
   resources :users do
-    resources :images
+    resources :albums do
+      resources :images
+    end
     resources :friendships
     resources :microposts do
       resources :comments

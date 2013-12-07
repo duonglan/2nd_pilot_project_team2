@@ -1,0 +1,6 @@
+
+<% @albums.each do |album| %>
+  <%if album.user_id == current_user.id%>
+    <li><%= link_to album.name, user_album_path(current_user, album)%></li>
+  <% end %>
+<% end %>

@@ -4,20 +4,21 @@ class ImagesController < ApplicationController
   def index
     @image = Image.all
   end
+  def new
+    album = Album.find(params[:id])
+    @image = album.images.build
+  end
 
   def create
-    user = User.find(params[:user_id])
-    binding.pry
-    @image = user.images.build(image_params)
-
+    album = Album.find(params[:album_id])
+    @image = album.images.build(image_params)
+    @image.update_attributes(user_id: current_user.id)
     if @image.save
-    redirect_to user_image_path current_user, @image.id
+    redirect_to user_album_path current_user, album.id
     end
   end
 
   def show
-    #@users = User.all
-    #@user = User.find(params[:user_id])
     @image = Image.find(params[:id])
   end
   def destroy
