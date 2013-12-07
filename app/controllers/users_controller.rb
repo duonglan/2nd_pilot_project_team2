@@ -6,7 +6,6 @@ class UsersController < ApplicationController
     @search = Search.new(User, params[:search])
     @search.order = 'name'  # optional
     @users = @search.run
-    #binding.pry
   end
 
   def show

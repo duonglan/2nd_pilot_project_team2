@@ -3,22 +3,22 @@
   <aside class="span4">
     <section>
       <h1>
-        <%= gravatar_for @microposts.user %>
-        <%= @microposts.user.name %>
+        <%= gravatar_for @micropost.user %>
+        <%= @micropost.user.name %>
       </h1>
     </section>
   </aside>
   <div class="span8">
     <%if current_user?(@user) %>
       <span class="content">
-      	<%= wrap(@microposts.content) %>
-        <%if @microposts.is_public?%>
+      	<%= wrap(@micropost.content) %>
+        <%if @micropost.is_public?%>
           <%= link_to "Public", edit_user_micropost_path(current_user, @micropost) %>
         <%else%>
           <%= link_to "Private", edit_user_micropost_path(current_user, @micropost) %>
         <%end%>
       </span>
-      <%= form_for [current_user, @microposts, @comments] do |f| %>
+      <%= form_for [current_user, @micropost, @comments] do |f| %>
         <% if @comments.errors.any? %>
           <div id="error_explanation">
             <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this micropost from being saved:</h2>
@@ -37,9 +37,9 @@
         </span>
         <%= render "has_many_comment" %>
       <% end %>
-    <% elsif @microposts.is_public?%>
-      <%= wrap(@microposts.content) %>
-      <%= form_for [current_user, @microposts, @comments] do |f| %>
+    <% elsif @micropost.is_public?%>
+      <%= wrap(@micropost.content) %>
+      <%= form_for [current_user, @micropost, @comments] do |f| %>
         <% if @comments.errors.any? %>
           <div id="error_explanation">
             <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this micropost from being saved:</h2>

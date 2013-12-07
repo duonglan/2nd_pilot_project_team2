@@ -2,7 +2,7 @@ class GroupsController < ApplicationController
   before_action :signed_in_user, only: [:new, :create]
 
   def index
-  	@groups = Group.paginate(page: params[:page], per_page: 10)
+  	@groups = Group.paginate(page: params[:page], per_page: 5)
   end
 
  def show
@@ -25,7 +25,7 @@ class GroupsController < ApplicationController
   		member = group.members.build(user_id: current_user.id);
   		member.save
       flash[:success] = "New group created!"
-      redirect_to groups_path
+      redirect_to group_path group
     else
       flash.now[:error] = 'Invalid email/password combination'
       render 'new'

@@ -1,13 +1,20 @@
 <br/>
 <% if micropost.has_comment? %>
   <% micropost.comments.each do |comment| %>
+  <div class="comment-display">
     <td >@<%= comment.user.name %><td> :
     <td><%= wrap(comment.content) %></td>
     <% if comment.user_id == current_user.id || comment.user_id == current_user.id%>
-      <td><%= link_to 'Edit',  edit_user_micropost_comment_path(current_user, micropost, comment) %></td>
+      <td><%= link_to 'Edit',  edit_user_micropost_comment_path(current_user, micropost, comment), class: "non-redirect edit_comment_btn" %></td>
       <td><%= link_to 'Del', user_micropost_comment_path(current_user, micropost, comment), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </div>
+    <div class="edit_comment_wrap">
+      <%= form_for [current_user, micropost, comment] do |f| %>
+        <%= f.text_field :content, placeholder: "What's on your mind" %>
+        <%= f.submit "Update", class: "btn btn-primary non-redirect update_comment_btn" %>
+      <% end %>
+    </div>
     <% end %>
-    <br/>
   <% end %>
 <% end %>
 <%= form_for [current_user, micropost, @comments] do |comment| %>

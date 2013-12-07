@@ -7,8 +7,18 @@ before_action :signed_in_user
 
   def edit
     group = Group.find(params[:group_id])
-    group_micropost = GroupMicropost.find(params[:micropost_id])
+    group_micropost = GroupMicropost.find(params[:group_micropost_id])
     group_comment = GroupComment.find(params[:id])
+  end
+
+  def update
+    @group_comment = GroupComment.find(params[:id])
+    if @group_comment.update_attributes(group_comment_params)
+      flash[:success] = "Comment updated"
+      redirect_to :back
+    else
+      flash[:erro] = "Comment didn't updated"
+    end
   end
 
   def create

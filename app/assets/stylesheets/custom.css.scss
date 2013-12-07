@@ -288,6 +288,15 @@ ul.friends {
   }
 }
 
+.edit_comment_wrap {
+  display: none;
+
+  input[type="text"] {
+    margin: 5px 0;
+    width: 519px;
+  }
+}
+
 .group-name {
   word-wrap: break-word;
   width: 300px;

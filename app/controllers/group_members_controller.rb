@@ -4,7 +4,7 @@ class GroupMembersController < ApplicationController
   def create
   	@group = Group.find(params[:group_member][:group_id])
   	@group.join!(current_user)
-  	redirect_to @group
+  	redirect_to :back
   end
 
   def destroy
@@ -12,6 +12,6 @@ class GroupMembersController < ApplicationController
   	@group = Group.find(@group_member
       .group_id)
   	@group_member.destroy
-  	redirect_to @group
+  	redirect_to :back
   end
 end

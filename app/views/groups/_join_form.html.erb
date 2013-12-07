@@ -1,7 +1,7 @@
 <% if !@group.owned?(current_user)%>
   <div id="follow_form">
     <% if @group.joined?(current_user) %>
-      <%= render 'quit' %>
+      <%= render 'quit' , object: @group %>
       <section>
         <%= render 'shared/group_micropost_form' %>
       </section>
@@ -15,7 +15,7 @@
         <% end %>
       <section>
     <% else %>
-      <%= render 'join' %>
+      <%= render 'join',object: @group %>
     <% end %>
   </div>
 <% else %>
