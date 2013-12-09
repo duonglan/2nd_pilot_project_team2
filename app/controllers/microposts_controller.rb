@@ -40,9 +40,9 @@ class MicropostsController < ApplicationController
   def update
     micropost = Micropost.find(params[:id])
     if params[:micropost]
-      if @micropost.update_attributes(micropost_params)
+      if micropost.update_attributes(micropost_params)
         flash[:success] = "Micropost updated"
-        redirect_to user_micropost_path current_user, @micropost
+        redirect_to :back
       else
         flash[:erro] = "Micropost didn't updated"
       end

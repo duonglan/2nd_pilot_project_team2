@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   has_many :comments, through: :microposts, dependent: :destroy
   has_many :like_microposts, dependent: :destroy
   has_many :like_comments, dependent: :destroy
+  has_many :like_group_microposts, dependent: :destroy
+  has_many :like_group_comments, dependent: :destroy
   has_many :friends, :through => :friendships, :conditions => "status = 'accepted'"
   has_many :requested_friends, :through => :friendships, :source => :friend,
    :conditions => "status = 'requested'", :order => :created_at

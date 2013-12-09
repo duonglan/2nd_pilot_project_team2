@@ -12,12 +12,20 @@ before_action :signed_in_user
   end
 
   def update
-    @group_comment = GroupComment.find(params[:id])
-    if @group_comment.update_attributes(group_comment_params)
-      flash[:success] = "Comment updated"
-      redirect_to :back
-    else
-      flash[:erro] = "Comment didn't updated"
+    group_micropost = GroupMicropost.find params[:group_micropost_id]
+    group_comment = group_micropost.group_comments.find params[:id]
+    if params[:group_comment_params]
+      if group_comment.update_attributes(group_comment_params)
+        flash[:success] = "Comment updated"
+        redirect_to :back
+      else
+        flash[:erro] = "Comment didn't updated"
+      end
+    else 
+      group_comment.like_group_comments.build(user_id: current_user.id)
+      if group_comment.save
+        redirect_to :back
+      end
     end
   end
 
