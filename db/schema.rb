@@ -22,7 +22,6 @@ ActiveRecord::Schema.define(version: 20131207015442) do
 
   add_index "albums", ["user_id", "created_at"], name: "index_albums_on_user_id_and_created_at"
 
-
   create_table "comments", force: true do |t|
     t.string   "content"
     t.integer  "micropost_id"
