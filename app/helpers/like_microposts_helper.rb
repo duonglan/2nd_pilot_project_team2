@@ -1,0 +1,2 @@
+module LikeMicropostsHelper
+end

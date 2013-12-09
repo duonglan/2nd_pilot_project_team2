@@ -37,19 +37,10 @@
         </span>
         <%= render "has_many_comment" %>
       <% end %>
-    <% elsif @micropost.is_public?%>
-      <%= wrap(@micropost.content) %>
-      <%= form_for [current_user, @micropost, @comments] do |f| %>
-        <% if @comments.errors.any? %>
-          <div id="error_explanation">
-            <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this micropost from being saved:</h2>
-            <ul>
-              <% @comments.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
+    <% elsif @microposts.is_public?%>
+      <%= wrap(@microposts.content) %>
+      <%= form_for [current_user, @microposts, @comments] do |f| %>
+        <%= render 'shared/error_messages', object: comment.object %>
         <span class="field">
           <%= f.label :content %><br>
           <%= f.text_field :content %>

@@ -11,6 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20131207015442) do
 
   create_table "albums", force: true do |t|
@@ -21,7 +22,6 @@ ActiveRecord::Schema.define(version: 20131207015442) do
   end
 
   add_index "albums", ["user_id", "created_at"], name: "index_albums_on_user_id_and_created_at"
-
 
   create_table "comments", force: true do |t|
     t.string   "content"
@@ -85,10 +85,25 @@ ActiveRecord::Schema.define(version: 20131207015442) do
     t.datetime "updated_at"
   end
 
+  create_table "like_comments", force: true do |t|
+    t.integer  "comment_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "like_microposts", force: true do |t|
+    t.integer  "micropost_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "microposts", force: true do |t|
     t.string   "content"
     t.integer  "user_id"
     t.boolean  "status",     default: true
+    t.integer  "friend_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
