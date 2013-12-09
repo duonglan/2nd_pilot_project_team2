@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :signed_in_user, only: [:edit, :update, :show,]
-  before_action :correct_user,   only: [:edit, :update]
+  before_action :correct_user,   only: [:edit, :update, :destroy]
   
   def index
     @search = Search.new(User, params[:search])
@@ -55,8 +55,6 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:name, :email, :password,:password_confirmation, :avatar, :cover)
     end
-
-    # Before filters
 
     def signed_in_user
       unless signed_in?

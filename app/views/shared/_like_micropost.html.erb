@@ -5,9 +5,9 @@
     <% end %>
   <% end %>
 <% else %>
-  <%= link_to "like", user_micropost_path(@user, micropost), method: :patch, class: "like" %>
+  <%= link_to "like", user_micropost_path(@user, micropost, like: "like"), method: :patch, class: "like" %>
 <% end %>
-<%= link_to "share", "#",data: { confirm: 'Are you sure?' } %>
+<%= link_to "share", user_micropost_path(current_user, micropost, share: "share"), method: :patch, data: { confirm: micropost.content } %>
 <% if micropost.has_like? %>
   <%= micropost.like_microposts.count %> person like this
 <% end %>

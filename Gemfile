@@ -9,17 +9,14 @@ gem 'will_paginate', '3.0.4'
 gem 'bootstrap-will_paginate', '0.0.9'
 gem "pry-debugger"
 gem 'rails-simple-search'
+gem 'rmagick', '2.13.2'
 gem "paperclip"
 gem 'public_activity'
+
 group :development, :test do
   gem 'sqlite3', '1.3.8'
   gem 'rspec-rails', '2.13.1'
   gem 'database_cleaner', github: 'bmabey/database_cleaner'
-end
-
-group :assets do
-  gem 'jquery-ui-rails'
-  gem 'jquery-modal-rails'
 end
 
 group :test do

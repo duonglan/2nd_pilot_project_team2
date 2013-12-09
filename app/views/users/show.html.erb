@@ -23,6 +23,9 @@
       <h3>
         <%= link_to "Photos Albums", user_albums_path(@user) %> (<%= @user.albums.count %>)
       </h3>
+      <% if current_user?(@user)||current_user.friends.include?(@user) %>
+        <%= render 'shared/micropost_form', user: @user %>
+      <% end %>
     </section>
     <section>
       <%= render 'shared/user_profile', user: @user %>
@@ -30,16 +33,27 @@
   </aside>
   <div class="span8">
     <% if current_user?(@user) %><h3> My page</h3>
-    <% else %> <h3> Time line </h3>
-    <% end %>
       <ul class="posts">
         <% @microposts.each do |micropost| %>
-          <% if micropost.user_id == current_user.id %>          
-            <%= render "shared/list_microposts", micropost: micropost %>
-          <% elsif micropost.is_public? %>
+          <% if micropost.friend_id == current_user.id %>
+            <% unless micropost.user_id == current_user.id %>
+              <%= micropost.user.name %> TO <%= current_user.name %>
+            <% end %>
             <%= render "shared/list_microposts", micropost: micropost %>
           <% end %> 
         <% end %>
       </ul>
+    <% else %> <h3> Time line </h3>
+      <ul class="posts">
+        <% @microposts.each do |micropost| %>
+          <% if micropost.friend_id == @user.id && micropost.is_public?%>
+            <% unless micropost.user_id == micropost.friend_id %>
+              <%= micropost.user.name %> TO <%= @user.name %>
+            <% end %>
+            <%= render "shared/list_microposts", micropost: micropost %>
+          <% end %> 
+        <% end %>
+      </ul>
+    <% end %>
   </div>
 </div>

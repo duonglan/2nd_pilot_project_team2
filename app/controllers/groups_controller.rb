@@ -13,6 +13,7 @@ class GroupsController < ApplicationController
       .paginate(page: params[:page], per_page: 10)
     @group_comment = @group_micropost.group_comments.build
     @group_comments = @group_micropost.group_comments
+    @micropost = current_user.microposts.new
   end
 
   def new
