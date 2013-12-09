@@ -22,7 +22,7 @@ class GroupsController < ApplicationController
   def create
   	group = current_user.groups.build(group_params)
   	if group.save
-  		member = group.members.build(user_id: current_user.id);
+  		member = group.members.build(user_id: current_user.id)
   		member.save
       flash[:success] = "New group created!"
       redirect_to group_path group

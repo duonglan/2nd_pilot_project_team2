@@ -1,4 +1,6 @@
 class Micropost < ActiveRecord::Base
+    include PublicActivity::Common
+
   EXISTANCE = 0
 	belongs_to :user
 	has_many :comments, dependent: :destroy
