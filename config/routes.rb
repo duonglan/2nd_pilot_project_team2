@@ -14,7 +14,10 @@ Blog::Application.routes.draw do
   resources :sessions,   only: [:new, :create, :destroy]
   resources :groups do
     resources :group_microposts do
-      resources :group_comments
+      resources :like_group_microposts
+      resources :group_comments do
+        resources :like_group_comments
+      end
     end
   end
 

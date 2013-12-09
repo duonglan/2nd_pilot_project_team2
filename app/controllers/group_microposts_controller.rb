@@ -35,9 +35,18 @@ def index
   def update
     group = Group.find(params[:group_id])
     group_micropost = group.group_microposts.find(params[:id])
-    if group_micropost.update_attributes(group_micropost_params)
-      flash[:success] = "Post updated"
-      redirect_to group_path group
+    if params[:group_micropost]
+      if group_micropost.update_attributes(group_micropost_params)
+        flash[:success] = "Post updated"
+        redirect_to group_path group
+      else
+        flash[:error] = "failed"
+      end
+    else
+      group_micropost.like_group_microposts.build(user_id: current_user.id)
+      if group_micropost.save
+        redirect_to :back
+      end
     end
   end
 

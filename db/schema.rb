@@ -91,6 +91,20 @@ ActiveRecord::Schema.define(version: 20131209044726) do
     t.datetime "updated_at"
   end
 
+  create_table "like_group_comments", force: true do |t|
+    t.integer  "group_comment_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "like_group_microposts", force: true do |t|
+    t.integer  "group_micropost_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "like_microposts", force: true do |t|
     t.integer  "micropost_id"
     t.integer  "user_id"

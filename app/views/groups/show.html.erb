@@ -19,7 +19,8 @@
                 </span>
                 <div class="micropost-display">
                   <span class="content">
-                    <%= exercept group_micropost.content %>   
+                    <%= exercept group_micropost.content %>
+                    <%= render "shared/like_group_micropost", group_micropost: group_micropost, group: @group %>   
                   </span>
                   <span class="timestamp">
                     Posted <%= time_ago_in_words(group_micropost.created_at) %> ago.

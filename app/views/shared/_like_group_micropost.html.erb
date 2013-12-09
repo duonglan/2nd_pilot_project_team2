@@ -1,0 +1,14 @@
+<% if group_micropost.like_group_micropost?(current_user) %>
+  <% group_micropost.like_group_microposts.each do |f| %>
+    <% if f.user_id == current_user.id %>
+      <%= link_to "unlike", group_group_micropost_like_group_micropost_path(group, group_micropost, f), method: :delete, class: "unlike"%>
+    <% end %>
+  <% end %>
+<% else %>
+  <%= link_to "like", group_group_micropost_path(group, group_micropost), method: :patch, class: "like" %>
+<% end %>
+<%=  link_to "share", , :target => "_blank" %>
+
+<% if group_micropost.has_like? %>
+  <%= group_micropost.like_group_microposts.count %> person like this
+<% end %>

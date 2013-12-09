@@ -1,12 +1,13 @@
 <% if micropost.like_micropost?(current_user) %>
   <% micropost.like_microposts.each do |f| %>
     <% if f.user_id == current_user.id %>
-      <%= link_to "unlike", user_micropost_like_micropost_path(@user, micropost, f), method: :delete %>
+      <%= link_to "unlike", user_micropost_like_micropost_path(@user, micropost, f), method: :delete, class: "unlike" %>
     <% end %>
   <% end %>
 <% else %>
-  <%= link_to "like", user_micropost_path(@user, micropost), method: :patch %>
+  <%= link_to "like", user_micropost_path(@user, micropost), method: :patch, class: "like" %>
 <% end %>
+<%= link_to "share", "#",data: { confirm: 'Are you sure?' } %>
 <% if micropost.has_like? %>
   <%= micropost.like_microposts.count %> person like this
 <% end %>
