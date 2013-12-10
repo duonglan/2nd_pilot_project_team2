@@ -7,7 +7,7 @@
 <% else %>
   <%= link_to "like", group_group_micropost_path(group, group_micropost), method: :patch, class: "like" %>
 <% end %>
-<%=  link_to "share", , :target => "_blank" %>
+<%#=  link_to "share", , :target => "_blank" %>
 
 <% if group_micropost.has_like? %>
   <%= group_micropost.like_group_microposts.count %> person like this

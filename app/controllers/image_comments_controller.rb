@@ -34,7 +34,7 @@ before_action :signed_in_user
   end
 
   def destroy
-    image_comment = ImageComment.find(params[:image_comment_id])
+    image_comment = ImageComment.find(params[:id])
     image_comment.destroy
     redirect_to :back
   end

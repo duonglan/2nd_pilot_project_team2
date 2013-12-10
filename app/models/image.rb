@@ -1,6 +1,7 @@
 class Image < ActiveRecord::Base
   EXISTANCE = 0
   belongs_to :album
+  belongs_to :user
   has_many :image_comments, dependent: :destroy
   has_attached_file :image, :styles => {
       :thumb => "100x100#",
