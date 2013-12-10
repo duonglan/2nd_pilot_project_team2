@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131210071900) do
+ActiveRecord::Schema.define(version: 20131210095626) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -180,6 +180,7 @@ ActiveRecord::Schema.define(version: 20131210071900) do
     t.string   "cover_content_type"
     t.integer  "cover_file_size"
     t.datetime "cover_updated_at"
+    t.string   "avatar"
   end
 
   add_index "users", ["remember_token"], name: "index_users_on_remember_token"

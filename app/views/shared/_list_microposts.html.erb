@@ -1,5 +1,5 @@
 <li>
-  <%= link_to gravatar_for(micropost.user),micropost.user %>
+  <%= link_to image_tag(micropost.user.avatar.thumb), micropost.user %>
   <span class="user">
   <%= link_to micropost.user.name, micropost.user %>
    <% if micropost.is_public? %> Public

@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  mount_uploader :avatar, AvatarUploader
+
   has_many :albums, dependent: :destroy
   has_many :images, through: :album, dependent: :destroy
   has_many :groups,  foreign_key: "owner_id",  dependent: :destroy
@@ -30,7 +32,6 @@ class User < ActiveRecord::Base
   has_secure_password
   validates :password, length: {minimum: 1}
 
-  has_attached_file :avatar, styles: {medium: "300x300>", thumb: "100x100>"}
   has_attached_file :cover, styles: {medium: "300x300>", thumb: "100x100>"}
   
   def User.new_remember_token

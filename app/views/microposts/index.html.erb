@@ -1,3 +1,4 @@
+<% provide(:title, "Microposts") %>
 <%= render "form" %>
 <% @microposts.each do |micropost| %>
   <%if micropost.user_id == current_user.id%>
