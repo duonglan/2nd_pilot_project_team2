@@ -4,7 +4,7 @@ class GroupComment < ActiveRecord::Base
   belongs_to :user
   belongs_to :group
   has_many :like_group_comments, dependent: :destroy
-  default_scope -> {order('created_at DESC')}
+  default_scope -> {order("created_at DESC")}
   validates :content, presence: true
   validates :group_micropost_id, presence: true
   validates :group_id, presence: true
@@ -14,7 +14,7 @@ class GroupComment < ActiveRecord::Base
     self.like_group_comments.count > EXISTANCE
   end
 
-  def like_group_comment?(other_user)
-    like_group_comments.find_by(user_id: other_user.id)
+  def like_group_comment? other_user
+    like_group_comments.find_by user_id: other_user.id
   end
 end

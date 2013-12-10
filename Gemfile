@@ -9,7 +9,6 @@ gem 'will_paginate', '3.0.4'
 gem 'bootstrap-will_paginate', '0.0.9'
 gem "pry-debugger"
 gem 'rails-simple-search'
-gem 'rmagick', '2.13.2'
 gem "paperclip"
 gem 'public_activity'
 

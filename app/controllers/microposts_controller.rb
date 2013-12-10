@@ -26,7 +26,6 @@ class MicropostsController < ApplicationController
 
   def create
     @user = User.find(params[:user_id])
-<<<<<<< HEAD
     @micropost = current_user.microposts.build(micropost_params)
     @micropost.update_attributes(friend_id: @user.id)
     if @micropost.save
@@ -36,19 +35,7 @@ class MicropostsController < ApplicationController
     else
       flash[:erro] = "Status blank!"
       redirect_to user_microposts_path current_user
-=======
-    if params[:micropost]
-      @micropost = current_user.microposts.build(micropost_params)
-      @micropost.update_attributes(friend_id: @user.id)
-      if @micropost.save
-        flash[:success] = "Status created!"
-        redirect_to :back
-      else
-        flash[:erro] = "Status blank!"
-        redirect_to :back
-      end
     end
-
   end
 
   def update

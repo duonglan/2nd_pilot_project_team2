@@ -1,8 +1,8 @@
 class Micropost < ActiveRecord::Base
-    include PublicActivity::Common
-
+  include PublicActivity::Common
   EXISTANCE = 0
 	belongs_to :user
+
 	has_many :comments, dependent: :destroy
   has_many :like_microposts, dependent: :destroy
 	default_scope -> {order('created_at DESC')}
@@ -17,8 +17,8 @@ class Micropost < ActiveRecord::Base
     self.comments.count > EXISTANCE
   end
 
-  def like_micropost?(other_user)
-    like_microposts.find_by(user_id: other_user.id)
+  def like_micropost? other_user
+    like_microposts.find_by user_id: other_user.id
   end
 
   def has_like?
