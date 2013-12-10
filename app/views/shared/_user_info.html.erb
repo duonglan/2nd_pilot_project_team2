@@ -1,4 +1,9 @@
+
+<%if user.avatar.blank?%>
 <%= link_to gravatar_for(user, size: 52), user %>
+<%else%>
+<%= image_tag user.avatar.url(:thumb) %>
+<%end%>
 <h1>
   <%= user.name %>
 </h1>

@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  before_action :signed_in_user, only: [:new, :create]
+  before_action :signed_in_user, only: [:new, :create, :show, :update]
 
   def index
   	@groups = Group.paginate(page: params[:page], per_page: 5)

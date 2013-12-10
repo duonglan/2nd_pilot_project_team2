@@ -4,6 +4,7 @@
     <div class="comment-display">
       @<%= group_comment.user.name %>:
       <%= wrap(group_comment.content) %>
+      <%= render "shared/like_group_comment", group_micropost: group_micropost, group: @group, group_comment: group_comment %>
       <% if group_comment.user_id == current_user.id || group_micropost.user_id == current_user.id%>
         <%= link_to "Edit", edit_group_group_micropost_group_comment_path(@group, group_micropost, group_comment), class: "non-redirect edit_comment_btn" %>
         <%= link_to "Del", group_group_micropost_group_comment_path(@group, group_micropost, group_comment), method: :delete, data: { confirm: "Are you sure?" } %>
@@ -11,7 +12,7 @@
     </div>
     <div class="edit_comment_wrap">
       <%= form_for [@group, group_micropost, group_comment] do |f| %>
-        <%= f.text_field :content, placeholder: "What's on your mind" %>
+        <%= f.text_area :content, placeholder: "Write comment" %>
         <%= f.submit "Update", class: "btn btn-primary non-redirect update_comment_btn" %>
       <% end %>
     </div>

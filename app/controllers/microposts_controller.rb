@@ -25,8 +25,9 @@ class MicropostsController < ApplicationController
   end
 
   def create
-
+    @user = User.find(params[:user_id])
     @micropost = current_user.microposts.build(micropost_params)
+    @micropost.update_attributes(friend_id: @user.id)
     if @micropost.save
       flash[:success] = "Status created!"
       redirect_to :back
@@ -37,13 +38,19 @@ class MicropostsController < ApplicationController
   end
 
   def update
-    @micropost = Micropost.find(params[:id])
-    @micropost.status = params[:micropost][:status]
-    if @micropost.update_attributes(micropost_params)
-      flash[:success] = "Micropost updated"
-      redirect_to :back
+    micropost = Micropost.find(params[:id])
+    if params[:micropost]
+      if micropost.update_attributes(micropost_params)
+        flash[:success] = "Micropost updated"
+        redirect_to :back
+      else
+        flash[:erro] = "Micropost didn't updated"
+      end
     else
-      flash[:erro] = "Micropost didn't updated"
+      micropost.like_microposts.build(user_id: current_user.id)
+      if micropost.save
+        redirect_to :back
+      end
     end
   end
 

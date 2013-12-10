@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :signed_in_user, only: [:edit, :update]
+  before_action :signed_in_user, only: [:edit, :update, :show,]
   before_action :correct_user,   only: [:edit, :update]
   
   def index
@@ -10,10 +10,10 @@ class UsersController < ApplicationController
 
   def show
   	@user = User.find(params[:id])
-    @microposts = @user.microposts.paginate(page: params[:page])
+    @microposts = Micropost.all.paginate(page: params[:page])
     @micropost = current_user.microposts.build
     @comments = @micropost.comments.build
-    if params[:course]|| params[:comment]
+    if params[:micropost]|| params[:comment]
       redirect_to :back
     end
   end
@@ -53,7 +53,7 @@ class UsersController < ApplicationController
  private
 
     def user_params
-      params.require(:user).permit(:name, :email, :password,:password_confirmation)
+      params.require(:user).permit(:name, :email, :password,:password_confirmation, :avatar, :cover)
     end
 
     # Before filters

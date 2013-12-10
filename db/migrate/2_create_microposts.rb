@@ -4,6 +4,7 @@ class CreateMicroposts < ActiveRecord::Migration
       t.string :content
       t.integer :user_id
       t.boolean :status, default: true
+      t.integer :friend_id
       t.timestamps
     end
  

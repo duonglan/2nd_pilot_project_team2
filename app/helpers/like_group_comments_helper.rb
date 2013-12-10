@@ -1,0 +1,2 @@
+module LikeGroupCommentsHelper
+end

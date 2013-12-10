@@ -38,17 +38,26 @@ class CommentsController < ApplicationController
     else
       redirect_to user_micropost_path current_user, @micropost
       flash[:erro] = "comment blank!"
-    end
+    end  
+  end
+
+  def update
+    comment = Comment.find(params[:id])
+    comment.like_comments.build(user_id: current_user.id)
+      if comment.save
+        redirect_to :back
+      end
   end
 
   def destroy
     Comment.find(params[:id]).destroy
     flash[:success] = "Comment deleted!"
-    redirect_to root_url
+    redirect_to :back
   end
 
   private
   def comment_params
     params.require(:comment).permit(:content)
   end
+
 end
