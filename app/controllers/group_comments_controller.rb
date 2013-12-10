@@ -21,10 +21,12 @@ before_action :signed_in_user
       else
         flash[:erro] = "Comment didn't updated"
       end
-    else 
+    elsif params[:like] == "like_group_comment" 
       group_comment.like_group_comments.build(user_id: current_user.id)
       if group_comment.save
         redirect_to :back
+      else
+        flash[:error] = "Like fail!"
       end
     end
   end

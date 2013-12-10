@@ -28,7 +28,7 @@ class MicropostsController < ApplicationController
     @user = User.find params[:user_id]
     @micropost = current_user.microposts.build micropost_params
     @micropost.update_attributes friend_id: @user.id
-    if @micropost.save
+   if @micropost.save
       @micropost.create_activity :create, owner: current_user
       flash[:success] = "Status created!"
       redirect_to :back
@@ -54,7 +54,7 @@ class MicropostsController < ApplicationController
         micropost.update_attributes status: true
         redirect_to :back
       else
-        if params[:like] == "like"
+        if params[:like] == "like_micropost"
           microposts.like_microposts.build user_id: current_user.id
           if microposts.save
             redirect_to :back
@@ -71,9 +71,9 @@ class MicropostsController < ApplicationController
 
   private
 
-    def micropost_params
-      params.require(:micropost).permit(:content, :status)
-    end
+  def micropost_params
+    params.require(:micropost).permit(:content, :status)
+  end
 
     def correct_user
       @micropost = current_user.microposts.find_by id: params[:id]

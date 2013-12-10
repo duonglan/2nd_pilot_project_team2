@@ -18,12 +18,19 @@ class CommentsController < ApplicationController
   end
 
   def update
-    @comment = Comment.find(params[:id])
-    if @comment.update_attributes(comment_params)
-      flash[:success] = "Comment updated"
-      redirect_to :back
-    else
-      flash[:erro] = "Comment didn't updated"
+    comment = Comment.find(params[:id])
+    if params[:comment_params]
+      if comment.update_attributes comment_params
+        flash[:success] = "Comment updated"
+        redirect_to :back
+      else
+        flash[:erro] = "Comment didn't updated"
+      end
+    elsif params[:like] == "like_comment"
+      comment.like_comments.build(user_id: current_user.id)
+      if comment.save
+        redirect_to :back
+      end
     end
   end
 
@@ -40,14 +47,6 @@ class CommentsController < ApplicationController
       redirect_to user_micropost_path current_user, @micropost
       flash[:erro] = "comment blank!"
     end
-  end
-
-  def update
-    comment = Comment.find(params[:id])
-    comment.like_comments.build(user_id: current_user.id)
-      if comment.save
-        redirect_to :back
-      end
   end
 
   def destroy

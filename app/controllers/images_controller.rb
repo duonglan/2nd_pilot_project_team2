@@ -36,6 +36,18 @@ class ImagesController < ApplicationController
     redirect_to user_album_path current_user, album
   end
 
+  def update
+    image = Image.find params[:id]
+    if params[:like] == "like_image"
+      image.like_images.build user_id: current_user.id
+      if image.save
+        redirect_to :back
+      else
+        flash[:erro] = "Like fail!"
+      end
+    end
+  end
+
   private
   def image_params
     params.require(:image).permit(:image)

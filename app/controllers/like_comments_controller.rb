@@ -1,13 +1,7 @@
 class LikeCommentsController < ApplicationController
-  def new
-  end
 
   def new
     @like_comment = LikeComment.new
-  end
-
-  def index
-    @like_comments = LikeComment.all
   end
 
   def create
@@ -16,9 +10,6 @@ class LikeCommentsController < ApplicationController
     if like_comment.save
       redirect_to :back
     end
-  end
-
-  def show
   end
 
   def destroy

@@ -3,15 +3,17 @@ Blog::Application.routes.draw do
   resources :users do
     resources :albums do
       resources :images do
-        resources :image_comments
+        resources :like_images, only: [:destroy]
+        resources :image_comments do
+          resources :like_image_comments, only: [:destroy]
+        end
       end
     end
     resources :friendships
     resources :microposts do
-      match "/microposts/:micropost_id/:activate", to: "microposts#update", via: :patch
-      resources :like_microposts
+      resources :like_microposts, only: [:destroy]
       resources :comments do
-        resources :like_comments
+        resources :like_comments,  only: [:destroy]
       end
     end
   end
