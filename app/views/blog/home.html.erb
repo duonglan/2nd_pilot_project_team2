@@ -1,38 +1,45 @@
+<% provide(:title, "Home") %>
 <% if signed_in? %>
   <div class="row">
     <aside class="span4">
       <section>
-        <%= render 'shared/user_info', user: current_user %>
+        <%= render "shared/user_info", user: current_user %>
       </section>
       <section>
-        <%= render 'shared/micropost_form', user: current_user %>
+        <%= render "shared/micropost_form", user: current_user %>
       </section>
       <section>
       <h3>
         <%= link_to "Photos Albums", user_albums_path(current_user) %> (<%= current_user.albums.count %>)
       </h3>
       <section>
-        <%= render 'shared/user_profile', user: current_user %>
+        <%= render "shared/user_profile", user: current_user %>
+      </section>
+      <section>
+        <%= render "shared/activities" %>
       </section>
     </aside>
     <div class="span8">
-      <h3>New feeds</h3>
+      <h3>
+        New feeds
+      </h3>
       <ul class="posts">
         <% @microposts.each do |micropost| %>
-          <% if current_user.id == micropost.friend_id || current_user.friends.include?(micropost.friend_id)%>
+          <% if current_user.id == micropost.friend_id || current_user.friends.include?(micropost.friend_id) %>
             <%= render "shared/list_microposts", micropost: micropost %>
           <% end %>
         <% end %>
       </ul>
     </div>
-  </div>
-  <%= render 'shared/activities' %>
+  </div> 
 <% else %>
 	<div class="center hero-unit">
-		<h1>Wellcome to Facebook</h1>
+		<h1>
+      Wellcome to Facebook
+    </h1>
 		<h2>
-			Connect with friends and the world around you on Facebook. 
+			Connect with friends and the world around you on Facebook.
 		</h2>
-		<%= link_to "Signup now!!!", signup_path, class: "btn btn-large btn-primary"%>
+		<%= link_to "Signup now!!!", signup_path, class: "btn btn-large btn-primary" %>
 	</div>
 <% end %>

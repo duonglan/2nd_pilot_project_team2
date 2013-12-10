@@ -25,7 +25,7 @@
                   <span class="timestamp">
                     Posted <%= time_ago_in_words(group_micropost.created_at) %> ago.
                   </span>
-                  <% if current_user?(group_micropost.group.owner) || current_user?(group_micropost.user)%> 
+                  <% if current_user?(group_micropost.group.owner) || current_user?(group_micropost.user)%>
                     <%= link_to "Edit", edit_group_group_micropost_path(@group, group_micropost),class: "non-redirect edit_micropost_btn" %>
                     <%= link_to "Del", group_group_micropost_path(@group, group_micropost), method: :delete, data: { confirm: 'Are you sure?' } %>
                   <% end %>
