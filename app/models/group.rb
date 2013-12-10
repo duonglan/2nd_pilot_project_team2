@@ -9,6 +9,8 @@ class Group < ActiveRecord::Base
   validates :owner_id, presence: true
   validates :name, presence: true
 
+  include PublicActivity::Common
+
   def owned?(other_user)
       owner == other_user
   end

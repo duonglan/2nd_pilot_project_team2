@@ -7,6 +7,8 @@ class Comment < ActiveRecord::Base
 	validates :content, presence: true
   validates :micropost_id, presence: true
 
+  include PublicActivity::Common
+  
   def like_comment?(other_user)
     like_comments.find_by(user_id: other_user.id)
   end

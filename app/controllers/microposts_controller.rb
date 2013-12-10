@@ -29,6 +29,7 @@ class MicropostsController < ApplicationController
     @micropost = current_user.microposts.build(micropost_params)
     @micropost.update_attributes(friend_id: @user.id)
     if @micropost.save
+      @micropost.create_activity :create, owner: current_user
       flash[:success] = "Status created!"
       redirect_to :back
     else
