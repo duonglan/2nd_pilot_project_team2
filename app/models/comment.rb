@@ -1,16 +1,16 @@
 class Comment < ActiveRecord::Base
+  include PublicActivity::Common
   EXISTANCE = 0
+  
 	belongs_to :micropost
   belongs_to :user
   has_many :like_comments, dependent: :destroy
-	default_scope -> {order('created_at DESC')}
+	default_scope -> {order("created_at DESC")}
 	validates :content, presence: true
   validates :micropost_id, presence: true
 
-  include PublicActivity::Common
-  
-  def like_comment?(other_user)
-    like_comments.find_by(user_id: other_user.id)
+  def like_comment? other_user
+    like_comments.find_by user_id: other_user.id
   end
 
   def has_like?
