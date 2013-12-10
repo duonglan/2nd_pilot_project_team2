@@ -1,4 +1,6 @@
-<%= form_for(object.members.build(group_id: object.id)) do |f| %>
-  <div><%= f.hidden_field :group_id %></div>
-  <%= f.submit "Join", class: "btn btn btn-primary" %>
+<%= form_for (object.members.build(group_id: object.id)) do |f| %>
+  <div>
+    <%= f.hidden_field :group_id %>
+  </div>
+    <%= f.submit "Join", class: "btn btn btn-primary" %>
 <% end %>

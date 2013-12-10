@@ -1,36 +1,40 @@
 <% if !@group.owned?(current_user)%>
   <div id="follow_form">
     <% if @group.joined?(current_user) %>
-      <%= render 'quit' , object: @group %>
+      <%= render "quit", object: @group %>
       <section>
-        <%= render 'shared/group_micropost_form' %>
+        <%= render "shared/group_micropost_form" %>
       </section>
       <section>
-        <h3>Members (<%= @group.members.count %>)</h3>
+        <h3>
+          Members (<%= @group.members.count %>)
+        </h3>
         <% if @group.members.any? %>
-        <ol class="members">
-          <%= render partial: 'groups/member', collection: @members %>
-        </ol>
-        <%= will_paginate @members %>
+          <ol class="members">
+            <%= render partial: "groups/member", collection: @members %>
+          </ol>
+          <%= will_paginate @members %>
         <% end %>
       <section>
     <% else %>
-      <%= render 'join',object: @group %>
+      <%= render "join", object: @group %>
     <% end %>
   </div>
 <% else %>
   <div id="follow_form">
     <section>
-        <%= render 'shared/group_micropost_form' %>
-      </section>
-      <section>
-        <h3>Members (<%= @group.members.count %>)</h3>
-        <% if @group.members.any? %>
+      <%= render "shared/group_micropost_form" %>
+    </section>
+    <section>
+      <h3>
+        Members (<%= @group.members.count %>)
+      </h3>
+      <% if @group.members.any? %>
         <ol class="members">
-          <%= render partial: 'groups/member', collection: @members %>
+          <%= render partial: "groups/member", collection: @members %>
         </ol>
         <%= will_paginate @members %>
-        <% end %>
-      <section>
+      <% end %>
+    <section>
   </div>
 <% end %>

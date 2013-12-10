@@ -1,7 +1,7 @@
 <li>
   <%= link_to member.user.name, member.user %>
-  <% if current_user?(member.group.owner) && !current_user?(member.user)%> 
-	| <%= link_to "delete", member, method: :delete, data: { confirm: "You sure?" },
+  <% if current_user?(member.group.owner) && !current_user?(member.user) %>
+	  <%= link_to "delete", member, method: :delete, data: {confirm: "You sure?"},
 	    title: "delete" %>
   <% end %>
 </li>

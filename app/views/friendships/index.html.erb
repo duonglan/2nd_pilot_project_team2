@@ -1,24 +1,32 @@
-<h1>Friends</h1>
+<h1>
+  Friends
+</h1>
+<% provide(:title, "Friends") %>
 <% unless @user == current_user %>
-You do not have permission to access this page!
+  You do not have permission to access this page!
 <% else %>
-<div class="row">
+  <div class="row">
     <aside class="span4">
       <section>
-        <h4>All Friends:</h4>
-        <%= render 'friends' %>
+        <h4>
+          All Friends:
+        </h4>
+          <%= render "friends" %>
       </section>
     </aside>
     <aside class="span4">
       <section>
-        <h4>Pending Friends:</h4>
-        <%= render  'pending_friends' %>
+        <h4>
+          Pending Friends:
+        </h4>
+        <%= render "pending_friends" %>
       </section>
       <section>
-        <h4>Friend Requests Sent:</h4>
-        <%= render  'requested_friends' %>
-        
+        <h4>
+          Friend Requests Sent:
+        </h4>
+          <%= render "requested_friends" %>
       </section>
     </aside>
-</div>
+  </div>
 <% end %>
