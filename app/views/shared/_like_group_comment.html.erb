@@ -1,12 +1,13 @@
 <% if group_comment.like_group_comment?(current_user) %>
   <% group_comment.like_group_comments.each do |f| %>
     <% if f.user_id == current_user.id %>
-      <%= link_to "unlike", group_group_micropost_group_comment_like_group_comment_path(group, group_micropost, group_comment, f), method: :delete, class: "unlike" %>
+      <%= link_to "unlike", group_group_micropost_group_comment_like_group_comment_path(group, group_micropost, group_comment, f), method: :delete %>
     <% end %>
   <% end %>
 <% else %>
-  <%= link_to "like", group_group_micropost_group_comment_path(group, group_micropost, group_comment), method: :patch, class: "like" %>
+  <%= link_to "like", group_group_micropost_group_comment_path(group, group_micropost, group_comment, like: "like_group_comment"), method: :patch %>
 <% end %>
 <% if group_comment.has_like? %>
-  <%= group_comment.like_group_comments.count %> person like this
+  <%= image_tag "like.ico" %>
+  <%= group_comment.like_group_comments.count %>
 <% end %>

@@ -4,19 +4,21 @@ class User < ActiveRecord::Base
   has_many :groups,  foreign_key: "owner_id",  dependent: :destroy
   has_many :joined_groups, class_name: GroupMember.name,  dependent: :destroy
   has_many :microposts, dependent: :destroy
-  has_many :image_comments, dependent: :destroy
+  has_many :image_comments,through: :like_image_comments, dependent: :destroy
   has_many :comments, through: :microposts, dependent: :destroy
   has_many :like_microposts, dependent: :destroy
   has_many :like_comments, dependent: :destroy
   has_many :like_group_microposts, dependent: :destroy
   has_many :like_group_comments, dependent: :destroy
-  has_many :friends, through: :friendships, conditions: "status = 'accepted'"
-  has_many :requested_friends, through: :friendships, source: :friend,
-    conditions: "status = 'requested'", order: :created_at
-  has_many :pending_friends, through: :friendships, source: :friend,
-    conditions: "status = 'pending'", order: :created_at
-  has_many :friendships, dependent: :destroy
-  
+  has_many :like_images, dependent: :destroy
+  has_many :like_image_comments, dependent: :destroy
+  has_many :friends, :through => :friendships, :conditions => "status = 'accepted'"
+  has_many :requested_friends, :through => :friendships, :source => :friend,
+   :conditions => "status = 'requested'", :order => :created_at
+  has_many :pending_friends, :through => :friendships,
+   :source => :friend, :conditions => "status = 'pending'", :order => :created_at
+  has_many :friendships, :dependent => :destroy
+
   before_save {self.email = email.downcase}
 
   validates :name, presence: true, length: {maximum: 50} 

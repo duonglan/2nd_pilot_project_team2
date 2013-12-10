@@ -38,7 +38,7 @@ def index
         flash[:error] = "failed"
       end
     else
-      if params[:like] == "like_group"
+      if params[:like] == "like_group_micropost"
         group_micropost.like_group_microposts.build(user_id: current_user.id)
         if group_micropost.save
           redirect_to :back

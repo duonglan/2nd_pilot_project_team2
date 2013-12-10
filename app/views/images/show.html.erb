@@ -3,15 +3,16 @@
     <section>
       <ul class="posts">
         <%= link_to gravatar_for(@image.user), @image.user %>
-          <li class="user">
-            <%= link_to @image.user.name, @image.user %>
+        <li class="user">
+          <%= link_to @image.user.name, @image.user %>
+        </li>
+        <span class="timestamp">
+          Posted <%= time_ago_in_words(@image.created_at) %> ago.
             <% if current_user.id == @image.user_id %>
-              <%= link_to "Del Photo", "", method: :delete, data: { confirm: 'Are you sure?' } %>
+              <%= link_to "Delete Photo", "", method: :delete, data: { confirm: 'Are you sure?' } %>
             <% end %>
-          </li>
-          <li class="timestamp">
-            Posted <%= time_ago_in_words(@image.created_at) %> ago.
-          </li>            
+            <%= render "images/like_image" %> 
+        </span>              
       </ul>
     </section>
     <section>
@@ -22,11 +23,12 @@
               <div class="comment-display"> 
                 @<%= image_comment.user.name %>:
                 <%= image_comment.content %>
+                <%= render "images/like_image_comment", image_comment: image_comment %>
                 <% if image_comment.user_id == current_user.id %>
                   <%= link_to "Edit", "#", class: "non-redirect edit_comment_btn" %>
                 <% end %>
                 <% if image_comment.user_id == current_user.id || current_user.id == @image.user_id %>
-                  <%= link_to "Del", user_album_image_image_comment_path(current_user,@album,@image,image_comment), method: :delete, data: { confirm: "Are you sure?" } %>
+                  <%= link_to "Del", user_album_image_image_comment_path(current_user, @album, @image,image_comment), method: :delete, data: { confirm: "Are you sure?" } %>
                 <% end %>
               </div>
               <div class="edit_comment_wrap">
@@ -46,12 +48,11 @@
         </span>
       <% end %>
     </section>
-  </aside>
+  </aside> 
+  <h1>Photo</h1>    
   <div class = "center">
-    <h1>Photo</h1>
     <span class="image">
       <%= image_tag @image.image.url(:small) %>
-    </span>  
-  </div>
+    </span>    
+  </div>  
 </div>
->>>>>>> comment image

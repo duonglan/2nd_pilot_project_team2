@@ -1,0 +1,13 @@
+<% if image_comment.like_image_comment?(current_user) %>
+  <% image_comment.like_image_comments.each do |f| %>
+    <% if f.user_id == current_user.id %>
+      <%= link_to "unlike", user_album_image_image_comment_like_image_comment_path(@user, @album, @image, image_comment, f), method: :delete %>
+    <% end %>
+  <% end %>
+<% else %>
+  <%= link_to "like", user_album_image_image_comment_path(@user, @album, @image, image_comment, like: "like_image_comment"), method: :patch %>
+<% end %>
+<% if image_comment.has_like? %>
+  <%= image_tag "like.ico" %>
+  <%= image_comment.like_image_comments.count %>
+<% end %>

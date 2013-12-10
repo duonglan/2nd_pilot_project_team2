@@ -12,11 +12,23 @@ before_action :signed_in_user
 
   def update
     @image_comment = ImageComment.find params[:id]
-    if @image_comment.update_attributes image_comment_params
-      flash[:success] = "Comment updated"
-      redirect_to :back
+    if params[:image_comment_params]
+      @image_comment.update_attributes image_comment_params
+      if @image_comment.save
+        flash[:success] = "Comment updated"
+        redirect_to :back
+      else
+        flash[:erro] = "Comment didn't updated"
+      end
     else
-      flash[:erro] = "Comment didn't updated"
+      if params[:like] == "like_image_comment"
+        @image_comment.like_image_comments.build user_id: current_user.id
+        if @image_comment.save
+          redirect_to :back
+        else
+          flash[:erro] = "Like fail!"
+        end
+      end
     end
   end
 

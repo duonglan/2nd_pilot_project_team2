@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131209075319) do
+ActiveRecord::Schema.define(version: 20131210071900) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -126,6 +126,21 @@ ActiveRecord::Schema.define(version: 20131209075319) do
 
   create_table "like_group_microposts", force: true do |t|
     t.integer  "group_micropost_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "like_image_comments", force: true do |t|
+    t.integer  "image_comment_id"
+    t.integer  "image_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "like_images", force: true do |t|
+    t.integer  "image_id"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
