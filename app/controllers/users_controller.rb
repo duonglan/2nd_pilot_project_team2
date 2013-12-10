@@ -1,19 +1,19 @@
 class UsersController < ApplicationController
   before_action :signed_in_user, only: [:edit, :update, :show,]
-  before_action :correct_user,   only: [:edit, :update, :destroy]
+  before_action :correct_user, only: [:edit, :update, :destroy]
   
   def index
-    @search = Search.new(User, params[:search])
-    @search.order = 'name'  # optional
+    @search = Search.new User, params[:search]
+    @search.order = "name"
     @users = @search.run
   end
 
   def show
-  	@user = User.find(params[:id])
-    @microposts = Micropost.all.paginate(page: params[:page])
+  	@user = User.find params[:id]
+    @microposts = Micropost.all.paginate page: params[:page]
     @micropost = current_user.microposts.build
     @comments = @micropost.comments.build
-    if params[:micropost]|| params[:comment]
+    if params[:micropost] || params[:comment]
       redirect_to :back
     end
   end
@@ -27,11 +27,11 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
+    @user = User.find params[:id]
     @user.birthday = params[:user][:birthday]
     @user.sex = params[:user][:sex]
     @user.phone_number = params[:user][:phone_number]
-    if @user.update_attributes(user_params)
+    if @user.update_attributes user_params
       flash[:success] = "Profile updated"
       redirect_to @user
     else
@@ -40,7 +40,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
+    @user = User.new user_params
     if @user.save
       sign_in @user
       flash[:success] = "Welcome to Facebook!"
@@ -64,7 +64,7 @@ class UsersController < ApplicationController
     end
 
     def correct_user
-      @user = User.find(params[:id])
-      redirect_to(root_url) unless current_user?(@user)
+      @user = User.find params[:id]
+      redirect_to root_url unless current_user? @user
     end
 end

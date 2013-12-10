@@ -5,5 +5,4 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
   include PublicActivity::StoreController
   hide_action :current_user
-  #@activities = PublicActivity::Activity.order("created_at desc")
 end

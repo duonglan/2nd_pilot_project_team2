@@ -5,8 +5,7 @@ class BlogController < ApplicationController
       @microposts = Micropost.all
       @micropost = current_user.microposts.build
       @user = @micropost.user
-      @comments = @micropost.comments.build
-      
+      @comments = @micropost.comments.build 
     end
  end
 end
