@@ -6,9 +6,9 @@ before_action :signed_in_user
   end
 
   def edit
-    group = Group.find(params[:group_id])
-    group_micropost = GroupMicropost.find(params[:group_micropost_id])
-    group_comment = GroupComment.find(params[:id])
+    group = Group.find params[:group_id]
+    group_micropost = GroupMicropost.find params[:group_micropost_id]
+    group_comment = GroupComment.find params[:id]
   end
 
   def update
@@ -30,12 +30,12 @@ before_action :signed_in_user
   end
 
   def create
-    @group = Group.find(params[:group_id])
-    @group_micropost = GroupMicropost.find(params[:group_micropost_id])
-    @group_comment = @group_micropost.group_comments.build(group_comment_params)
-    @group_comment.update_attributes(user_id: current_user.id, group_id: @group.id)
+    @group = Group.find params[:group_id]
+    @group_micropost = GroupMicropost.find params[:group_micropost_id]
+    @group_comment = @group_micropost.group_comments.build group_comment_params
+    @group_comment.update_attributes user_id: current_user.id, group_id: @group.id
     if @group_comment.save
-      flash[:success] = "Comment!" 
+      flash[:success] = "Comment!"
     else
       flash[:error] = "Blank!"
     end
@@ -43,7 +43,7 @@ before_action :signed_in_user
   end
 
   def destroy
-    group_comment = GroupComment.find(params[:id])
+    group_comment = GroupComment.find params[:id]
     group_comment.destroy
     redirect_to :back
   end
