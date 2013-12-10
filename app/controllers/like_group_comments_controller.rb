@@ -8,8 +8,8 @@ class LikeGroupCommentsController < ApplicationController
   end
 
   def create
-    group_comment = GroupComment.find(params[:group_comment_id])
-    like_group_comment = current_user.like_group_comments.build()
+    group_comment = GroupComment.find params[:group_comment_id]
+    like_group_comment = current_user.like_group_comments.build
     if like_group_comment.save
       redirect_to :back
     end

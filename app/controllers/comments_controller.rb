@@ -39,7 +39,7 @@ class CommentsController < ApplicationController
     else
       redirect_to user_micropost_path current_user, @micropost
       flash[:erro] = "comment blank!"
-    end  
+    end
   end
 
   def update
@@ -60,5 +60,4 @@ class CommentsController < ApplicationController
   def comment_params
     params.require(:comment).permit(:content)
   end
-
 end

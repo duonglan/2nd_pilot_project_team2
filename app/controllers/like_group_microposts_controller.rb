@@ -8,7 +8,7 @@ class LikeGroupMicropostsController < ApplicationController
   end
 
   def create
-    group_micropost = GroupMicropost.find(params[:group_micropost_id])
+    group_micropost = GroupMicropost.find params[:group_micropost_id]
     like_group_micropost = current_user.like_group_microposts.build()
     if like_group_micropost.save
       redirect_to :back

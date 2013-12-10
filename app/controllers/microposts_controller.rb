@@ -3,7 +3,7 @@ class MicropostsController < ApplicationController
   before_action :correct_user,   only: :destroy
 
   def index
-    @user = User.find(params[:user_id])
+    @user = User.find params[:user_id]
     @microposts = Micropost.all
     @micropost = current_user.microposts.build
     @comments = @micropost.comments.build
@@ -11,8 +11,8 @@ class MicropostsController < ApplicationController
 
   def show
     @users = User.all
-    @user = User.find(params[:user_id])
-    @micropost = Micropost.find(params[:id])
+    @user = User.find params[:user_id]
+    @micropost = Micropost.find params[:id]
     @comment = @micropost.comments.build
   end
 
@@ -21,27 +21,27 @@ class MicropostsController < ApplicationController
   end
 
   def edit
-    @micropost = Micropost.find(params[:id])
+    @micropost = Micropost.find params[:id]
   end
 
   def create
-    @user = User.find(params[:user_id])
-    @micropost = current_user.microposts.build(micropost_params)
-    @micropost.update_attributes(friend_id: @user.id)
+    @user = User.find params[:user_id]
+    @micropost = current_user.microposts.build micropost_params
+    @micropost.update_attributes friend_id: @user.id
     if @micropost.save
       @micropost.create_activity :create, owner: current_user
       flash[:success] = "Status created!"
       redirect_to :back
     else
       flash[:erro] = "Status blank!"
-      redirect_to user_microposts_path current_user
+      redirect_to :back
     end
   end
 
   def update
-    microposts = Micropost.find(params[:id])
+    microposts = Micropost.find params[:id]
     if params[:micropost]
-      if microposts.update_attributes(micropost_params)
+      if microposts.update_attributes micropost_params
         flash[:success] = "Micropost updated"
         redirect_to :back
       else
@@ -51,11 +51,11 @@ class MicropostsController < ApplicationController
       if params[:share] == "share"
         micropost = current_user.microposts.build(content: microposts.content,
           friend_id: current_user.id, user_id: current_user.id)
-        micropost.update_attributes(status: true)
+        micropost.update_attributes status: true
         redirect_to :back
       else
         if params[:like] == "like"
-          microposts.like_microposts.build(user_id: current_user.id)
+          microposts.like_microposts.build user_id: current_user.id
           if microposts.save
             redirect_to :back
           end
@@ -76,7 +76,7 @@ class MicropostsController < ApplicationController
     end
 
     def correct_user
-      @micropost = current_user.microposts.find_by(id: params[:id])
+      @micropost = current_user.microposts.find_by id: params[:id]
       redirect_to root_url if @micropost.nil?
     end
 end
