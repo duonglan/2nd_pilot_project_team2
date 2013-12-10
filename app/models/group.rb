@@ -9,6 +9,7 @@ class Group < ActiveRecord::Base
   validates :owner_id, presence: true
   validates :name, presence: true
 
+<<<<<<< HEAD
   def owned?(other_user)
       owner == other_user
   end
@@ -21,6 +22,22 @@ class Group < ActiveRecord::Base
     members.create!(user_id: other_user.id)
   end
 
+=======
+  include PublicActivity::Common
+
+  def owned?(other_user)
+      owner == other_user
+  end
+
+  def joined?(other_user)
+    members.find_by(user_id: other_user.id)
+  end
+
+  def join!(other_user)
+    members.create!(user_id: other_user.id)
+  end
+
+>>>>>>> 9650d485c6259f6d6a52961f06f67b8ff0797118
   def quit(other_user)
     members.find_by(user_id: other_user.id).destroy!
   end
