@@ -20,6 +20,11 @@
       <%= render 'shared/micropost_form', user: @user %>
     </section>
     <section>
+      <h3>
+        <%= link_to "Photos Albums", user_albums_path(@user) %> (<%= @user.albums.count %>)
+      </h3>
+    </section>
+    <section>
       <%= render 'shared/user_profile', user: @user %>
     </section>
   </aside>

@@ -1,6 +1,16 @@
-
-<% @albums.each do |album| %>
-  <%if album.user_id == current_user.id%>
-    <li><%= link_to album.name, user_album_path(current_user, album)%></li>
+<h1>Your Albums (<%= current_user.albums.count %>)</h1>
+<%= link_to "New albums", new_user_album_path(current_user), class: "btn btn floatright" %>
+<ul>
+  <% @albums.each do |album| %>
+    <%if album.user_id == current_user.id%>
+      <br>
+      <li>
+        Album: "<%= link_to album.name, user_album_path(current_user, album) %>" (<%= album.images.count %> photos)
+        <%= link_to "Del", user_album_path(current_user, album), method: :delete, data: { confirm: 'Are you sure?' } %>
+      </li></br>
+      <% album.images.each do |image| %>
+        <%= link_to image_tag(image.image.url(:small)),user_album_image_path(current_user, album, image) %>
+      <% end %>
+    <% end %>
   <% end %>
-<% end %>
+</ul>

@@ -10,11 +10,7 @@ gem 'bootstrap-will_paginate', '0.0.9'
 gem "pry-debugger"
 gem 'rails-simple-search'
 gem "paperclip"
-<<<<<<< HEAD
-
-=======
 gem 'public_activity'
->>>>>>> 9650d485c6259f6d6a52961f06f67b8ff0797118
 group :development, :test do
   gem 'sqlite3', '1.3.8'
   gem 'rspec-rails', '2.13.1'

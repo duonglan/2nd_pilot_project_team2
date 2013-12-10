@@ -1,2 +1,40 @@
 
 <%= image_tag @image.image.url %>
+<div class = "center">
+  <h1>Your Photo</h1>
+  <span class="image">
+    <%= image_tag @image.image.url(:small) %>
+  </span>
+  <br>
+  <%= link_to "Del", "", method: :delete, data: { confirm: 'Are you sure?' } %>
+  <span class="timestamp">
+    Posted <%= time_ago_in_words(@image.created_at) %> ago.
+  </span>
+  <br/>
+  <%if @image.has_comment? %>
+    <% @image.image_comments.each do |image_comment| %>
+      <div class="comment-display">
+        <% if image_comment.user %>
+        @<%= image_comment.user.name %>:
+        <%= image_comment.content %>
+        <% if image_comment.user_id == current_user.id %>
+          <%= link_to "Edit", "#", class: "non-redirect edit_comment_btn" %>
+          <%= link_to "Del", "#", method: :delete, data: { confirm: "Are you sure?" } %>
+        <% end %>
+        <% end %>
+      </div>
+      <div class="edit_comment_wrap">
+        <%= form_for [current_user, @album, @image, @image_comment] do |f| %>
+          <%= f.text_field :content %>
+          <%= f.submit "Update", class: "btn btn-primary non-redirect update_comment_btn" %>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+  <%= form_for [@user, @album, @image, @image_comment] do |image_comment| %>
+    <span class="field">
+      <%= image_comment.text_field :content, placeholder: "Comment.."  %>
+      <%= image_comment.submit "Post" %>
+    </span>
+<% end %>
+<div>
