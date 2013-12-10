@@ -90,6 +90,15 @@ ActiveRecord::Schema.define(version: 20131209070312) do
 
   add_index "groups", ["owner_id"], name: "index_groups_on_owner_id"
 
+  create_table "image_comments", force: true do |t|
+    t.string   "content"
+    t.integer  "user_id"
+    t.integer  "album_id"
+    t.integer  "image_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "images", force: true do |t|
     t.integer  "album_id"
     t.integer  "user_id"

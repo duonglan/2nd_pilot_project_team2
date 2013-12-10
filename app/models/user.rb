@@ -1,8 +1,10 @@
 class User < ActiveRecord::Base
   has_many :albums, dependent: :destroy
+  has_many :images, through: :album, dependent: :destroy
   has_many :groups,  foreign_key: "owner_id",  dependent: :destroy
   has_many :joined_groups, class_name:"GroupMember",  dependent: :destroy
   has_many :microposts, dependent: :destroy
+  has_many :image_comments, dependent: :destroy
   has_many :comments, through: :microposts, dependent: :destroy
   has_many :like_microposts, dependent: :destroy
   has_many :like_comments, dependent: :destroy
