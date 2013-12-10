@@ -8,6 +8,7 @@ Blog::Application.routes.draw do
     end
     resources :friendships
     resources :microposts do
+      match "/microposts/:micropost_id/:activate", to: "microposts#update", via: :patch
       resources :like_microposts
       resources :comments do
         resources :like_comments

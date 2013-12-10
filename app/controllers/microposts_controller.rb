@@ -17,7 +17,7 @@ class MicropostsController < ApplicationController
   end
 
   def new
-    @micropost = current_user.microposts.build
+    @micropost = current_user.microposts.new
   end
 
   def edit
@@ -26,6 +26,7 @@ class MicropostsController < ApplicationController
 
   def create
     @user = User.find(params[:user_id])
+<<<<<<< HEAD
     @micropost = current_user.microposts.build(micropost_params)
     @micropost.update_attributes(friend_id: @user.id)
     if @micropost.save
@@ -35,22 +36,43 @@ class MicropostsController < ApplicationController
     else
       flash[:erro] = "Status blank!"
       redirect_to user_microposts_path current_user
+=======
+    if params[:micropost]
+      @micropost = current_user.microposts.build(micropost_params)
+      @micropost.update_attributes(friend_id: @user.id)
+      if @micropost.save
+        flash[:success] = "Status created!"
+        redirect_to :back
+      else
+        flash[:erro] = "Status blank!"
+        redirect_to :back
+      end
     end
+
   end
 
   def update
-    micropost = Micropost.find(params[:id])
+    microposts = Micropost.find(params[:id])
     if params[:micropost]
-      if micropost.update_attributes(micropost_params)
+      if microposts.update_attributes(micropost_params)
         flash[:success] = "Micropost updated"
         redirect_to :back
       else
         flash[:erro] = "Micropost didn't updated"
       end
     else
-      micropost.like_microposts.build(user_id: current_user.id)
-      if micropost.save
+      if params[:share] == "share"
+        micropost = current_user.microposts.build(content: microposts.content,
+          friend_id: current_user.id, user_id: current_user.id)
+        micropost.update_attributes(status: true)
         redirect_to :back
+      else
+        if params[:like] == "like"
+          microposts.like_microposts.build(user_id: current_user.id)
+          if microposts.save
+            redirect_to :back
+          end
+        end
       end
     end
   end

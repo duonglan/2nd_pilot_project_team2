@@ -43,9 +43,21 @@ def index
         flash[:error] = "failed"
       end
     else
-      group_micropost.like_group_microposts.build(user_id: current_user.id)
-      if group_micropost.save
-        redirect_to :back
+      if params[:like] == "like_group"
+        group_micropost.like_group_microposts.build(user_id: current_user.id)
+        if group_micropost.save
+          redirect_to :back
+        end
+      else
+       if params[:share] == "share_group"
+          micropost = current_user.microposts.build(content: group_micropost.content,
+            friend_id: current_user.id, user_id: current_user.id)
+          micropost.update_attributes(status: true)
+          if micropost.save
+            flash[:success] = " Shared!!!"
+            redirect_to :back
+          end
+        end
       end
     end
   end
