@@ -1,6 +1,14 @@
 <% provide(:title, "Photo") %>
-<div class="row">
-  <aside class="span4">
+<div class="main-content">
+  <div class="center">
+    <h1>
+      Photo
+    </h1>
+    <span class="image">
+      <%= image_tag @image.image.url(:small) %>
+    </span>
+  </div>
+  <br/>
     <section>
       <ul class="posts">
         <%= link_to gravatar_for(@image.user), @image.user %>
@@ -49,13 +57,5 @@
         </span>
       <% end %>
     </section>
-  </aside>
-  <div class="center">
-    <h1>
-      Photo
-    </h1>
-    <span class="image">
-      <%= image_tag @image.image.url(:small) %>
-    </span>
-  </div>
+  
 </div>

@@ -1,9 +1,7 @@
 <section>
-  <h1>Group:</h1>
-  <h3 class="group-name">
+  <h1 class="group-name">
       <%= @group.name %>
-  </h3>
-
+  </h1>
   <% if @group.owned?(current_user)%>
     <td><%= link_to "Edit",  "#" %></td>
     <td><%= link_to "Del", group_path(@group), method: :delete, data: { confirm: 'Are you sure?' } %></td>

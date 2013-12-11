@@ -1,34 +1,33 @@
 <% provide(:title, @group.name) %>
-<div class="row">
-  <aside class="span4">
+<div class="main-content">
+  <section>
     <section>
-      <%= render "shared/group_info"%>
       <%= render "join_form" if signed_in? %>
+      <%= render "shared/group_info"%>
     </section>
-  </aside>
-    <div class="span8">
-      <% if @group.joined?(current_user) %>
-        <h1>____ RECENT POSTS ____</h1>
-        <% if @group_microposts.any? %>
-          <ul class="posts">
-            <% @group_microposts.each do |group_micropost| %>
-              <li>
-                <%= link_to gravatar_for(group_micropost.user),group_micropost.user %>
-                <span class="user">
-                  <%= link_to group_micropost.user.name, group_micropost.user %>
+  </section>   
+    <% if @group.joined?(current_user) %>
+      <h1>____ RECENT POSTS ____</h1>
+      <% if @group_microposts.any? %>
+        <ul class="posts">
+          <% @group_microposts.each do |group_micropost| %>
+            <li>
+              <%= link_to gravatar_for(group_micropost.user),group_micropost.user %>
+              <span class="user">
+                <%= link_to group_micropost.user.name, group_micropost.user %>
+              </span>
+              <div class="micropost-display">
+                <span class="content">
+                  <%= exercept group_micropost.content %>
+                  <%= render "shared/like_group_micropost", group_micropost: group_micropost, group: @group %>   
                 </span>
-                <div class="micropost-display">
-                  <span class="content">
-                    <%= exercept group_micropost.content %>
-                    <%= render "shared/like_group_micropost", group_micropost: group_micropost, group: @group %>   
-                  </span>
-                  <span class="timestamp">
-                    Posted <%= time_ago_in_words(group_micropost.created_at) %> ago.
-                  </span>
-                  <% if current_user?(group_micropost.group.owner) || current_user?(group_micropost.user)%>
-                    <%= link_to "Edit", edit_group_group_micropost_path(@group, group_micropost),class: "non-redirect edit_micropost_btn" %>
-                    <%= link_to "Del", group_group_micropost_path(@group, group_micropost), method: :delete, data: { confirm: 'Are you sure?' } %>
-                  <% end %>
+                <span class="timestamp">
+                  Posted <%= time_ago_in_words(group_micropost.created_at) %> ago.
+                </span>
+                <% if current_user?(group_micropost.group.owner) || current_user?(group_micropost.user)%>
+                  <%= link_to "Edit", edit_group_group_micropost_path(@group, group_micropost),class: "non-redirect edit_micropost_btn" %>
+                  <%= link_to "Del", group_group_micropost_path(@group, group_micropost), method: :delete, data: { confirm: 'Are you sure?' } %>
+                <% end %>
                 </div>
                 <div class="edit_micropost_wrap">
                   <%= form_for [@group, group_micropost] do |f| %>

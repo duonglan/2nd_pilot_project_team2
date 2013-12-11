@@ -1,27 +1,29 @@
 <% provide(:title, "All Groups") %>
-<h1>
-  Groups
-</h1>
-<%= link_to "New group", new_group_path, class: "btn btn floatright" %>
-<ul class="teams">
-  <% @groups.each do |group| %>
-    <section>
-      <li>
-        <h3>
-          <%= link_to group.name, group %>
-        </h3>
-        Admin: <%= group.owner.name %>
-        <br/>
-        Members: <%= group.members.count %>
-        <% unless group.owned?(current_user) %>
-          <% if group.joined?(current_user) %>
-            <%= render "quit", object: group %>
-          <% else %>
-            <%= render "join", object: group %>
+<div class="main-content">
+  <h1>
+    Groups
+  </h1>
+  <%= link_to "New group", new_group_path, class: "btn btn floatright" %>
+  <ul class="teams">
+    <% @groups.each do |group| %>
+      <section>
+        <li>
+          <h3>
+            <%= link_to group.name, group %>
+          </h3>
+          Admin: <%= group.owner.name %>
+          <br/>
+          Members: <%= group.members.count %>
+          <% unless group.owned?(current_user) %>
+            <% if group.joined?(current_user) %>
+              <%= render "quit", object: group %>
+            <% else %>
+              <%= render "join", object: group %>
+            <% end %>
           <% end %>
-        <% end %>
-      </li>
-    </section>
-  <% end %>
-  <%= will_paginate %>
-</ul>
+        </li>
+      </section>
+    <% end %>
+    <%= will_paginate %>
+  </ul>
+</div>
