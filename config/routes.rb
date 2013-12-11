@@ -1,5 +1,5 @@
 Blog::Application.routes.draw do
-  resources :activities
+  #resources :activities
   resources :users do
     resources :albums do
       resources :images do
