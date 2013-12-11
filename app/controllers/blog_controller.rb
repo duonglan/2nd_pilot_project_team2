@@ -3,7 +3,7 @@ class BlogController < ApplicationController
     if signed_in?
       @activities = PublicActivity::Activity.order("created_at desc")
         .paginate(page: params[:page], per_page: 20)
-      @microposts = Micropost.all
+      @microposts = Micropost.paginate(page: params[:page], per_page: 20)
       @micropost = current_user.microposts.build
       @user = @micropost.user
       @comments = @micropost.comments.build 
