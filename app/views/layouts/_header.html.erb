@@ -2,20 +2,19 @@
   <div class="navbar-inner">
     <div class="container">
       <%= link_to "facebook", root_path, id: "logo" %>
+      <%= link_to "Search Friends", users_path( action: "search" ), id: "logo" %>
       <nav>
         <ul class="nav pull-right">
+          <% if signed_in? %>
+          <li><%= link_to current_user.name, user_path(current_user) %></li>
+          <% end %>
           <li><%= link_to "Home", root_path %></li>
           <% if signed_in? %>
-            <li><%= link_to "Group", groups_path %></li>
-            <li><%= link_to "Find Friends", users_path %></li>
             <li id="fat-menu" class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <%= current_user.name %> <b class="caret"></b>
+                <%= image_tag("setting.ico") %> <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                <li><%= link_to "Timeline", user_path(current_user) %></li>
-                <li><%= link_to "Friends", user_friendships_path(current_user) %></li>
-                <li><%= link_to "Photos Albums", user_albums_path(current_user) %></li>
                 <li class="divider"></li>
                 <li>
                   <%= link_to "Sign out", signout_path, method: "delete" %>

@@ -1,4 +1,4 @@
-<h3>My Profile</h3>
+<h3>Profile</h3>
 <span>
   Name: <%= user.name %>
 </span>
@@ -15,8 +15,13 @@
   Phone: <%= user.phone_number %>
 </span>
 <span>
-  Friends: <%= user.friends.count %>
+  <%= link_to "Friends", user_friendships_path(user) %>: <%= user.friends.count %>
 </span>
 <span>
-  Album: <%= user.albums.count %>
+  <%= link_to "Albums", user_albums_path(user) %> : <%= user.albums.count %>
 </span>
+<% if current_user?(user) %>
+  <span>
+    <%= link_to "Group", groups_path %> :<%= user.albums.count %>
+  </span>
+<% end %>

@@ -1,43 +1,54 @@
 <% provide(:title, @user.name) %>
 <div class="main-content">
-  <section>
-    <% if current_user?(@user) || current_user.friends.include?(@user)%>
+  <div>
+  <% unless current_user?(@user) %>
+    <section>
+      <%= render "shared/user_info", user: @user %>
+    </section>
+    <% unless current_user?(@user) || current_user.requested_friends.include?(@user) || current_user.friends.include?(@user) || current_user.pending_friends.include?(@user) %>
+      <%= link_to "Add friend", user_friendships_path(@user.id), method: :post, :class => 'btn btn-mini' %>
+    <% end %>
+    <section>
+      <%= render "shared/user_profile", user: @user %>
+    </section>
+  <% end %>
+  <% if current_user?(@user)||current_user.friends.include?(@user) %>
+    <section>
       <%= render "shared/micropost_form", user: @user %>
-    <%end%>
-  </section>
+    </section>
+  <% end %>
+</div>
   <% if current_user?(@user) %>
     <h3> My page</h3>
     <ul class="posts">
       <% @microposts.each do |micropost| %>
         <% if micropost.friend_id == current_user.id %>
           <% unless micropost.user_id == current_user.id %>
-            <%= micropost.user.name %> TO <%= current_user.name %>
+            <%= link_to micropost.user.name, user_path(micropost.user_id) %> TO 
+            <%= link_to current_user.name, user_path(current_user) %>
           <% end %>
-          <% if current_user?(@user)||current_user.friends.include?(@user) %>
-            <%= render "shared/list_microposts", micropost: micropost %>
-          <% end %> 
+          <%= render "shared/list_microposts", micropost: micropost %>
         <% end %> 
       <% end %>
     </ul>
   <% else %> 
-    <h3> 
-      Time line
-    </h3>
+    <h3> Time line</h3>
     <ul class="posts">
       <% @microposts.each do |micropost| %>
         <% if micropost.friend_id == @user.id && micropost.is_public?%>
           <% unless micropost.user_id == micropost.friend_id %>
-            <%= micropost.user.name %> TO <%= @user.name %>
+          <%= link_to micropost.user.name, user_path(micropost.user_id) %>
+          TO <%= link_to @user.name, user_path(@user) %>
           <% end %>
           <%= render "shared/list_microposts", micropost: micropost %>
         <% end %> 
       <% end %>
     </ul>
   <% end %>
-  </div>
+
   <div class="right-sidebar">
       <section>
         <%#= render "shared/activities" %>
       </section>
-    </div>
+  </div>
 </div>
