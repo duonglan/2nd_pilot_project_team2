@@ -1,3 +1,4 @@
+<% provide(:title, "Photo") %>
 <div class="row">
   <aside class="span4">
     <section>
@@ -7,11 +8,11 @@
           <%= link_to @image.user.name, @image.user %>
         </li>
         <span class="timestamp">
-          Posted <%= time_ago_in_words(@image.created_at) %> ago.
-            <% if current_user.id == @image.user_id %>
-              <%= link_to "Delete Photo", "", method: :delete, data: { confirm: 'Are you sure?' } %>
-            <% end %>
-            <%= render "images/like_image" %> 
+          Posted <%= time_ago_in_words @image.created_at %> ago.
+          <% if current_user.id == @image.user_id %>
+            <%= link_to "Delete Photo", "", method: :delete, data: {confirm: "Are you sure?"} %>
+          <% end %>
+          <%= render "images/like_image" %> 
         </span>              
       </ul>
     </section>
@@ -19,16 +20,16 @@
       <%if @image.has_comment? %>
         <div class="comment-display">
           <% @image.image_comments.each do |image_comment| %>
-            <% if image_comment.user %> 
-              <div class="comment-display"> 
+            <% if image_comment.user %>
+              <div class="comment-display">
                 @<%= image_comment.user.name %>:
                 <%= image_comment.content %>
                 <%= render "images/like_image_comment", image_comment: image_comment %>
                 <% if image_comment.user_id == current_user.id %>
-                  <%= link_to "Edit", "#", class: "non-redirect edit_comment_btn" %>
+                  <%= link_to "Edit", "", class: "non-redirect edit_comment_btn" %>
                 <% end %>
                 <% if image_comment.user_id == current_user.id || current_user.id == @image.user_id %>
-                  <%= link_to "Del", user_album_image_image_comment_path(current_user, @album, @image,image_comment), method: :delete, data: { confirm: "Are you sure?" } %>
+                  <%= link_to "Del", user_album_image_image_comment_path(current_user, @album, @image, image_comment), method: :delete, data: {confirm: "Are you sure?"} %>
                 <% end %>
               </div>
               <div class="edit_comment_wrap">
@@ -38,7 +39,7 @@
                 <% end %>
               </div>
             <% end %>
-          <% end %> 
+          <% end %>
         </div>
       <% end %>
       <%= form_for [@user, @album, @image, @image_comment] do |image_comment| %>
@@ -48,11 +49,13 @@
         </span>
       <% end %>
     </section>
-  </aside> 
-  <h1>Photo</h1>    
-  <div class = "center">
+  </aside>
+  <div class="center">
+    <h1>
+      Photo
+    </h1>
     <span class="image">
       <%= image_tag @image.image.url(:small) %>
-    </span>    
-  </div>  
+    </span>
+  </div>
 </div>

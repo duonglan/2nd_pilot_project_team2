@@ -1,12 +1,9 @@
 <% provide(:title, "Home") %>
 <% if signed_in? %>
   <div class="row">
-    <aside class="span4">
+    <aside class="left-sidebar">
       <section>
         <%= render "shared/user_info", user: current_user %>
-      </section>
-      <section>
-        <%= render "shared/micropost_form", user: current_user %>
       </section>
       <section>
       <h3>
@@ -15,21 +12,26 @@
       <section>
         <%= render "shared/user_profile", user: current_user %>
       </section>
+    </aside>
+      <div class="main-content">
+        <section>
+          <%= render "shared/micropost_form", user: current_user %>
+        </section>
+        <h3>
+          New feeds
+        </h3>
+        <ul class="posts">
+          <% @microposts.each do |micropost| %>
+            <% if current_user.id == micropost.friend_id || current_user.friends.include?(micropost.friend_id) %>
+              <%= render "shared/list_microposts", micropost: micropost %>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+    <div class="right-sidebar">
       <section>
         <%= render "shared/activities" %>
       </section>
-    </aside>
-    <div class="span8">
-      <h3>
-        New feeds
-      </h3>
-      <ul class="posts">
-        <% @microposts.each do |micropost| %>
-          <% if current_user.id == micropost.friend_id || current_user.friends.include?(micropost.friend_id) %>
-            <%= render "shared/list_microposts", micropost: micropost %>
-          <% end %>
-        <% end %>
-      </ul>
     </div>
   </div> 
 <% else %>
