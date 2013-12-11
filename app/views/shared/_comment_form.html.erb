@@ -1,16 +1,18 @@
 <% if micropost.has_comment? %>
   <% micropost.comments.each do |comment| %>
     <div class="comment-display">
+      <div >
       @<%= comment.user.name %>:
       <%= wrap(comment.content) %>
-      <span class="timestamp">
-        Posted <%= time_ago_in_words(comment.created_at) %> ago.
-      </span>
+    </div>
       <%= render "shared/like_comment", micropost: micropost, comment: comment %>
       <% if comment.user_id == current_user.id %>
         <%= link_to 'Edit',  edit_user_micropost_comment_path(current_user, micropost, comment), class: "non-redirect edit_comment_btn" %>
         <%= link_to 'Del', user_micropost_comment_path(current_user, micropost, comment), method: :delete, data: { confirm: 'Are you sure?' } %>
       <% end %>
+      <span class="timestamp">
+        Posted <%= time_ago_in_words(comment.created_at) %> ago.
+      </span>
     </div>
     <div class="edit_comment_wrap">
       <%= form_for [current_user, micropost, comment] do |f| %>
@@ -25,8 +27,7 @@
   <%= form_for [current_user, micropost, @comments] do |comment| %>
     <%= render 'shared/error_messages', object: comment.object %>
     <span class="field">
-      <%= comment.text_field :content, placeholder: "Comment.."  %>
-      <%= comment.submit "Post" %>
+      <%= comment.text_field :content, placeholder: "Write comment.."  %>
     </span>
   <% end %>
 <% end %>

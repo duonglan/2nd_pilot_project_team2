@@ -1,18 +1,22 @@
-<% unless @user.friends.empty? %>
+<% if @user.friends.empty? %>
+  not friend
+<% else %>
   <ul class="friends">
-    <% @user.friends.each do |u| %>
+    <% @user.friends.each do |user| %>
       <li>
-        <%= gravatar_for(u, size: 52)%>
+        <%= gravatar_for(user, size: 52)%>
         <div class="info">
-          <%= link_to u.name, user_path(u.id) %>
-          <% if signed_in? && @user = current_user %>
+          <%= link_to user.name, user_path(user.id) %>
+          <% if current_user?(@user) %>
             <br/>
-            <%= link_to "unfriend", user_friendship_path(current_user.id, u.id), method: :delete, confirm: "Reject friend request! Are you sure?", class: "btn btn-mini" %>
+            <%= link_to "unfriend", user_friendship_path(current_user.id, user.id), method: :delete, confirm: "Reject friend request! Are you sure?", class: "btn btn-mini" %>
           <% end %>
+          <% unless current_user?(user) || current_user.requested_friends.include?(user) || current_user.friends.include?(user) || current_user.pending_friends.include?(user) %>
+          <%= link_to "Add friend", user_friendships_path(user.id), method: :post, :class => 'btn btn-mini' %>
+        <% end %>
+          
          </div>
       </li>
     <% end %>
   </ul>
-<% else %>
-  None
 <% end %>
