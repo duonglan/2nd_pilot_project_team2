@@ -5,9 +5,10 @@
         <%= gravatar_for(u, size: 52)%>
         <div class="info">
           <%= link_to u.name, user_path(u.id) %>
+          <br/>
           <% if signed_in? && @user = current_user %>
-            <%= link_to "confirm", user_friendship_path(current_user.id,u.id), method: :put, confirm: "Accept friend request! Are you sure?", class: "btn btn-mini" %>
-            <%= link_to "not now", user_friendship_path(current_user.id, u.id), method: :delete, confirm: "Reject friend request! Are you sure?", class: "btn btn-mini"  %>
+            <%= link_to "confirm", user_friendship_path(current_user.id,u.id), method: :put, confirm: "Accept friend request! Are you sure?", class: "btn btn-mini floatright" %>
+            <%= link_to "not now", user_friendship_path(current_user.id, u.id), method: :delete, confirm: "Reject friend request! Are you sure?", class: "btn btn-mini floatright"  %>
           <% end %>
         </div>
       </li>

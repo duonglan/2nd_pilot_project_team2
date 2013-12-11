@@ -1,13 +1,21 @@
-<br/>
 <% if group_micropost.has_comment? %>
   <% group_micropost.group_comments.each do |group_comment| %>
+    <% if group_comment.user.avatar.blank? %>
+      <%= link_to gravatar_for(group_comment.user, size: 52), group_comment.user, class: "avatar-small" %>
+    <% elsif group_comment.user.avatar? %>
+      <%= link_to image_tag(group_comment.user.avatar), group_comment.user, class: "avatar-small" %>
+    <% end %>
     <div class="comment-display">
-      @<%= group_comment.user.name %>:
+      <%= group_comment.user.name %>:
       <%= wrap(group_comment.content) %>
+      <br/>
+      <span class="timestamp">
+        about <%= time_ago_in_words(group_comment.created_at) %> ago.
+      </span>
       <%= render "shared/like_group_comment", group_micropost: group_micropost, group: @group, group_comment: group_comment %>
       <% if group_comment.user_id == current_user.id || group_micropost.user_id == current_user.id %>
-        <%= link_to "Edit", edit_group_group_micropost_group_comment_path(@group, group_micropost, group_comment), class: "non-redirect edit_comment_btn" %>
-        <%= link_to "Del", group_group_micropost_group_comment_path(@group, group_micropost, group_comment), method: :delete, data: {confirm: "Are you sure?"} %>
+        <%= link_to "edit", edit_group_group_micropost_group_comment_path(@group, group_micropost, group_comment), class: "non-redirect edit_comment_btn" %>
+        <%= link_to "del", group_group_micropost_group_comment_path(@group, group_micropost, group_comment), method: :delete, data: {confirm: "Are you sure?"} %>
       <% end %>
     </div>
     <div class="edit_comment_wrap">
@@ -18,9 +26,10 @@
     </div>
   <% end %>
 <% end %>
-<%= form_for [@group, group_micropost, @group_comment] do |group_comment| %>
-  <span class="field">
-    <%= group_comment.text_field :content, placeholder: "Comment.."  %>
-    <%= group_comment.submit "Post" %>
-  </span>
-<% end %>
+<div class="comment-form">
+  <%= form_for [@group, group_micropost, @group_comment] do |group_comment| %>
+    <span class="field">
+      <%= group_comment.text_field :content, placeholder: "Comment.."  %>
+    </span> 
+  <% end %>
+</div> 

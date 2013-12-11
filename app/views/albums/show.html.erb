@@ -4,7 +4,7 @@
     <%= @album.name %> (<%= @album.images.count %> photos)
   </h1>
   <h2>
-    Posted <%= time_ago_in_words @album.created_at %> ago.
+    about <%= time_ago_in_words @album.created_at %> ago.
   </h2>
     <%= link_to "Del Album", user_album_path(current_user, @album), method: :delete, data:{confirm: "Are you sure?"} , class: "btn btn floatright" %>
     <%= link_to "New Album", new_user_album_path(current_user), class: "btn btn floatright" %>

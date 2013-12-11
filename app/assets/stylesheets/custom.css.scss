@@ -22,6 +22,8 @@ body {
 
 section {
   overflow: auto;
+  margin: 5px 0;
+  padding-bottom: 10px;
 }
 
 textarea {
@@ -225,9 +227,12 @@ aside {
 
 .custom-comment {
   clear: both;
-  width: 100%;
+  width: 80%;
+  padding-right: 10px;
   float:left;
-  margin-bottom: -20px;
+  margin-left: 80px;
+  margin-bottom: 10px;
+  background-color: #EDEFF4;
 }
 
 .custom-form {
@@ -279,8 +284,7 @@ ul.friends {
 /* Micropost edit form */
 .edit_micropost_wrap {
   display: none;
-  width: 500px;
-  margin-left: 90px;
+  width: 435px;
 
   textarea {
     height: 50px;
@@ -294,10 +298,11 @@ ul.friends {
 
 .edit_comment_wrap {
   display: none;
-
+  height: 30px;
+  margin-top: -30px;
   input[type="text"] {
-    margin: 5px 0;
-    width: 519px;
+    
+    width: 435px;
   }
 }
 
@@ -366,4 +371,32 @@ ul.albums {
     width: 400px;
     height: 400px;
   }
+}
+.comment-display {
+  background-color: #EDEFF4;
+  padding-left: 40px;
+  margin-top: -31px;
+}
+.comment-form {
+  padding-top: 5px;
+  height: 40px ;
+}
+
+.avatar-large img {
+  width: 200px;
+  height: 200px;
+}
+
+.avatar-medium img {
+  width: 60px;
+  height: 60px;
+}
+
+.avatar-small img {
+  width: 30px;
+  height: 30px;
+}
+
+.user-name {
+  clear: both;
 }

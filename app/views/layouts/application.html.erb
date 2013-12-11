@@ -16,11 +16,6 @@
     </div>
     <div class="container">
       <div class="row">
-        <div class="left-sidebar">
-          <% if signed_in? %>
-            <%= render "layouts/left_sidebar" %>
-          <% end %>
-        </div>
         <% flash.each do |key, value| %>
           <div class="alert alert-<%= key %>">
             <%= value %>

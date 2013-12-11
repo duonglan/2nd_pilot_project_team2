@@ -1,18 +1,27 @@
 <% @activities.each do |activity| %>
-  <h5>
+  <div>
     <% if current_user.friends.include?(activity.owner) && activity.trackable %>
-       <% if activity.trackable_type == Comment.name && activity.trackable %>
+      <% if activity.trackable_type == Comment.name && activity.trackable %>
+      <% if activity.owner.avatar.blank? %>
+        <%= link_to gravatar_for(activity.owner, size: 52), activity.owner, class: "avatar-small" %>
+      <% elsif activity.owner.avatar? %>
+        <%= link_to image_tag(activity.owner.avatar), activity.owner, class: "avatar-small" %>
+      <% end %>
       <%= link_to activity.owner.name, activity.owner if activity.owner %>
       added comment to 
-      <%= link_to activity.trackable.micropost.content, activity.trackable.micropost.content %></h5>
-      <h5>
+      <%= link_to activity.trackable.micropost.content, activity.trackable.micropost.content %></div>
+      <div>
       <% elsif activity.trackable_type == Micropost.name && activity.trackable %>
         <%if activity.trackable.user_id == activity.trackable.friend_id %>
+          <% if activity.owner.avatar.blank? %>
+            <%= link_to gravatar_for(activity.owner, size: 52), activity.owner, class: "avatar-small" %>
+          <% elsif activity.owner.avatar? %>
+            <%= link_to image_tag(activity.owner.avatar), activity.owner, class: "avatar-small" %>
+           <% end %>
           <%= link_to activity.owner.name, activity.owner %>
           create status <%= link_to activity.trackable.content, activity.trackable.content %>
         <% end %>
       <% end %>
     <% end %>
-  </h5>
+  </div>
 <% end %>
-<%= will_paginate @activities %>

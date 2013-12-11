@@ -3,9 +3,6 @@
     <% if @group.joined?(current_user) %>
       <%= render "quit", object: @group %>
       <section>
-        <%= render "shared/group_micropost_form" %>
-      </section>
-      <section>
         <h3>
           Members (<%= @group.members.count %>)
         </h3>
@@ -22,9 +19,6 @@
   </div>
 <% else %>
   <div id="follow_form">
-    <section>
-      <%= render "shared/group_micropost_form" %>
-    </section>
     <section>
       <h3>
         Members (<%= @group.members.count %>)

@@ -9,7 +9,7 @@
           <%= link_to user.name, user_path(user.id) %>
           <% if current_user?(@user) %>
             <br/>
-            <%= link_to "unfriend", user_friendship_path(current_user.id, user.id), method: :delete, confirm: "Reject friend request! Are you sure?", class: "btn btn-mini" %>
+            <%= link_to "unfriend", user_friendship_path(current_user.id, user.id), method: :delete, confirm: "Reject friend request! Are you sure?", class: "btn btn-mini floatright" %>
           <% end %>
           <% unless current_user?(user) || current_user.requested_friends.include?(user) || current_user.friends.include?(user) || current_user.pending_friends.include?(user) %>
           <%= link_to "Add friend", user_friendships_path(user.id), method: :post, :class => 'btn btn-mini' %>

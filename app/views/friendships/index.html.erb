@@ -1,7 +1,11 @@
 <% provide(:title, "Friends") %>
-<% if signed_in? %>
-  <div class="main-content">
-    <h1> Friends </h1>
+<div class="left-sidebar">
+  <%= render "layouts/left_sidebar" %>
+</div>
+<div class="main-content">
+  <h1>
+    Friends
+  </h1>
     <div class="row">
       <aside class="span4">
         <section>
@@ -29,6 +33,3 @@
       <% end %>
     </div>
   </div>
-<% else %>
-  You do not have permission to access this page!
-<% end %>
