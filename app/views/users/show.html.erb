@@ -1,7 +1,9 @@
 <% provide(:title, @user.name) %>
 <div class="main-content">
   <section>
-    <%= render "shared/micropost_form", user: current_user %>
+    <% if current_user?(@user) || current_user.friends.include?(@user)%>
+      <%= render "shared/micropost_form", user: @user %>
+    <%end%>
   </section>
   <% if current_user?(@user) %>
     <h3> My page</h3>
