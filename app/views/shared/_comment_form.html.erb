@@ -21,7 +21,7 @@
   <% end %>
 <% end %>
 <br/>
-<% if current_user.friends.include?(micropost.user_id) || micropost.user_id == current_user.id%>
+<% if current_user.friends.include?(User.find(micropost.user_id)) || micropost.user_id == current_user.id%>
   <%= form_for [current_user, micropost, @comments] do |comment| %>
     <%= render 'shared/error_messages', object: comment.object %>
     <span class="field">

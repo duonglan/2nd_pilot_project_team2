@@ -1,15 +1,17 @@
 <% @activities.each do |activity| %>
-   <h5>
-   <% if activity.trackable_type == Comment.name && activity.trackable %>
-  <%= link_to activity.owner.name, activity.owner if activity.owner %>
-  added comment to 
-  <%= link_to activity.trackable.micropost.content, activity.trackable.micropost.content %></h5>
   <h5>
-  <% elsif activity.trackable_type == Micropost.name && activity.trackable %>
-  <%if activity.trackable.user_id == activity.trackable.friend_id %>
-    <%= link_to activity.owner.name, activity.owner %>
-  create status <%= link_to activity.trackable.content, activity.trackable.content %>
-  <% end %>
-  <% end %>
+    <% if current_user.friends.include?(activity.owner) && activity.trackable %>
+       <% if activity.trackable_type == Comment.name && activity.trackable %>
+      <%= link_to activity.owner.name, activity.owner if activity.owner %>
+      added comment to 
+      <%= link_to activity.trackable.micropost.content, activity.trackable.micropost.content %></h5>
+      <h5>
+      <% elsif activity.trackable_type == Micropost.name && activity.trackable %>
+        <%if activity.trackable.user_id == activity.trackable.friend_id %>
+          <%= link_to activity.owner.name, activity.owner %>
+          create status <%= link_to activity.trackable.content, activity.trackable.content %>
+        <% end %>
+      <% end %>
+    <% end %>
   </h5>
 <% end %>
