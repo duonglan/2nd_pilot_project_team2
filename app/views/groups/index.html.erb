@@ -1,10 +1,14 @@
 <% provide(:title, "All Groups") %>
+<div class="left-sidebar">
+  <%= render "layouts/left_sidebar" %>
+</div>
 <div class="main-content">
   <h1>
     Groups
   </h1>
   <%= link_to "New group", new_group_path, class: "btn btn floatright" %>
   <ul class="teams">
+    <aside>
     <% @groups.each do |group| %>
       <section>
         <li>
@@ -24,6 +28,7 @@
         </li>
       </section>
     <% end %>
+    </aside>
     <%= will_paginate %>
   </ul>
 </div>

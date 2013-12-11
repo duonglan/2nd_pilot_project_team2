@@ -1,5 +1,8 @@
 <% provide(:title, "Home") %>
 <% if signed_in? %>
+  <div class="left-sidebar">
+    <%= render "layouts/left_sidebar" %>
+  </div>
   <div class="main-content">
     <section>
       <%= render "shared/micropost_form", user: current_user %>
@@ -16,11 +19,10 @@
       <%= will_paginate @activities %>
     </ul>
   </div>
-    <div class="right-sidebar">
-      <section>
-        <%#= render "shared/activities" %>
-      </section>
-    </div>
+  <div class="right-sidebar">
+    <section>
+       <%= render "shared/activities" %>
+    </section>
   </div> 
 <% else %>
 	<div class="center hero-unit">

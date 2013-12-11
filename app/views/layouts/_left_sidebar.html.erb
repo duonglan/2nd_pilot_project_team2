@@ -1,5 +1,11 @@
  <section>
   <%= render "shared/user_info", user: current_user %>
 </section>
+<section>
+  <h3>
+    <%= link_to "Photos Albums", user_albums_path(current_user) %> (<%= current_user.albums.count %>)
+  </h3>
+</section>
+<section>
   <%= render "shared/user_profile", user: current_user %>
 </section>

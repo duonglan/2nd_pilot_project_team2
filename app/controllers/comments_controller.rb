@@ -19,17 +19,18 @@ class CommentsController < ApplicationController
 
   def update
     comment = Comment.find(params[:id])
-    if params[:comment_params]
+    if params[:comment]
       if comment.update_attributes comment_params
         flash[:success] = "Comment updated"
         redirect_to :back
       else
-        flash[:erro] = "Comment didn't updated"
+        flash[:error] = "Comment didn't updated"
+        redirect_to :back
       end
     elsif params[:like] == "like_comment"
       comment.like_comments.build(user_id: current_user.id)
+      redirect_to :back
       if comment.save
-        redirect_to :back
       end
     end
   end

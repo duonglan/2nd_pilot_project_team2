@@ -1,47 +1,43 @@
 <li>
-  <div class="micropost-display">
-    <span class="user">
-      <div>
-      <span class="span1"> 
-        <%= link_to image_tag(micropost.user.avatar.thumb), micropost.user %>
-      </span>
-      <span>
+  <div> 
+    <% if micropost.user.avatar.blank? %>
+        <%= link_to gravatar_for(micropost.user, size: 52), micropost.user, class: "avatar-medium" %>
+      <% elsif micropost.user.avatar? %>
+        <%= link_to image_tag(micropost.user.avatar), micropost.user, class: "avatar-medium" %>
+      <% end %>
+    <div class="micropost-home">
+
+      <span class="user">        
         <%= link_to micropost.user.name, micropost.user %>
-      </span>
-      <span>
         <% if micropost.is_public? %> Public
         <% else %> Private
         <% end %>
       </span>
-    </span>
-    <div>
-      <%= exercept micropost.content %>
-      <div>
-        <% if micropost.user_id == current_user.id %>
-          <%= link_to 'Edit',  edit_user_micropost_path(current_user, micropost), class: "non-redirect edit_micropost_btn" %>
-        <% end %>
-        <% if micropost.friend_id == current_user.id %>
-          <%= link_to 'Del', user_micropost_path(current_user, micropost), method: :delete, data: { confirm: 'Are you sure?' } %>
-        <% end %>
-        <%= render "shared/like_micropost", micropost: micropost, user: @user %>
+      <div class="micropost-display">
+        <%= exercept micropost.content %> 
+        <br/>
         <span class="timestamp">
-          Posted <%= time_ago_in_words(micropost.created_at) %> ago.
-      </span>
-      </div>
-        
-    </div> 
-    <div>
-        <span class="custom-micropost">
-          <%= render "shared/comment_form",micropost: micropost %>
+          about <%= time_ago_in_words(micropost.created_at) %> ago.
         </span>
+        <%= render "shared/like_micropost", micropost: micropost, user: @user %>
+        <% if micropost.friend_id == current_user.id %>
+          <% if micropost.user_id == current_user.id %>
+            <%= link_to 'edit',  edit_user_micropost_path(current_user, micropost), class: "non-redirect edit_micropost_btn" %>
+          <% end %>
+          <%= link_to 'del', user_micropost_path(current_user, micropost), method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% end %>
+      </div>
+      <div class="edit_micropost_wrap">
+        <%= form_for [current_user, micropost] do |f| %>
+          <%= f.text_area :content %>
+          <%= f.submit "Update", class: "btn btn-primary non-redirect update_micropost_btn" %>
+        <% end %>
+      </div>
     </div>
-  </div>    
-  <div class="edit_micropost_wrap">
-    <%= form_for [current_user, micropost] do |f| %>
-      <%= f.text_area :content %>
-      <%= f.submit "Update", class: "btn btn-primary non-redirect update_micropost_btn" %>
-    <% end %>
-  </div>
+    <span class="custom-comment">
+      <%= render "shared/comment_form",micropost: micropost %>
+    </span>
+  </div> 
 </li>
 <script>
   $("a.non-redirect").click(function(event){

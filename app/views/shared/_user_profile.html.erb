@@ -2,21 +2,27 @@
 <span>
   Name: <%= user.name %>
 </span>
+<br/>
 <span>
   Email: <%= user.email %>
 </span>
+<br/>
 <span>
   Birthday: <%= user.birthday %>
 </span>
+<br/>
 <span>
   Sex: <%= user.sex %>
 </span>
+<br/>
 <span>
   Phone: <%= user.phone_number %>
 </span>
+<br/>
 <span>
   <%= link_to "Friends", user_friendships_path(user) %>: <%= user.friends.count %>
 </span>
+<br/>
 <span>
   <%= link_to "Albums", user_albums_path(user) %> : <%= user.albums.count %>
 </span>

@@ -6,8 +6,8 @@
         <div class="info">
           <%= link_to u.name, user_path(u.id) %>
           <% if signed_in? && @user = current_user %>
-            </br>
-            <%= link_to "cancel request", user_friendship_path(current_user.id, u.id), method: :delete, confirm: "Reject friend request! Are you sure?", class: "btn btn-mini" %>
+            <br/>
+            <%= link_to "cancel request", user_friendship_path(current_user.id, u.id), method: :delete, confirm: "Reject friend request! Are you sure?", class: "btn btn-mini floatright" %>
           <% end %>
         </div>
       </li>

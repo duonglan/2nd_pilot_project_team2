@@ -14,7 +14,7 @@ before_action :signed_in_user
   def update
     group_micropost = GroupMicropost.find params[:group_micropost_id]
     group_comment = group_micropost.group_comments.find params[:id]
-    if params[:group_comment_params]
+    if params[:group_comment]
       if group_comment.update_attributes(group_comment_params)
         flash[:success] = "Comment updated"
         redirect_to :back

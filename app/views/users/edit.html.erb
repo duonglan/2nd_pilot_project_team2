@@ -1,8 +1,11 @@
 <% provide(:title, "Edit user") %>
-<h1>Update your profile</h1>
+<div class="left-sidebar">
+  <%= render "layouts/left_sidebar" %>
+</div>
 
-<div class="row">
-  <div class="span6 offset3">
+<div class="main-content">
+  <h1>Update your profile</h1>
+  <div class="span5 offset1">
     <%= form_for(@user) do |f| %>
       <%= render 'shared/error_messages' , object: f.object%>
 

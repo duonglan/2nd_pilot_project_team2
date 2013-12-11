@@ -6,6 +6,7 @@
     <td><%= link_to "Edit",  "#" %></td>
     <td><%= link_to "Del", group_path(@group), method: :delete, data: { confirm: 'Are you sure?' } %></td>
   <% end %>
+  <br/>
   <span>
     Admin: <%= link_to @group.owner.name, @group.owner %>
   </span>
