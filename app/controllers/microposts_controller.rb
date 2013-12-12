@@ -1,26 +1,9 @@
 class MicropostsController < ApplicationController
-  before_action :signed_in_user, only: [:create, :destroy]
+  before_action :signed_in_user, only: [:create, :destroy, :destroy]
   before_action :correct_user,   only: :destroy
 
-  def index
-    @user = User.find params[:user_id]
-    @microposts = Micropost.all
-    @micropost = current_user.microposts.build
-    @comments = @micropost.comments.build
-  end
-
   def show
-    @users = User.all
     @user = User.find params[:user_id]
-    @micropost = Micropost.find params[:id]
-    @comment = @micropost.comments.build
-  end
-
-  def new
-    @micropost = current_user.microposts.new
-  end
-
-  def edit
     @micropost = Micropost.find params[:id]
   end
 
