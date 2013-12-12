@@ -6,7 +6,11 @@
       <%= link_to image_tag(@micropost.user.avatar), @micropost.user, class: "avatar-medium" %>
     <% end %>
     <div class="micropost-home">
-      <span class="user">        
+      <span class="user">
+        <% unless @micropost.user_id == @micropost.friend_id %> 
+          <%= image_tag("to.ico") %>
+          <%= link_to User.find(@micropost.friend_id).name, user_path(User.find(@micropost.friend_id))  %>
+        <% end %>         
         <%= link_to @micropost.user.name, @micropost.user %>
         <% if @micropost.is_public? %> Public
         <% else %> Private
