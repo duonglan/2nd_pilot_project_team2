@@ -13,6 +13,10 @@ class Micropost < ActiveRecord::Base
     self.status == true
   end
 
+  def private?
+    !is_public?
+  end
+
   def has_comment?
     self.comments.count > EXISTANCE
   end
