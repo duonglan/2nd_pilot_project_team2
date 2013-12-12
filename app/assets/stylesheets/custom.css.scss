@@ -41,6 +41,10 @@ textarea {
   float: right;
 }
 
+a{
+  color: #3B5998;
+}
+
 ul {
   list-style: none;
 }
@@ -248,9 +252,19 @@ aside {
 
 /* Navbar */
 .navbar-inverse .navbar-inner {
-  background-color: #3A5B98;
+  background-color: #46629E;
   background-image: none;
+  height: 40px;
+
+    li
+      {
+        a
+          {
+            color: #A2B5D7;
+      }
+    }
 }
+
 
 .btn-primary {
   background-color: #69A355;
@@ -404,4 +418,23 @@ ul.albums {
 
 .user-name {
   clear: both;
+}
+
+.search {
+  width: 450px;
+  height: 20px;
+  margin-top: 5px;
+  float: left;
+  margin-right: 350px;
+}
+
+.pull-right{
+  width: 1100px;
+}
+
+.info{
+  height: 8px !important;
+    a{
+      margin-top: -21px;
+    }
 }

@@ -1,32 +1,29 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
   <div class="navbar-inner">
     <div class="container">
-      <%= link_to "facebook", root_path, id: "logo" %>
-      <%= link_to "Search Friends", users_path( action: "search" ), id: "logo" %>
+      <%= link_to "facebook", root_path, id: "logo" %></li>
       <nav>
         <ul class="nav pull-right">
-          <% if signed_in? %>
           <li>
-            <span class="avatar-supersmall">
-            <% if current_user.avatar.blank? %>
-              <%= image_tag("no_ava.jpg")%>
-            <% elsif current_user.avatar? %>
-              <%= image_tag(current_user.avatar)%>
-            <% end %>
-          </li>
+            <%= form_for search, url: users_path, method: :get do |f| %>
+              <%=f.text_field :name, placeholder: "Search for people",class: "search" %>
+          <% end %>
+        </li>
+          <li><%= link_to "Home", root_path %></li>
+          <% if signed_in? %>
             <li><%= link_to current_user.name, user_path(current_user) %></li>
           <% end %>
-          <li><%= link_to "Home", root_path %></li>
           <% if signed_in? %>
             <li id="fat-menu" class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <%= image_tag("favicon(1).ico") %> <b class="caret"></b>
+                <%= image_tag("favicon (1).ico") %> <b class="caret"></b>
               </a>
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu">  
+                <li><%= link_to "Friends", user_friendships_path(current_user) %></li>
+                <li><%= link_to "Albums", user_albums_path(current_user) %></li>
+                <li><%= link_to "Groups", groups_path %></li>
                 <li class="divider"></li>
-                <li>
-                  <%= link_to "Sign out", signout_path, method: "delete" %>
-                </li>
+                <li><%= link_to "Sign out", signout_path, method: "delete" %></li>
               </ul>
             </li>
           <% else %>

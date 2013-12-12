@@ -1,4 +1,7 @@
 <% provide(:title, "All Albums") %>
+<div class="left-sidebar">
+  <%= render "layouts/left_sidebar" %>
+</div>
 <div class="main-content">
   <% if current_user.id == @user.id %>
     <h1>

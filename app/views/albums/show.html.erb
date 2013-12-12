@@ -1,4 +1,7 @@
 <% provide(:title, "Album") %>
+<div class="left-sidebar">
+  <%= render "layouts/left_sidebar" %>
+</div>
 <div class="main-content">
   <h1>
     <%= @album.name %> (<%= @album.images.count %> photos)

@@ -5,6 +5,9 @@
   <h3>
     <%= link_to "Photos Albums", user_albums_path(current_user) %> (<%= current_user.albums.count %>)
   </h3>
+   <h3>
+    <%= link_to "Groups", groups_path() %>
+  </h3>
 </section>
 <section>
   <%= render "shared/user_profile", user: current_user %>

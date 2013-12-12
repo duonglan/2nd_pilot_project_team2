@@ -56,6 +56,11 @@ EXISTANCE = 0
 
   def activities
     @activities = PublicActivity::Activity.order("created_at desc")
-        .paginate(page: params[:page], per_page: 20)
+  end
+  
+  def search
+    @search = Search.new User, params[:search]
+    @search.order = "name"
+    @search
   end
 end
