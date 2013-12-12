@@ -14,11 +14,13 @@
     <div>
       <%= render "layouts/header" %>
     </div>
-    <div class="right-sidebar">
-    <section>
-       <%= render "shared/activities", activities: activities%>
-    </section>
-  </div>
+    <% if signed_in? %>
+      <div class="right-sidebar">
+        <section>
+           <%= render "shared/activities", activities: activities%>
+        </section>
+      </div>
+    <% end %>
     <div class="container">
       <div class="row">
         <% flash.each do |key, value| %>
