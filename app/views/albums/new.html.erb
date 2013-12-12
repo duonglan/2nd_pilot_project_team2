@@ -1,4 +1,7 @@
 <% provide(:title, "Create Album") %>
+<div class="left-sidebar">
+  <%= render "layouts/left_sidebar" %>
+</div>
 <div class="main-content">
   <h1>
     Create album
@@ -9,7 +12,7 @@
         <%= render "shared/error_messages", object: f.object %>
         <%= f.label :name %>
         <%= f.text_field :name %>
-        <%= f.submit "Create Album", class: "btn btn-large btn-primary" %>
+        <%= f.submit "Create Album", class: "btn btn-primary" %>
       <% end %>
     </div>
   </div>

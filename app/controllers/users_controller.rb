@@ -3,12 +3,11 @@ class UsersController < ApplicationController
   before_action :correct_user, only: [:edit, :update, :destroy]
   
   def index
-    @search = Search.new User, params[:search]
-    @search.order = "name"
-    @users = @search.run
+    @users = search.run
   end
 
   def show
+    @activities = PublicActivity::Activity.order("created_at desc")
   	@user = User.find params[:id]
     @microposts = Micropost.all.paginate page: params[:page]
     @micropost = current_user.microposts.build

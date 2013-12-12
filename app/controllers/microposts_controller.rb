@@ -7,6 +7,14 @@ class MicropostsController < ApplicationController
     @micropost = Micropost.find params[:id]
   end
 
+  def new
+    @micropost = current_user.microposts.new
+  end
+
+  def edit
+    @micropost = Micropost.find params[:id]
+  end
+
   def create
     @user = User.find params[:user_id]
     @micropost = current_user.microposts.build micropost_params
