@@ -53,4 +53,9 @@ EXISTANCE = 0
   def has_comment?
     self.comments.count != EXISTANCE
   end
+
+  def activities
+    @activities = PublicActivity::Activity.order("created_at desc")
+        .paginate(page: params[:page], per_page: 20)
+  end
 end
