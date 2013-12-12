@@ -2,6 +2,7 @@ class ImageCommentsController < ApplicationController
 before_action :signed_in_user
 
   def new
+    binding.pry
     @image_comment = ImageComment.new
   end
 
@@ -11,6 +12,7 @@ before_action :signed_in_user
   end
 
   def update
+   binding.pry
     @image_comment = ImageComment.find params[:id]
     if params[:image_comment]
       @image_comment.update_attributes image_comment_params
