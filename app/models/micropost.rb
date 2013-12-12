@@ -6,7 +6,7 @@ class Micropost < ActiveRecord::Base
 	has_many :comments, dependent: :destroy
   has_many :like_microposts, dependent: :destroy
 	default_scope -> {order('created_at DESC')}
-	validates :content, presence: true, length: {maximum: 300}
+	validates :content, presence: true
   validates :user_id, presence: true
 
   def is_public?
