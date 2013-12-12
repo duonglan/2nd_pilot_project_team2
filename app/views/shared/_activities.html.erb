@@ -1,4 +1,4 @@
-<% @activities.each do |activity| %>
+<% activities.each do |activity| %>
   <div>
     <% if current_user.friends.include?(activity.owner) && activity.trackable %>
       <% if activity.trackable_type == Comment.name && activity.trackable %>
@@ -9,7 +9,7 @@
       <% end %>
       <%= link_to activity.owner.name, activity.owner if activity.owner %>
       added comment to 
-      <%= link_to activity.trackable.micropost.content, activity.trackable.micropost.content %></div>
+      <%= link_to activity.trackable.micropost.content,  user_micropost_path(activity.trackable.micropost.friend_id,activity.trackable.micropost) %></div>
       <div>
       <% elsif activity.trackable_type == Micropost.name && activity.trackable %>
         <%if activity.trackable.user_id == activity.trackable.friend_id %>
@@ -19,7 +19,7 @@
             <%= link_to image_tag(activity.owner.avatar), activity.owner, class: "avatar-small" %>
            <% end %>
           <%= link_to activity.owner.name, activity.owner %>
-          create status <%= link_to activity.trackable.content, activity.trackable.content %>
+          create status <%= link_to activity.trackable.content, user_micropost_path(activity.trackable.friend_id,activity.trackable) %>
         <% end %>
       <% end %>
     <% end %>

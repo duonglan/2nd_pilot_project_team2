@@ -4,7 +4,7 @@ class Image < ActiveRecord::Base
   belongs_to :user
   has_many :like_images, dependent: :destroy
   has_many :image_comments, dependent: :destroy
-  has_many :like_image_comments, through: :image_comment, dependent: :destroy
+  has_many :like_image_comments, through: :image_comments, dependent: :destroy
   has_attached_file :image, :styles => {
       :thumb => "100x100#",
       :small => "150x150>",

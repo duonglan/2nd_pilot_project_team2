@@ -16,13 +16,7 @@
           <%= render "shared/list_microposts", micropost: micropost %>
         <% end %>
       <% end %>
-      <%= will_paginate @activities %>
     </ul>
-  </div>
-  <div class="right-sidebar">
-    <section>
-       <%= render "shared/activities" %>
-    </section>
   </div> 
 <% else %>
 	<div class="center hero-unit">
