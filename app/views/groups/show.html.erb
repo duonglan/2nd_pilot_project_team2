@@ -18,7 +18,7 @@
             <li>
              <div> 
               <% if group_micropost.user.avatar.blank? %>
-                <%= link_to gravatar_for(group_micropost.user),group_micropost.user, class: "avatar-medium" %>
+                <%= link_to image_tag(group_micropost.user),group_micropost.user, class: "avatar-medium" %>
               <% elsif group_micropost.user.avatar? %>
                 <%= link_to image_tag(group_micropost.user.avatar), group_micropost.user, class: "avatar-medium" %>
               <% end %>
@@ -61,7 +61,7 @@
           <% @members.each do |member| %>
             <li>
               <% if member.user.avatar.blank? %>
-                <%= link_to gravatar_for(member.user),member.user, class: "avatar-medium" %>
+                <%= link_to image_tag(member.user),member.user, class: "avatar-medium" %>
               <% elsif member.user.avatar? %>
                 <%= link_to image_tag(member.user.avatar), member.user, class: "avatar-medium" %>
               <% end %>

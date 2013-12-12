@@ -1,7 +1,7 @@
 <li>
   <div> 
     <% if micropost.user.avatar.blank? %>
-        <%= link_to gravatar_for(micropost.user, size: 52), micropost.user, class: "avatar-medium" %>
+        <%= link_to image_tag("no_ava.jpg"), micropost.user, class: "avatar-medium" %>
       <% elsif micropost.user.avatar? %>
         <%= link_to image_tag(micropost.user.avatar), micropost.user, class: "avatar-medium" %>
       <% end %>

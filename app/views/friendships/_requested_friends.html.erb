@@ -2,7 +2,11 @@
   <ul class="friends">
     <% @user.requested_friends.each do |u| %>
       <li>
-        <%= gravatar_for(u, size: 52)%>
+        <% if u.avatar.blank? %>
+          <%= link_to image_tag("no_ava.jpg"), u, class: "avatar-medium" %>
+        <% elsif u.avatar? %>
+          <%= link_to image_tag(u.avatar), u, class: "avatar-medium" %>
+        <% end %>
         <div class="info">
           <%= link_to u.name, user_path(u.id) %>
           <% if signed_in? && @user = current_user %>
