@@ -21,7 +21,6 @@ class CommentsController < ApplicationController
     comment = Comment.find(params[:id])
     if params[:comment]
       if comment.update_attributes comment_params
-        flash[:success] = "Comment updated"
         redirect_to :back
       else
         flash[:error] = "Comment didn't updated"
@@ -42,11 +41,10 @@ class CommentsController < ApplicationController
     @comment.update_attributes(user_id: current_user.id)
     if @comment.save
       @comment.create_activity :create, owner: current_user
-      flash[:success] = "comment created!"
       redirect_to :back
     else
       redirect_to user_micropost_path current_user, @micropost
-      flash[:erro] = "comment blank!"
+      flash[:erro] = "Blank!"
     end
   end
 

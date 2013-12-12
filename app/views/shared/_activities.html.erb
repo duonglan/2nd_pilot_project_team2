@@ -1,25 +1,25 @@
 <% activities.each do |activity| %>
-  <div>
+  <div class="activity-item">
     <% if current_user.friends.include?(activity.owner) && activity.trackable %>
       <% if activity.trackable_type == Comment.name && activity.trackable %>
-      <% if activity.owner.avatar.blank? %>
-        <%= link_to image_tag(activity.owner, size: 52), activity.owner, class: "avatar-small" %>
-      <% elsif activity.owner.avatar? %>
-        <%= link_to image_tag(activity.owner.avatar), activity.owner, class: "avatar-small" %>
-      <% end %>
+        <% if activity.owner.avatar.blank? %>
+          <%= link_to image_tag("no_ava.jpg"), activity.owner, class: "avatar-small" %>
+        <% elsif activity.owner.avatar? %>
+          <%= link_to image_tag(activity.owner.avatar), activity.owner, class: "avatar-small" %>
+        <% end %>
       <%= link_to activity.owner.name, activity.owner if activity.owner %>
       added comment to 
-      <%= link_to activity.trackable.micropost.content[0..6],  user_micropost_path(activity.trackable.micropost.friend_id,activity.trackable.micropost) %></div>
-      <div>
+      <%= link_to activity.trackable.micropost.content[0..14],  user_micropost_path(activity.trackable.micropost.friend_id,activity.trackable.micropost), class: "activity-content" %></div>
+      <div class="activity-item">
       <% elsif activity.trackable_type == Micropost.name && activity.trackable %>
         <%if activity.trackable.user_id == activity.trackable.friend_id %>
           <% if activity.owner.avatar.blank? %>
-            <%= link_to image_tag(activity.owner, size: 52), activity.owner, class: "avatar-small" %>
+            <%= link_to image_tag("no_ava.jpg"), activity.owner, class: "avatar-small" %>
           <% elsif activity.owner.avatar? %>
             <%= link_to image_tag(activity.owner.avatar), activity.owner, class: "avatar-small" %>
            <% end %>
           <%= link_to activity.owner.name, activity.owner %>
-          create status <%= link_to activity.trackable.content[0..6], user_micropost_path(activity.trackable.friend_id,activity.trackable) %>
+          create status <%= link_to activity.trackable.content, user_micropost_path(activity.trackable.friend_id,activity.trackable), class: "activity-content" %>
         <% end %>
       <% end %>
     <% end %>

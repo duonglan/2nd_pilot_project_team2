@@ -21,7 +21,6 @@ class MicropostsController < ApplicationController
     @micropost.update_attributes friend_id: @user.id
    if @micropost.save
       @micropost.create_activity :create, owner: current_user
-      flash[:success] = "Status created!"
       redirect_to :back
     else
       flash[:erro] = "Status blank!"
@@ -33,7 +32,6 @@ class MicropostsController < ApplicationController
     microposts = Micropost.find params[:id]
     if params[:micropost]
       if microposts.update_attributes micropost_params
-        flash[:success] = "Micropost updated"
         redirect_to :back
       else
         flash[:erro] = "Micropost didn't updated"

@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
                     format: {with: VALID_EMAIL_REGEX}, 
                     uniqueness: {case_sensitive: false}
   has_secure_password
-  validates :password, length: {minimum: 1}
+  validates :password, length: {minimum: 6}
 
   has_attached_file :cover, styles: {medium: "300x300>", thumb: "100x100>"}
   

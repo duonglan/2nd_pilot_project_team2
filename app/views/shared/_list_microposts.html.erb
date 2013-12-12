@@ -21,8 +21,8 @@
         <%= exercept micropost.content %> 
         <br/>
         <span class="timestamp">
-          about <%= time_ago_in_words(micropost.created_at) %> ago.
-        </span>
+          about <%= time_ago_in_words micropost.created_at %> ago.
+        
         <%= render "shared/like_micropost", micropost: micropost, user: @user %>
         <% if micropost.user_id == current_user.id %>
           <%= link_to 'edit',  edit_user_micropost_path(current_user, micropost), class: "non-redirect edit_micropost_btn" %>
@@ -30,6 +30,7 @@
         <% if micropost.user_id == current_user.id || micropost.friend_id == current_user.id %>
           <%= link_to 'del', user_micropost_path(current_user, micropost), method: :delete, data: { confirm: 'Are you sure?' } %>
         <% end %>
+        </span>
       </div>
       <div class="edit_micropost_wrap">
         <%= form_for [current_user, micropost] do |f| %>

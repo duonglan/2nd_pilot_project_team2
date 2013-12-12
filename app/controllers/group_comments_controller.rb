@@ -16,10 +16,7 @@ before_action :signed_in_user
     group_comment = group_micropost.group_comments.find params[:id]
     if params[:group_comment]
       if group_comment.update_attributes(group_comment_params)
-        flash[:success] = "Comment updated"
         redirect_to :back
-      else
-        flash[:erro] = "Comment didn't updated"
       end
     elsif params[:like] == "like_group_comment" 
       group_comment.like_group_comments.build(user_id: current_user.id)
@@ -36,9 +33,7 @@ before_action :signed_in_user
     @group_micropost = GroupMicropost.find params[:group_micropost_id]
     @group_comment = @group_micropost.group_comments.build group_comment_params
     @group_comment.update_attributes user_id: current_user.id, group_id: @group.id
-    if @group_comment.save
-      flash[:success] = "Comment!"
-    else
+    unless @group_comment.save
       flash[:error] = "Blank!"
     end
     redirect_to :back
