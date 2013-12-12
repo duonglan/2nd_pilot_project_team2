@@ -1,6 +1,6 @@
 <% provide(:title, @group.name) %>
 <div class="left-sidebar">
-  <%= render "layouts/left_sidebar" %>
+  <%= render "shared/group_info"%> 
 </div>
 <div class="main-content">
   <section>
@@ -18,7 +18,7 @@
             <li>
              <div> 
               <% if group_micropost.user.avatar.blank? %>
-                <%= link_to image_tag(group_micropost.user),group_micropost.user, class: "avatar-medium" %>
+                <%= link_to image_tag("no_ava.jpg"),group_micropost.user, class: "avatar-medium" %>
               <% elsif group_micropost.user.avatar? %>
                 <%= link_to image_tag(group_micropost.user.avatar), group_micropost.user, class: "avatar-medium" %>
               <% end %>
@@ -61,7 +61,7 @@
           <% @members.each do |member| %>
             <li>
               <% if member.user.avatar.blank? %>
-                <%= link_to image_tag(member.user),member.user, class: "avatar-medium" %>
+                <%= link_to image_tag("no_ava.jpg"),member.user, class: "avatar-medium" %>
               <% elsif member.user.avatar? %>
                 <%= link_to image_tag(member.user.avatar), member.user, class: "avatar-medium" %>
               <% end %>
@@ -76,7 +76,3 @@
     </div>
   </div>
 </div>
-<div class="right-sidebar">
-  <%= render "join_form" if signed_in? %>
-  <%= render "shared/group_info"%> 
-</div> 

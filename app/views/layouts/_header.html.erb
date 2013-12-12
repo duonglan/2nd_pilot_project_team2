@@ -19,11 +19,11 @@
                 <%= image_tag("favicon (1).ico") %> <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">  
-                <li><%= link_to "Friends", user_friendships_path(current_user) %></li>
-                <li><%= link_to "Albums", user_albums_path(current_user) %></li>
-                <li><%= link_to "Groups", groups_path %></li>
+                <li><%= link_to "Friends", user_friendships_path(current_user), class: "black" %></li>
+                <li><%= link_to "Albums", user_albums_path(current_user),class: "black" %></li>
+                <li><%= link_to "Groups", groups_path, class: "black" %></li>
                 <li class="divider"></li>
-                <li><%= link_to "Sign out", signout_path, method: "delete" %></li>
+                <li><%= link_to "Sign out", signout_path, method: "delete", class: "black" %></li>
               </ul>
             </li>
           <% else %>

@@ -11,7 +11,7 @@ class ImagesController < ApplicationController
 
   def create
     @album = Album.find params[:album_id]
-    @image = @album.images.build image_params
+    @image = @album.images.new image_params
     @image.update_attributes user_id: current_user.id
     if @image.save
       flash[:success] = "Uploaded!"
@@ -26,7 +26,7 @@ class ImagesController < ApplicationController
     @user = User.find params[:user_id]
     @album = Album.find params[:album_id]
     @image = @album.images.find params[:id]
-    @image_comment = @image.image_comments.new
+    @image_comment = ImageComment.new
   end
 
   def destroy

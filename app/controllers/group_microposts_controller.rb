@@ -18,10 +18,8 @@ def index
     @group = Group.find params[:group_id]
     @group_micropost = @group.group_microposts.build group_micropost_params
     @group_micropost.update_attributes(user_id: current_user.id)
-    if @group_micropost.save
-      flash[:success] = "Micropost created!" 
-    else
-      flash[:erro] = "Micropost blank!"
+    unless @group_micropost.save
+      flash[:erro] = "Blank!"
     end
     redirect_to :back
     
@@ -32,7 +30,6 @@ def index
     group_micropost = group.group_microposts.find params[:id]
     if params[:group_micropost]
       if group_micropost.update_attributes group_micropost_params
-        flash[:success] = "Post updated"
         redirect_to group_path group
       else
         flash[:error] = "failed"
@@ -49,7 +46,6 @@ def index
             friend_id: current_user.id, user_id: current_user.id)
           micropost.update_attributes status: true
           if micropost.save
-            flash[:success] = "Shared!!!"
             redirect_to :back
           end
         end

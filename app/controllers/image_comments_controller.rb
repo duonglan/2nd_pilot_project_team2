@@ -12,13 +12,10 @@ before_action :signed_in_user
 
   def update
     @image_comment = ImageComment.find params[:id]
-    if params[:image_comment_params]
+    if params[:image_comment]
       @image_comment.update_attributes image_comment_params
       if @image_comment.save
-        flash[:success] = "Comment updated"
         redirect_to :back
-      else
-        flash[:erro] = "Comment didn't updated"
       end
     else
       if params[:like] == "like_image_comment"
@@ -37,9 +34,7 @@ before_action :signed_in_user
     @image = Image.find params[:image_id]
     @image_comment = @image.image_comments.new image_comment_params
     @image_comment.update_attributes user_id: current_user.id, album_id: @album.id
-    if @image_comment.save
-      flash[:success] = "Comment!" 
-    else
+    unless @image_comment.save
       flash[:error] = "Blank!"
     end
     redirect_to :back
