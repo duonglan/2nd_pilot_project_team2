@@ -1,3 +1,76 @@
-<ul>
-  <%=render "shared/list_microposts", micropost: @micropost %>
-</ul>
+<div class="main-content posts"> 
+  <% if @micropost.user.avatar.blank? %>
+    <%= link_to gravatar_for(@micropost.user, size: 52), @micropost.user, class: "avatar-medium" %>
+  <% elsif @micropost.user.avatar? %>
+    <%= link_to image_tag(@micropost.user.avatar), @micropost.user, class: "avatar-medium" %>
+  <% end %>
+  <div class="micropost-home">
+    <span class="user">        
+      <%= link_to @micropost.user.name, @micropost.user %>
+      <% if @micropost.is_public? %> Public
+      <% else %> Private
+      <% end %>
+    </span>
+    <div class="micropost-display">
+      <%= exercept @micropost.content %> 
+      <br/>
+      <span class="timestamp">
+        about <%= time_ago_in_words(@micropost.created_at) %> ago.
+      </span>
+      <%= render "shared/like_micropost", micropost: @micropost, user: @user %>
+      <% if @micropost.friend_id == current_user.id %>
+        <% if @micropost.user_id == current_user.id %>
+          <%= link_to 'edit',  edit_user_micropost_path(current_user, @micropost), class: "non-redirect edit_micropost_btn" %>
+        <% end %>
+        <%= link_to 'del', user_micropost_path(current_user, @micropost), method: :delete, data: { confirm: 'Are you sure?' } %>
+      <% end %>
+    </div>
+    <div class="edit_micropost_wrap">
+      <%= form_for [current_user, @micropost] do |f| %>
+      <%= f.text_area :content %>
+      <%= f.submit "Update", class: "btn btn-primary non-redirect update_micropost_btn" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div>
+  <span class="custom-comment">
+    <% if @micropost.has_comment? %>
+      <% @micropost.comments.each do |comment| %>
+        <% if comment.user.avatar.blank? %>
+          <%= link_to gravatar_for(comment.user, size: 52), comment.user, class: "avatar-small" %>
+        <% elsif comment.user.avatar? %>
+          <%= link_to image_tag(comment.user.avatar), comment.user, class: "avatar-small" %>
+        <% end %>
+        <div class="comment-display">
+          <%= link_to comment.user.name, comment.user %>:
+          <%= wrap(comment.content) %>
+          <br/>
+          <span class="timestamp">
+            about <%= time_ago_in_words(comment.created_at) %> ago.
+          </span>
+          <%= render "shared/like_comment", micropost: @micropost, comment: comment %>
+          <% if comment.user_id == current_user.id %>
+            <%= link_to "edit",  edit_user_micropost_comment_path(current_user, @micropost, comment), class: "non-redirect edit_comment_btn" %>
+            <%= link_to "del", user_micropost_comment_path(current_user, @micropost, comment), method: :delete, data: {confirm: "Are you sure?"} %>
+          <% end %>
+        </div>
+        <div class="edit_comment_wrap">
+          <%= form_for [current_user, @micropost, comment] do |f| %>
+            <%= f.text_field :content, placeholder: "What's on your mind" %>  
+          <% end %>
+        </div>       
+      <% end %>
+    <% end %>
+    <% if current_user.friends.include?(User.find(@micropost.user_id)) || @micropost.user_id == current_user.id%>
+      <div class="comment-form span6">
+        <%= form_for [current_user, @micropost, Comment.new] do |comment| %>
+          <%= render 'shared/error_messages', object: comment.object %>
+          <span class="field">
+            <%= comment.text_field :content, placeholder: "Comment.."  %>
+          </span>
+        <% end %>
+      </div>
+    <% end %>
+  </span>
+</div> 

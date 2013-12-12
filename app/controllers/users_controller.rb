@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :signed_in_user, only: [:edit, :update, :show,]
+  before_action :signed_in_user, only: [:edit, :update,:index, :show,]
   before_action :correct_user, only: [:edit, :update, :destroy]
   
   def index
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-  	# @user = User.find(params[:id])
+  	@user = User.find(params[:id])
   end
 
   def update

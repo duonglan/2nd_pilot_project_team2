@@ -9,6 +9,10 @@
 
       <span class="user">        
         <%= link_to micropost.user.name, micropost.user %>
+        <% unless micropost.user_id == micropost.friend_id %> 
+          <%= image_tag("to.ico") %>
+          <%= link_to User.find(micropost.friend_id).name, user_path(User.find(micropost.friend_id))  %>
+        <% end %>
         <% if micropost.is_public? %> Public
         <% else %> Private
         <% end %>
@@ -20,10 +24,10 @@
           about <%= time_ago_in_words(micropost.created_at) %> ago.
         </span>
         <%= render "shared/like_micropost", micropost: micropost, user: @user %>
-        <% if micropost.friend_id == current_user.id %>
-          <% if micropost.user_id == current_user.id %>
-            <%= link_to 'edit',  edit_user_micropost_path(current_user, micropost), class: "non-redirect edit_micropost_btn" %>
-          <% end %>
+        <% if micropost.user_id == current_user.id %>
+          <%= link_to 'edit',  edit_user_micropost_path(current_user, micropost), class: "non-redirect edit_micropost_btn" %>
+        <% end %>
+        <% if micropost.user_id == current_user.id || micropost.friend_id == current_user.id %>
           <%= link_to 'del', user_micropost_path(current_user, micropost), method: :delete, data: { confirm: 'Are you sure?' } %>
         <% end %>
       </div>
