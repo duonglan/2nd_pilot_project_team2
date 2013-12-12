@@ -1,5 +1,9 @@
 <li>
-  <%= gravatar_for user, size: 52 %>
+  <% if user.avatar.blank? %>
+    <%= link_to image_tag("no_ava.jpg"), user, class: "avatar-medium" %>
+  <% elsif user.avatar? %>
+    <%= link_to image_tag(user.avatar), user, class: "avatar-medium" %>
+  <% end %>
   <%= link_to user.name, user %>
   <% unless user == current_user || current_user.requested_friends.include?(user) || current_user.friends.include?(user) || current_user.pending_friends.include?(user) %>
  <%= link_to "Add friend", user_friendships_path(user.id), method: :post, :class => 'btn btn-mini' %>

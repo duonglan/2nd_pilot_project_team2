@@ -1,19 +1,19 @@
 <li id="<%= feed_item.id %>">
-  <%= link_to gravatar_for(feed_item.user), feed_item.user %>
-    <span class="user">
-      <%= link_to feed_item.user.name, feed_item.user %>
-    </span>
-    <span class="content">
-    	<%= wrap(feed_item.content) %>
-    	<span class="custom-comment">
-      		<%= link_to "Comment this entry", "#" %>
-    	</span>
-    </span>
-    <span class="timestamp">
-      about <%= time_ago_in_words(feed_item.created_at) %> ago.
-    </span>
-  <% if current_user?(feed_item.user) %>
-    
-              
+  <% if feed_item.user.avatar.blank? %>
+    <%= link_to image_tag("no_ava.jpg"), feed_item.user, class: "avatar-medium" %>
+  <% elsif feed_item.user.avatar? %>
+    <%= link_to image_tag(feed_item.user.avatar), feed_item.user, class: "avatar-medium" %>
   <% end %>
+  <span class="user">
+    <%= link_to feed_item.user.name, feed_item.user %>
+  </span>
+  <span class="content">
+    <%= wrap(feed_item.content) %>
+  </span>
+  <span class="custom-comment">
+    <%= link_to "Comment this entry", "#" %>
+  </span>
+  <span class="timestamp">
+    about <%= time_ago_in_words(feed_item.created_at) %> ago.
+  </span>
 </li>

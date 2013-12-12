@@ -1,7 +1,7 @@
 <% if group_micropost.has_comment? %>
   <% group_micropost.group_comments.each do |group_comment| %>
     <% if group_comment.user.avatar.blank? %>
-      <%= link_to gravatar_for(group_comment.user, size: 52), group_comment.user, class: "avatar-small" %>
+      <%= link_to image_tag("no_ava.jpg"), group_comment.user, class: "avatar-small" %>
     <% elsif group_comment.user.avatar? %>
       <%= link_to image_tag(group_comment.user.avatar), group_comment.user, class: "avatar-small" %>
     <% end %>

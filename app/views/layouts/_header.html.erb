@@ -6,13 +6,21 @@
       <nav>
         <ul class="nav pull-right">
           <% if signed_in? %>
-          <li><%= link_to current_user.name, user_path(current_user) %></li>
+          <li>
+            <span class="avatar-supersmall">
+            <% if current_user.avatar.blank? %>
+              <%= image_tag("no_ava.jpg")%>
+            <% elsif current_user.avatar? %>
+              <%= image_tag(current_user.avatar)%>
+            <% end %>
+          </li>
+            <li><%= link_to current_user.name, user_path(current_user) %></li>
           <% end %>
           <li><%= link_to "Home", root_path %></li>
           <% if signed_in? %>
             <li id="fat-menu" class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <%= image_tag("setting.ico") %> <b class="caret"></b>
+                <%= image_tag("favicon(1).ico") %> <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
                 <li class="divider"></li>

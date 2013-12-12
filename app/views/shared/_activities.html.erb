@@ -3,7 +3,7 @@
     <% if current_user.friends.include?(activity.owner) && activity.trackable %>
       <% if activity.trackable_type == Comment.name && activity.trackable %>
       <% if activity.owner.avatar.blank? %>
-        <%= link_to gravatar_for(activity.owner, size: 52), activity.owner, class: "avatar-small" %>
+        <%= link_to image_tag(activity.owner, size: 52), activity.owner, class: "avatar-small" %>
       <% elsif activity.owner.avatar? %>
         <%= link_to image_tag(activity.owner.avatar), activity.owner, class: "avatar-small" %>
       <% end %>
@@ -14,7 +14,7 @@
       <% elsif activity.trackable_type == Micropost.name && activity.trackable %>
         <%if activity.trackable.user_id == activity.trackable.friend_id %>
           <% if activity.owner.avatar.blank? %>
-            <%= link_to gravatar_for(activity.owner, size: 52), activity.owner, class: "avatar-small" %>
+            <%= link_to image_tag(activity.owner, size: 52), activity.owner, class: "avatar-small" %>
           <% elsif activity.owner.avatar? %>
             <%= link_to image_tag(activity.owner.avatar), activity.owner, class: "avatar-small" %>
            <% end %>
