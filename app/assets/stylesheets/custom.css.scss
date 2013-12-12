@@ -475,3 +475,146 @@ ul.teams {
     word-wrap: break-word;
   }
 }
+
+
+.tr{
+  padding: 8px;
+  line-height: 20px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.input{
+  border-color: #1d2a5b;
+  margin: 0;
+  width: 142px;
+}
+
+.login{
+  color: #fff;
+  background-image: url(/rsrc.php/v2/yO/r/Jsxaj6wDwuy.png);
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-position: -352px -54px;
+  background-color: #5b74a8;
+  border-color: #29447e #29447e #1a356e;
+}
+
+table.signin{
+  margin: -59px 145px 0 0;
+  float: right;
+
+  td {
+    color: #fff;
+    font-weight: normal;
+    padding-right: 10px;
+    border: none;
+
+    label {
+      margin: 0;
+    }
+  }
+
+  input[type="text"], input[type="password"] {
+    height: 25px!important;
+    border-radius: 0;
+  }
+}
+
+.th{
+  padding: 8px;
+  line-height: 20px;
+  text-align: left;
+  vertical-align: top;
+  border-top: 0px solid #dddddd;
+}
+
+.left {
+  float: left;
+}
+
+.left-zoom{
+  margin-right: 10px;
+  width: 565px;
+}
+
+.font-home{
+  padding-top: 20px;
+  color: #0e385f;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 29px;
+  margin-top: 40px;
+  width: 450px;
+  word-spacing: -1px;
+}
+
+.image-home{
+  width: 537px;
+  height: 195px;
+}
+
+.right {
+  float: right;
+  max-width: 400px;
+}
+
+.top-right{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: #0e385f;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 29px;
+  margin-top: 40px;
+  width: 450px;
+  word-spacing: -1px;
+}
+
+.home{
+  min-width: 980px;
+}
+
+.clear-fix{
+  zoom: 1;
+}
+
+.home-center{
+  margin: 0 auto;
+  width: 980px;
+}
+
+.logo{
+  float: left;
+  margin: 25px 0 0 145px;
+  background-image: url("http://www.webplatform.org/stewards/facebook/facebook_logo.png");
+  background-repeat: no-repeat;
+  background-size: 175px 55px;
+  width: 175px;
+  height: 55px;
+}
+
+.logo.small {
+  margin: 0 0 0 30px;
+  background-size: 130px 40px;
+  height: 40px;
+}
+
+.navbar-inverse .navbar-inner1 {
+  background-color: #46629E;
+  background-image: none;
+  height: 88px;
+
+    li
+      {
+        a
+          {
+            color: #A2B5D7;
+      }
+    }
+}
+.nav pull-right2{
+  float: right;
+  margin-right: 0;
+  margin-top: -39px
+}

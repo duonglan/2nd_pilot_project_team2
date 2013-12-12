@@ -19,13 +19,38 @@
     </ul>
   </div>
 <% else %>
-	<div class="center hero-unit">
-		<h1>
-      Wellcome to Facebook
-    </h1>
-		<h2>
-			Connect with friends and the world around you on Facebook.
-		</h2>
-		<%= link_to "Signup now!!!", signup_path, class: "btn btn-large btn-primary" %>
-	</div>
+	<div class="home">
+    <div class="home-center">
+      <div class="clear-fix">
+		    <div class="left">
+          <div class="left-zoom">
+            <div class ="font-home">
+              Facebook helps you connect and share with the people in your life.
+            </div>
+            <div class="image-home">
+              <%= image_tag ("home.png") %>
+            </div>
+          </div>
+        </div>
+        
+        <div class="right">
+          <div class="top-right">
+            <h3>Sign Up</h3>
+            It's free and always will be.
+          </div>
+            <div class="">
+              <%= form_for(User.new) do |f| %>
+                <%= render 'shared/error_messages', object: f.object %>
+                <%= f.text_field :name, placeholder: "Name" %>
+                <%= f.text_field :email, placeholder: "Your email address" %>
+                <%= f.password_field :password, placeholder: "New Password" %>
+                <%= f.password_field :password_confirmation, placeholder: "Re-enter password" %>
+                <%= f.submit "Sign Up", class: "btn btn-large btn-primary" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 <% end %>

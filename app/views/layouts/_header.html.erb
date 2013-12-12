@@ -1,19 +1,38 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
+  <% if signed_in? %>
   <div class="navbar-inner">
+  <% else %>
+  <div class="navbar-inner1">
+  <% end %>
     <div class="container">
-      <%= link_to "facebook", root_path, id: "logo" %></li>
+      <% if signed_in? %>
+        <%= link_to "", root_path, class: "logo small" %>
+      <% else %>
+        <%= link_to "", root_path, class: "logo" %>
+      <% end %>
       <nav>
-        <ul class="nav pull-right">
-          <li>
-            <%= form_for search, url: users_path, method: :get do |f| %>
-              <%=f.text_field :name, placeholder: "Search for people",class: "search" %>
-          <% end %>
-        </li>
-          <li><%= link_to "Home", root_path %></li>
+        <% if signed_in? %>
+          <ul class="nav pull-right2">
+        <% else %>
+          <ul class="nav pull-right">
+        <% end %> 
           <% if signed_in? %>
+            <li>
+              <%= form_for search, url: users_path, method: :get do |f| %>
+                <%=f.text_field :name, placeholder: "Search for people",class: "search" %>
+              <% end %>
+            </li>
+            <li>
+              <span class="avatar-supersmall">
+                <% if current_user.avatar.blank? %>
+                  <%= image_tag("no_ava.jpg")%>
+                <% elsif current_user.avatar? %>
+                  <%= image_tag(current_user.avatar)%>
+                <% end %>
+              </span>
+            </li>
             <li><%= link_to current_user.name, user_path(current_user) %></li>
-          <% end %>
-          <% if signed_in? %>
+            <li><%= link_to "Home", root_path %></li>
             <li id="fat-menu" class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <%= image_tag("favicon (1).ico") %> <b class="caret"></b>
@@ -27,7 +46,19 @@
               </ul>
             </li>
           <% else %>
-            <li><%= link_to "Sign in", signin_path %></li>
+            <%= form_for(:session, url: sessions_path) do |f| %>
+              <table class="signin">
+                <tr class="th">
+                  <td><%= f.label :email %></td>
+                  <td><%= f.label :password %></td>
+                </tr>
+                <tr class="th">
+                  <td class="input" ><%= f.text_field :email %></td>  
+                  <td class="input" ><%= f.password_field :password %></td>
+                  <td><%= f.submit "Log in", class: "login"%></td>
+                </tr>
+              </table>
+            <% end %>
           <% end %>
         </ul>
       </nav>
