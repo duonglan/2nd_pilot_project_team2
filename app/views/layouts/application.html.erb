@@ -29,11 +29,6 @@
           </div>
         <% end %>
         <%= yield %>
-        <% if signed_in? %>
-          <div class="right-sidebar">
-            <%= render "shared/activities", activities: activities%>
-          </div>
-        <% end %>
       </div>
     </div>
     <div>
