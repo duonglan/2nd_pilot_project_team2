@@ -18,7 +18,7 @@
           <% end %>
         </span>
         <div class="micropost-display">
-          <%= exercept @micropost.content %> 
+          <%= wrap(@micropost.content) %> 
           <br/>
           <span class="timestamp">
             about <%= time_ago_in_words @micropost.created_at %> ago.
