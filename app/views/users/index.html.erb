@@ -5,24 +5,24 @@
 <div class="main-content">
   <aside class="span4">
     <ul class="friends">
-        <h2>"<%= @users.count %> persons" </h2>
-        <% @users.each do |user| %>
-          <li>
-            <% if user.avatar.blank? %>
-              <%= link_to image_tag("no_ava.jpg"), user, class: "avatar-medium" %>
-            <% elsif user.avatar? %>
-              <%= link_to image_tag(user.avatar), user, class: "avatar-medium" %>
-            <% end %>
-            <div class="info">
-              <%= link_to user.name, user %>
-              <% if signed_in? %>
+      <h2>"<%= @users.count %> persons" </h2>
+      <% @users.each do |user| %>
+        <li>
+          <% if user.avatar.blank? %>
+            <%= link_to image_tag("no_ava.jpg"), user, class: "avatar-medium" %>
+          <% elsif user.avatar? %>
+            <%= link_to image_tag(user.avatar), user, class: "avatar-medium" %>
+          <% end %>
+          <div class="info">
+            <%= link_to user.name, user %>
+            <% if signed_in? %>
               <% unless current_user?(user) || current_user.requested_friends.include?(user) || current_user.friends.include?(user) || current_user.pending_friends.include?(user) %>
                   <%= link_to "Add friend", user_friendships_path(user), method: :post, class: "btn btn-mini floatright" %>
               <% end %>
             <% end %>  
-            </div>
-          </li>
-        <% end %>
+          </div>
+        </li>
+      <% end %>
     </ul>
   </aside>
 </div>

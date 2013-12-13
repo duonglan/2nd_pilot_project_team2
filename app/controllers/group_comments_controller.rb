@@ -15,15 +15,15 @@ before_action :signed_in_user
     group_micropost = GroupMicropost.find params[:group_micropost_id]
     group_comment = group_micropost.group_comments.find params[:id]
     if params[:group_comment]
-      if group_comment.update_attributes(group_comment_params)
+      if group_comment.update_attributes group_comment_params
         redirect_to :back
       end
     elsif params[:like] == "like_group_comment" 
-      group_comment.like_group_comments.build(user_id: current_user.id)
+      group_comment.like_group_comments.build user_id: current_user.id
       if group_comment.save
         redirect_to :back
       else
-        flash[:error] = "Like fail!"
+        flash[:error] = "Error!"
       end
     end
   end
@@ -50,6 +50,7 @@ before_action :signed_in_user
   end
 
   private
+
   def group_comment_params
     params.require(:group_comment).permit(:content)
   end

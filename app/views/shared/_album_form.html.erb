@@ -1,5 +1,5 @@
 <%= form_for(@album), user_albums_path, method: :post do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
+  <%= render "shared/error_messages", object: f.object %>
   <div class="field">
     <%= f.text_field :name %>
   </div>
