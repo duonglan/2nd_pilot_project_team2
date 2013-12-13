@@ -4,78 +4,75 @@
 </div>
 <div class="main-content">
   <div class="center">
-    <h1>
-      Photo
-    </h1>
+    <h1> Photo </h1>
     <span class="image">
       <%= image_tag @image.image.url(:small) %>
     </span>
-  </div>
-  <br/>
+  </div><br/>
   <section>
     <ul class="posts">
       <div>
-      <% if @image.user.avatar.blank? %>
+        <% if @image.user.avatar.blank? %>
           <%= link_to image_tag("no_ava.jpg"), @image.user, class: "avatar-medium" %>
         <% elsif @image.user.avatar? %>
           <%= link_to image_tag(@image.user.avatar), @image.user, class: "avatar-medium" %>
         <% end %>
         <div class="micropost-home">
-      <li class="user">
-        <%= link_to @image.user.name, @image.user %>
-      </li>
-
-      <span class="timestamp">
-        about <%= time_ago_in_words @image.created_at %> ago.
-        <% if current_user.id == @image.user_id %>
-          <%= link_to "Delete Photo", "", method: :delete, data: {confirm: "Are you sure?"} %>
+          <li class="user">
+            <%= link_to @image.user.name, @image.user %>
+          </li>
+          <span class="timestamp">
+            about <%= time_ago_in_words @image.created_at %> ago.
+            <% if current_user.id == @image.user_id %>
+              <%= link_to "Delete Photo", "", method: :delete, data: {confirm: "Are you sure?"} %>
+            <% end %>
+            <%= render "images/like_image" %> 
+            <% if current_user.id == @image.user_id %>
+              <%= link_to "del photo", "", method: :delete, data: {confirm: "Are you sure?"} %>
+            <% end %>
+          </span> 
+        </div>
+      </div>             
+      <span class="custom-comment">
+        <%if @image.has_comment? %>  
+          <% @image.image_comments.each do |image_comment| %>
+            <% if image_comment.user.avatar.blank? %>
+              <%= link_to image_tag("no_ava.jpg"), image_comment.user, class: "avatar-small" %>
+            <% elsif image_comment.user.avatar? %>
+              <%= link_to image_tag(image_comment.user.avatar), image_comment.user, class: "avatar-small" %>
+            <% end %>
+            <div class="comment-display">
+              <%= image_comment.user.name %>:
+              <%= wrap(image_comment.content) %><br/>
+              <span class="timestamp">
+                about <%= time_ago_in_words(image_comment.created_at) %> ago.
+              </span>
+              <%= render "images/like_image_comment", image_comment: image_comment %>
+              <% if image_comment.user_id == current_user.id %>
+                <%= link_to "edit", "", class: "non-redirect edit_comment_btn" %>
+              <% end %>
+              <% if image_comment.user_id == current_user.id || current_user.id == @image.user_id %>
+                <%= link_to "del", user_album_image_image_comment_path(current_user, @album, @image, image_comment), method: :delete, data: {confirm: "Are you sure?"} %>
+              <% end %>
+            </div>
+            <div class="edit_comment_wrap">
+              <%= form_for [current_user, @album, @image, image_comment] do |f| %>
+                <%= f.text_field :content %>
+              <% end %>
+            </div>
+          <% end %>
         <% end %>
-        <%= render "images/like_image" %> 
-        <% if current_user.id == @image.user_id %>
-          <%= link_to "del photo", "", method: :delete, data: {confirm: "Are you sure?"} %>
-        <% end %>
-      </span> 
-    </div>
-  </div>             
-<span class="custom-comment">
-  <%if @image.has_comment? %>  
-    <% @image.image_comments.each do |image_comment| %>
-    <% if image_comment.user.avatar.blank? %>
-      <%= link_to image_tag("no_ava.jpg"), image_comment.user, class: "avatar-small" %>
-    <% elsif image_comment.user.avatar? %>
-      <%= link_to image_tag(image_comment.user.avatar), image_comment.user, class: "avatar-small" %>
-    <% end %>
-    <div class="comment-display">
-      <%= image_comment.user.name %>:
-      <%= wrap(image_comment.content) %>
-      <br/>
-      <span class="timestamp">
-        about <%= time_ago_in_words(image_comment.created_at) %> ago.
       </span>
-      <%= render "images/like_image_comment", image_comment: image_comment %>
-      <% if image_comment.user_id == current_user.id %>
-        <%= link_to "edit", "", class: "non-redirect edit_comment_btn" %>
+      <% if current_user.friends.include?(User.find(@image.user_id)) || @image.user_id == current_user.id%>
+        <div class="comment-form">
+          <%= form_for [@user, @album, @image, @image_comment] do |image_comment| %>
+            <span class="field">
+              <%= image_comment.text_field :content, placeholder: "Comment.."  %>
+            </span>
+          <% end %>
+        </div>
       <% end %>
-      <% if image_comment.user_id == current_user.id || current_user.id == @image.user_id %>
-        <%= link_to "del", user_album_image_image_comment_path(current_user, @album, @image, image_comment), method: :delete, data: {confirm: "Are you sure?"} %>
-      <% end %>
-    </div>
-    <div class="edit_comment_wrap">
-      <%= form_for [current_user, @album, @image, image_comment] do |f| %>
-        <%= f.text_field :content %>
-      <% end %>
-    </div>
-  <% end %>
-<% end %>   
-    <% if current_user.friends.include?(User.find(@image.user_id)) || @image.user_id == current_user.id%>
-    <div class="comment-form">
-      <%= form_for [@user, @album, @image, @image_comment] do |image_comment| %>
-        <span class="field">
-          <%= image_comment.text_field :content, placeholder: "Comment.."  %>
-        </span>
-      <% end %>
-    </div>
-  <% end %>
-</section>
+    </ul>
+  </section>
 </div>
-   </ul>
+   

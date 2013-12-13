@@ -6,11 +6,10 @@
   <h1>
     Create group
   </h1>
-    
-      <%= form_for (@group) do |f| %>
-      	<%= render "shared/error_messages", object: f.object %>
-        <%= f.label :name %>
-        <%= f.text_field :name %>
-        <%= f.submit "Create", class: "btn btn btn-primary" %>
-      <% end %>
+    <%= form_for (@group) do |f| %>
+      <%= render "shared/error_messages", object: f.object %>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+      <%= f.submit "Create", class: "btn btn btn-primary" %>
+    <% end %>
 </div>

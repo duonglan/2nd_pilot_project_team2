@@ -2,7 +2,7 @@ class Comment < ActiveRecord::Base
   include PublicActivity::Common
   EXISTANCE = 0
   
-	belongs_to :micropost
+  belongs_to :micropost
   belongs_to :user
   has_many :like_comments, dependent: :destroy
 	default_scope -> {order("created_at DESC")}

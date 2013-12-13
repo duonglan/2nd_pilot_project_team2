@@ -6,13 +6,13 @@ class Image < ActiveRecord::Base
   has_many :image_comments, dependent: :destroy
   has_many :like_image_comments, through: :image_comments, dependent: :destroy
   has_attached_file :image, :styles => {
-      :thumb => "100x100#",
-      :small => "150x150>",
-      :large => "900x960>"
-    }
+    :thumb => "100x100#",
+    :small => "150x150>",
+    :large => "900x960>"
+  }
   default_scope -> {order("created_at DESC")}
 
-  scope :all_image_user, ->user_id{where user_id: user_id}    
+  scope :all_image_user, ->user_id{where user_id: user_id}
 
   validates :image, presence: true
   validates :user_id, presence: true

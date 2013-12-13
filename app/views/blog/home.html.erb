@@ -19,10 +19,10 @@
     </ul>
   </div>
 <% else %>
-	<div class="home">
+  <div class="home">
     <div class="home-center">
       <div class="clear-fix">
-		    <div class="left">
+        <div class="left">
           <div class="left-zoom">
             <div class ="font-home">
               Facebook helps you connect and share with the people in your life.
@@ -40,7 +40,7 @@
           </div>
             <div class="">
               <%= form_for(User.new) do |f| %>
-                <%= render 'shared/error_messages', object: f.object %>
+                <%= render "shared/error_messages", object: f.object %>
                 <%= f.text_field :name, placeholder: "Name" %>
                 <%= f.text_field :email, placeholder: "Your email address" %>
                 <%= f.password_field :password, placeholder: "New Password" %>
