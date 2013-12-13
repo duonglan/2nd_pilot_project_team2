@@ -20,8 +20,7 @@
     </div>
     <div class="edit_comment_wrap">
       <%= form_for [@group, group_micropost, group_comment] do |f| %>
-        <%= f.text_area :content, placeholder: "Write comment" %>
-        <%= f.submit "Update", class: "btn btn-primary non-redirect update_comment_btn" %>
+        <%= f.text_field :content, placeholder: "Write comment" %>
       <% end %>
     </div>
   <% end %>

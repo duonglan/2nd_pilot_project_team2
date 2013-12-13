@@ -8,74 +8,71 @@
       <%= render "shared/group_micropost_form" %>
       <%= render "shared/add_friend_group", users: current_user.friends, group: @group %>
       <%= link_to "add member", "#add_friend_group", class: "btn btn-large btn-primary",
-        data: {toggle: "modal"} %>
+      data: {toggle: "modal"} %>
     <% end %>
   </section>   
-    <% if @group.joined?(current_user) %>
-      <h1>
-        ____ RECENT POSTS ____
-      </h1>
-      <% if @group_microposts.any? %>
-        <ul class="posts">
-          <% @group_microposts.each do |group_micropost| %>
-            <li>
-             <div> 
+  <% if @group.joined?(current_user) %>
+    <h1>
+      ____ RECENT POSTS ____
+    </h1>
+    <% if @group_microposts.any? %>
+      <ul class="posts">
+        <% @group_microposts.each do |group_micropost| %>
+          <li>
+            <div> 
               <% if group_micropost.user.avatar.blank? %>
                 <%= link_to image_tag("no_ava.jpg"),group_micropost.user, class: "avatar-medium" %>
               <% elsif group_micropost.user.avatar? %>
                 <%= link_to image_tag(group_micropost.user.avatar), group_micropost.user, class: "avatar-medium" %>
               <% end %>
               <div class="micropost-home">
-              <span class="user">
-                <%= link_to group_micropost.user.name, group_micropost.user %>
-              </span>
-              <div class="micropost-display">     
-                <%= exercept group_micropost.content %>
-                <br/>
-                <span class="timestamp">
-                  about <%= time_ago_in_words(group_micropost.created_at) %> ago.
+                <span class="user">
+                  <%= link_to group_micropost.user.name, group_micropost.user %>
                 </span>
-                <%= render "shared/like_group_micropost", group_micropost: group_micropost, group: @group %>   
-                <% if current_user?(group_micropost.group.owner) || current_user?(group_micropost.user)%>
-                  <%= link_to "edit", edit_group_group_micropost_path(@group, group_micropost),class: "non-redirect edit_micropost_btn" %>
-                  <%= link_to "del", group_group_micropost_path(@group, group_micropost), method: :delete, data: { confirm: 'Are you sure?' } %>
-                <% end %>
+                <div class="micropost-display">     
+                  <%= exercept group_micropost.content %>
+                  <br/>
+                  <span class="timestamp">
+                    about <%= time_ago_in_words(group_micropost.created_at) %> ago.
+                  </span>
+                  <%= render "shared/like_group_micropost", group_micropost: group_micropost, group: @group %> 
+                  <% if current_user?(group_micropost.group.owner) || current_user?(group_micropost.user)%>
+                    <%= link_to "edit", edit_group_group_micropost_path(@group, group_micropost),class: "non-redirect edit_micropost_btn" %>
+                    <%= link_to "del", group_group_micropost_path(@group, group_micropost), method: :delete, data: { confirm: 'Are you sure?' } %>
+                  <% end %>
                 </div>
                 <div class="edit_micropost_wrap">
                   <%= form_for [@group, group_micropost] do |f| %>
-                  <%= f.text_area :content %>
-                  <%= f.submit "Update", class: "btn btn-primary non-redirect update_micropost_btn" %>
+                    <%= f.text_area :content %>
+                    <%= f.submit "Update", class: "btn btn-primary non-redirect update_micropost_btn" %>
                   <% end %>
                 </div>
               </div>
-                <span class="custom-comment">
-                  <%= render "group_comments/form_group_comments", group_micropost: group_micropost %>
-                </span>
-              </div>
-              </li>
-            <% end %>
-          </ul>
-        <% end %>
-        <%= will_paginate @group_microposts %>
-      <% else %>
-        <h3>All Members (<%= @group.members.count %>)</h3>
-        <% if @group.members.any? %>
-        <ul>
-          <% @members.each do |member| %>
-            <li>
-              <% if member.user.avatar.blank? %>
-                <%= link_to image_tag("no_ava.jpg"),member.user, class: "avatar-medium" %>
-              <% elsif member.user.avatar? %>
-                <%= link_to image_tag(member.user.avatar), member.user, class: "avatar-medium" %>
-              <% end %>
-                <%= link_to member.user.name, member.user %>
+              <span class="custom-comment">
+                <%= render "group_comments/form_group_comments", group_micropost: group_micropost %>
               </span>
-            </li>
-          <% end %>
-        </ul>
-          <%= will_paginate @members %>
+            </div>
+          </li>
         <% end %>
-      <% end %>
-    </div>
-  </div>
+      </ul>
+    <% end %>
+  <%= will_paginate @group_microposts %>
+  <% else %>
+    <h3>All Members (<%= @group.members.count %>)</h3>
+    <% if @group.members.any? %>
+      <ul>
+        <% @members.each do |member| %>
+          <li>
+            <% if member.user.avatar.blank? %>
+              <%= link_to image_tag("no_ava.jpg"),member.user, class: "avatar-medium" %>
+            <% elsif member.user.avatar? %>
+              <%= link_to image_tag(member.user.avatar), member.user, class: "avatar-medium" %>
+            <% end %>
+            <%= link_to member.user.name, member.user %>
+          </li>
+        <% end %>
+      </ul>
+      <%= will_paginate @members %>
+    <% end %>
+  <% end %>
 </div>
