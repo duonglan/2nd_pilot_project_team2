@@ -14,12 +14,12 @@ class User < ActiveRecord::Base
   has_many :like_group_comments, dependent: :destroy
   has_many :like_images, dependent: :destroy
   has_many :like_image_comments, dependent: :destroy
-  has_many :friends, :through => :friendships, :conditions => "status = 'accepted'"
-  has_many :requested_friends, :through => :friendships, :source => :friend,
+  has_many :friends, through: :friendships, :conditions => "status = 'accepted'"
+  has_many :requested_friends, through: :friendships, :source => :friend,
    :conditions => "status = 'requested'", :order => :created_at
-  has_many :pending_friends, :through => :friendships,
+  has_many :pending_friends, through: :friendships,
    :source => :friend, :conditions => "status = 'pending'", :order => :created_at
-  has_many :friendships, :dependent => :destroy
+  has_many :friendships, dependent: :destroy
 
   before_save {self.email = email.downcase}
   validates :name, presence: true, length: {maximum: 50}
@@ -48,7 +48,6 @@ class User < ActiveRecord::Base
   end
 
   private
-
   def create_remember_token
     self.remember_token = User.encrypt(User.new_remember_token)
   end

@@ -3,8 +3,9 @@
   <%= render "layouts/left_sidebar" %>
 </div>
 <div class="main-content">
+  <h1>Photo</h1>
+  <%= link_to "back to album", user_album_path(@album.user_id, @album) %>
   <div class="center">
-    <h1>Photo</h1>
     <span class="image">
       <%= image_tag @image.image.url(:small) %>
     </span>

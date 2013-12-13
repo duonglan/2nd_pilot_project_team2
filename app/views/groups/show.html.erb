@@ -1,11 +1,11 @@
 <% provide(:title, @group.name) %>
 <div class="left-sidebar">
-  <%= render "shared/group_info"%> 
+  <%= render "group_info"%> 
 </div>
 <div class="main-content">
   <section>
     <% if @group.joined?(current_user) || @group.owned?(current_user) %>
-      <%= render "shared/group_micropost_form" %>
+      <%= render "group_micropost_form" %>
     <% end %>
   </section>
   <% if @group.joined?(current_user) %>
@@ -30,10 +30,10 @@
                   <span class="timestamp">
                     about <%= time_ago_in_words(group_micropost.created_at) %> ago.
                   </span>
-                  <%= render "shared/like_group_micropost", group_micropost: group_micropost, group: @group %> 
+                  <%= render "like_group_micropost", group_micropost: group_micropost, group: @group %> 
                   <% if current_user?(group_micropost.group.owner) || current_user?(group_micropost.user)%>
-                    <%= link_to "edit", edit_group_group_micropost_path(@group, group_micropost),class: "non-redirect edit_micropost_btn" %>
-                    <%= link_to "del", group_group_micropost_path(@group, group_micropost), method: :delete, data: { confirm: 'Are you sure?' } %>
+                    <%= link_to "edit", edit_group_group_micropost_path(@group, group_micropost), class: "non-redirect edit_micropost_btn" %>
+                    <%= link_to "del", group_group_micropost_path(@group, group_micropost), method: :delete, data: {confirm: "Are you sure?"} %>
                   <% end %>
                 </div>
                 <div class="edit_micropost_wrap">
@@ -44,7 +44,7 @@
                 </div>
               </div>
               <span class="custom-comment">
-                <%= render "group_comments/form_group_comments", group_micropost: group_micropost %>
+                <%= render "form_group_comments", group_micropost: group_micropost %>
               </span>
             </div>
           </li>

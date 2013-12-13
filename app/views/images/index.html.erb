@@ -1,5 +1,0 @@
-<% provide(:title, "Photos") %>
-<%= form_for (:image, url: {action: "create"}, html: {multipart: true}) do |f| %>
-  <%= f.file_field :image %>
-  <%= f.submit "Upload" %>
-<% end %>

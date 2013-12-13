@@ -6,24 +6,29 @@
   <h1>
     <%= @album.name %> (<%= @album.images.count %> photos)
   </h1>
+  <% if @album.user_id == current_user.id %>
+    <%= link_to "Del Album", user_album_path(current_user, @album), method: :delete, data:{confirm: "Are you sure?"}, class: "btn btn floatright" %>
+    <%= link_to "New Album", new_user_album_path(current_user), class: "btn btn floatright" %>
+  <% end %>
+  <%= link_to "All Album", user_albums_path(@album.user_id) %>
   <h2>
     about <%= time_ago_in_words @album.created_at %> ago.
   </h2>
-  <%= link_to "Del Album", user_album_path(current_user, @album), method: :delete, data:{confirm: "Are you sure?"}, class: "btn btn floatright" %>
-  <%= link_to "New Album", new_user_album_path(current_user), class: "btn btn floatright" %>
-  <%= form_for [current_user, @album, @image] do |f| %>
-    <%= render "shared/error_messages", object: f.object %>
-    Add photo :
-    <%= f.file_field :image %>
-    <%= f.submit "Upload" %>
-  <% end %> 
+  <% if @album.user_id == current_user.id %>
+    <%= form_for [current_user, @album, @image] do |f| %>
+      <%= render "shared/error_messages", object: f.object %>
+      Add photo :
+      <%= f.file_field :image %>
+      <%= f.submit "Upload" %>
+    <% end %>
+  <% end %>
   <div><br/>
     <ul class="albums">
       <% if @album.images.present? %>
         <% @album.images.each do |image| %>
           <li>
             <%= link_to image_tag(image.image.url(:small)),user_album_image_path(current_user, @album, image) %> 
-            <%= link_to "", user_album_image_path(current_user, @album, image), method: :delete, data: {confirm:"Are you sure?"}, class: "delete" %>
+            <%= link_to "", user_album_image_path(current_user, @album, image), method: :delete,data: {confirm:"Are you sure?"}, class: "delete" %>
           </li>
         <% end %>
       <% end %>
