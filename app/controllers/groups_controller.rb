@@ -28,8 +28,8 @@ class GroupsController < ApplicationController
       flash[:success] = "New group created!"
       redirect_to group_path group
     else
-      flash.now[:error] = 'Invalid email/password combination'
-      render 'new'
+      flash.now[:error] = "Invalid email/password combination"
+      render :new
     end
   end
 

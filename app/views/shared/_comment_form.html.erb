@@ -1,32 +1,31 @@
 <% if micropost.has_comment? %>
   <% micropost.comments.each do |comment| %>
-      <% if comment.user.avatar.blank? %>
-        <%= link_to image_tag("no_ava.jpg"), comment.user, class: "avatar-small" %>
-      <% elsif comment.user.avatar? %>
-        <%= link_to image_tag(comment.user.avatar), comment.user, class: "avatar-small" %>
+    <% if comment.user.avatar.blank? %>
+      <%= link_to image_tag("no_ava.jpg"), comment.user, class: "avatar-small" %>
+    <% elsif comment.user.avatar? %>
+      <%= link_to image_tag(comment.user.avatar), comment.user, class: "avatar-small" %>
+    <% end %>
+    <div class="comment-display">
+      <%= link_to comment.user.name, comment.user %>:
+      <%= wrap(comment.content) %>
+      <br/>
+      <span class="timestamp">
+        about <%= time_ago_in_words(comment.created_at) %> ago.
+      </span>
+      <%= render "shared/like_comment", micropost: micropost, comment: comment %>
+      <% if comment.user_id == current_user.id %>
+        <%= link_to "edit",  edit_user_micropost_comment_path(current_user, micropost, comment), class: "non-redirect edit_comment_btn" %>
+        <%= link_to "del", user_micropost_comment_path(current_user, micropost, comment), method: :delete, data: {confirm: "Are you sure?"} %>
       <% end %>
-      <div class="comment-display">
-        <%= link_to comment.user.name, comment.user %>:
-        <%= wrap(comment.content) %>
-        <br/>
-        <span class="timestamp">
-          about <%= time_ago_in_words(comment.created_at) %> ago.
-        </span>
-        <%= render "shared/like_comment", micropost: micropost, comment: comment %>
-        <% if comment.user_id == current_user.id %>
-          <%= link_to "edit",  edit_user_micropost_comment_path(current_user, micropost, comment), class: "non-redirect edit_comment_btn" %>
-          <%= link_to "del", user_micropost_comment_path(current_user, micropost, comment), method: :delete, data: {confirm: "Are you sure?"} %>
-        <% end %>
-      </div>
-      <div class="edit_comment_wrap">
-        <%= form_for [current_user, micropost, comment] do |f| %>
-          <%= f.text_field :content, placeholder: "What's on your mind" %>  
-        <% end %>
-      </div>
-    
+    </div>
+    <div class="edit_comment_wrap">
+      <%= form_for [current_user, micropost, comment] do |f| %>
+        <%= f.text_field :content, placeholder: "What's on your mind" %>  
+      <% end %>
+    </div>
   <% end %>
 <% end %>
-<% if current_user.friends.include?(User.find(micropost.user_id)) || micropost.user_id == current_user.id%>
+<% if current_user.friends.include?(User.find(micropost.user_id)) || micropost.user_id == current_user.id %>
   <div class="comment-form">
     <%= form_for [current_user, micropost, @comments] do |comment| %>
       <%= render 'shared/error_messages', object: comment.object %>

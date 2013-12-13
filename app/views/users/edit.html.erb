@@ -2,12 +2,11 @@
 <div class="left-sidebar">
   <%= render "layouts/left_sidebar" %>
 </div>
-
 <div class="main-content">
   <h1>Update your profile</h1>
   <div class="span5 offset1">
     <%= form_for(@user) do |f| %>
-      <%= render 'shared/error_messages' , object: f.object%>
+      <%= render "shared/error_messages" , object: f.object%>
 
       <%= f.label :name %>
       <%= f.text_field :name %>
@@ -19,9 +18,9 @@
       <%= f.text_field :birthday, value: l(DateTime.now), class: "date-field" %>
 
       <%= f.label :sex %>  
-      <%= f.radio_button :sex, 'male', :checked => true %> Male
-      <%= f.radio_button :sex, 'famale'%> Female
-      <%= f.radio_button :sex, 'other'%> Other
+      <%= f.radio_button :sex, "male", :checked => true %> Male
+      <%= f.radio_button :sex, "famale" %> Female
+      <%= f.radio_button :sex, "other" %> Other
 
       <%= f.label :phone_number %>
       <%= f.text_field :phone_number %>

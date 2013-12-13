@@ -1,12 +1,10 @@
 <h3>Profile</h3>
 <span>
   Name: <%= user.name %>
-</span>
-<br/>
+</span><br/>
 <span>
   Email: <%= user.email %>
-</span>
-<br/>
+</span><br/>
 <% if user.birthday.present? %>
   <span>
     Birthday: <%= l user.birthday %>
@@ -15,16 +13,13 @@
   <span>
     Birthday:
   </span>
-<% end %>
-<br/>
+<% end %><br/>
 <span>
   Sex: <%= user.sex %>
-</span>
-<br/>
+</span><br/>
 <span>
   Phone: <%= user.phone_number %>
-</span>
-<br/>
+</span><br/>
 <span>
   Friends: <%= user.friends.count %>
 </span>

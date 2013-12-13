@@ -13,12 +13,12 @@ class CommentsController < ApplicationController
   end
 
   def edit
-    micropost = Group.find(params[:micropost_id])
-    comment = micropost.comment.find(params[:id])
+    micropost = Group.find params[:micropost_id]
+    comment = micropost.comment.find params[:id]
   end
 
   def update
-    comment = Comment.find(params[:id])
+    comment = Comment.find params[:id]
     if params[:comment]
       if comment.update_attributes comment_params
         redirect_to :back
@@ -27,7 +27,7 @@ class CommentsController < ApplicationController
         redirect_to :back
       end
     elsif params[:like] == "like_comment"
-      comment.like_comments.build(user_id: current_user.id)
+      comment.like_comments.build user_id: current_user.id
       redirect_to :back
       if comment.save
       end
@@ -35,10 +35,10 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @user = User.find(params[:user_id])
-    @micropost = Micropost.find(params[:micropost_id])
-    @comment = @micropost.comments.build( comment_params )
-    @comment.update_attributes(user_id: current_user.id)
+    @user = User.find params[:user_id]
+    @micropost = Micropost.find params[:micropost_id]
+    @comment = @micropost.comments.build comment_params
+    @comment.update_attributes user_id: current_user.id
     if @comment.save
       @comment.create_activity :create, owner: current_user
       redirect_to :back

@@ -1,7 +1,8 @@
 class GroupMicropostsController < ApplicationController
   before_action :signed_in_user
 
-def index
+  def index
+
   end
 
   def show
@@ -17,12 +18,11 @@ def index
   def create
     @group = Group.find params[:group_id]
     @group_micropost = @group.group_microposts.build group_micropost_params
-    @group_micropost.update_attributes(user_id: current_user.id)
+    @group_micropost.update_attributes user_id: current_user.id
     unless @group_micropost.save
       flash[:erro] = "Blank!"
     end
-    redirect_to :back
-    
+    redirect_to :back  
   end
 
   def update
@@ -32,17 +32,17 @@ def index
       if group_micropost.update_attributes group_micropost_params
         redirect_to group_path group
       else
-        flash[:error] = "failed"
+        flash[:error] = "Error!"
       end
     else
       if params[:like] == "like_group_micropost"
-        group_micropost.like_group_microposts.build(user_id: current_user.id)
+        group_micropost.like_group_microposts.build user_id: current_user.id
         if group_micropost.save
           redirect_to :back
         end
       else
-       if params[:share] == "share_group"
-          micropost = current_user.microposts.build(content: group_micropost.content,
+        if params[:share] == "share_group"
+          micropost = current_user.microposts.build(scontent: group_micropost.content,
             friend_id: current_user.id, user_id: current_user.id)
           micropost.update_attributes status: true
           if micropost.save
