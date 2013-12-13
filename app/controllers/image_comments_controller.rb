@@ -11,6 +11,7 @@ before_action :signed_in_user
   end
 
   def update
+   binding.pry
     @image_comment = ImageComment.find params[:id]
     if params[:image_comment]
       @image_comment.update_attributes image_comment_params
@@ -35,7 +36,7 @@ before_action :signed_in_user
     @image_comment = @image.image_comments.new image_comment_params
     @image_comment.update_attributes user_id: current_user.id, album_id: @album.id
     unless @image_comment.save
-      flash[:error] = "Blank!"
+      flash[:error] = "comment error!"
     end
     redirect_to :back
   end

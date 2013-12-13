@@ -1,0 +1,16 @@
+<div id="add_friend_group" class="modal large hide fade" tabindex="-1" role="dialog" 
+  aria-labelledby="assign_trainee_modal_label" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="add_friend">friend</h3>
+  </div>
+  <div class="modal-body">
+    <% users.each do |user|%>
+      <h5><%=link_to user.name, user %>
+        <% unless group.joined?(user) %>
+          <%= link_to "add group", group_members_path(user_id: user.id, group_id: group.id), method: :post,class: "btn btn-mini floatright"%>
+      <% end %> 
+      <h5>
+    <% end %>
+  </div>
+</div>
