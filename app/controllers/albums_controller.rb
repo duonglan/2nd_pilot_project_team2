@@ -21,7 +21,8 @@ class AlbumsController < ApplicationController
       flash[:success] = "Album created!"
       redirect_to user_albums_path current_user
     else
-      render user_album_path current_user, @album
+      flash[:erro] = "Create Album  error"
+      redirect_to :back
     end
   end
 
