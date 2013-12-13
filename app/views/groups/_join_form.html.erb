@@ -1,4 +1,4 @@
-<% if @group.owned?(current_user)%>
+<% if @group.owned?(current_user) %>
   <div id="follow_form">
     <section>
       <h3>
@@ -10,7 +10,7 @@
         </ol>
         <%= will_paginate @members %>
       <% end %>
-    <section>
+    </section>
   </div>
 <% else %>
   <div id="follow_form">

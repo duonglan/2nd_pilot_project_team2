@@ -7,7 +7,7 @@
     <% if @group.joined?(current_user) || @group.owned?(current_user) %>
       <%= render "shared/group_micropost_form" %>
     <% end %>
-  </section>   
+  </section>
   <% if @group.joined?(current_user) %>
     <h1>____ RECENT POSTS ____</h1>
     <% if @group_microposts.any? %>

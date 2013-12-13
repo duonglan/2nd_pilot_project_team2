@@ -38,7 +38,7 @@
             <h3>Sign Up</h3>
             It's free and always will be.
           </div>
-            <div class="">
+            <div>
               <%= form_for(User.new) do |f| %>
                 <%= render "shared/error_messages", object: f.object %>
                 <%= f.text_field :name, placeholder: "Name" %>
