@@ -50,7 +50,6 @@ before_action :signed_in_user
   end
 
   private
-
   def group_comment_params
     params.require(:group_comment).permit(:content)
   end
