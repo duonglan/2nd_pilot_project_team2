@@ -12,7 +12,8 @@
       <%= link_to activity.trackable.micropost.content[0..14],  user_micropost_path(activity.trackable.micropost.friend_id,activity.trackable.micropost), class: "activity-content" %></div>
       <div class="activity-item">
       <% elsif activity.trackable_type == Micropost.name && activity.trackable %>
-        <%if activity.trackable.user_id == activity.trackable.friend_id %>
+        <%if activity.trackable.user_id == activity.trackable.friend_id && activity.trackable.is_public? %>
+        <%binding.pry%>
           <% if activity.owner.avatar.blank? %>
             <%= link_to image_tag("no_ava.jpg"), activity.owner, class: "avatar-small" %>
           <% elsif activity.owner.avatar? %>
