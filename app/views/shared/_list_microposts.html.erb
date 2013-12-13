@@ -14,7 +14,8 @@
         <% end %>
       </span>
       <div class="micropost-display">
-        <%= exercept micropost.content %> 
+        <%= exercept micropost.content %>
+        <%= link_to "read more..", user_micropost_path(micropost.user_id,micropost), class: "activity-content" %> 
         <br/>
         <span class="timestamp">
           about <%= time_ago_in_words micropost.created_at %> ago.

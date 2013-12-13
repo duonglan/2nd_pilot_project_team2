@@ -7,9 +7,15 @@
   Email: <%= user.email %>
 </span>
 <br/>
-<span>
-  Birthday: <%= l user.birthday %>
-</span>
+<% if user.birthday.present? %>
+  <span>
+    Birthday: <%= l user.birthday %>
+  </span>
+<% else %>
+  <span>
+    Birthday:
+  </span>
+<% end %>
 <br/>
 <span>
   Sex: <%= user.sex %>
