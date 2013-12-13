@@ -6,9 +6,6 @@
   <section>
     <% if @group.joined?(current_user) || @group.owned?(current_user) %>
       <%= render "shared/group_micropost_form" %>
-      <%= render "shared/add_friend_group", users: current_user.friends, group: @group %>
-      <%= link_to "add member", "#add_friend_group", class: "btn btn-large btn-primary",
-      data: {toggle: "modal"} %>
     <% end %>
   </section>   
   <% if @group.joined?(current_user) %>

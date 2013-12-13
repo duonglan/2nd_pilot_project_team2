@@ -11,6 +11,9 @@
     <h3>
       <%= link_to "Photos Albums", user_albums_path(@user) %> (<%= @user.albums.count %>)
     </h3>
+    <h3>
+    <%= link_to "Friends", user_friendships_path(@user) %> (<%= @user.friendships.count %>)
+  </h3>
   <section>
     <%= render "shared/user_profile", user: @user %>
   </section>
