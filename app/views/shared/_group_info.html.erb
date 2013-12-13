@@ -4,8 +4,7 @@
 </h3>
 <% if @group.joined?(current_user) || @group.owned?(current_user) %>
   <%= render "shared/add_friend_group", users: current_user.friends, group: @group %>
-  <%= link_to "add member", "#add_friend_group", class: "btn btn-mini",
-      data: {toggle: "modal"} %>
+  <%= link_to "add member", "#add_friend_group", class: "btn btn-mini", data: {toggle: "modal"} %>
 <% end %>
 <%= render "join_form" if signed_in? %>
 <% if @group.owned?(current_user)%>

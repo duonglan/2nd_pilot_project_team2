@@ -8,9 +8,9 @@
     <% users.each do |user|%>
       <h5><%=link_to user.name, user %>
         <% unless group.joined?(user) %>
-          <%= link_to "Add member", group_members_path(user_id: user.id, group_id: group.id), method: :post,class: "btn btn-mini floatright"%>
+          <%= link_to "Add member", group_members_path(user_id: user.id, group_id: group.id), method: :post, class: "btn btn-mini floatright"%>
         <% end %> 
-      <h5>
+      </h5>
     <% end %>
   </div>
 </div>
