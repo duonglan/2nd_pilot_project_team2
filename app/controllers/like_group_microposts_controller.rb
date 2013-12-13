@@ -15,9 +15,6 @@ class LikeGroupMicropostsController < ApplicationController
     end
   end
 
-  def show    
-  end
-
   def destroy
     LikeGroupMicropost.find(params[:id]).destroy
     redirect_to :back

@@ -5,7 +5,7 @@ class GroupComment < ActiveRecord::Base
   belongs_to :group
   has_many :like_group_comments, dependent: :destroy
   default_scope -> {order("created_at DESC")}
-  validates :content, presence: true
+  validates :content, presence: true, length: {maximum: 10000}
   validates :group_micropost_id, presence: true
   validates :group_id, presence: true
   validates :user_id, presence: true

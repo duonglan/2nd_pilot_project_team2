@@ -1,4 +1,4 @@
-<% if @micropost.is_public? || current_user?(user) %>
+<% if @micropost.is_public? || current_user?(@micropost.user) %>
   <div class="main-content"> 
     <ul class="posts">
       <% if @micropost.user.avatar.blank? %>

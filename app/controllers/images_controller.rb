@@ -1,6 +1,6 @@
 class ImagesController < ApplicationController
   before_action :signed_in_user
-  
+
   def index
     @image = Image.all
   end
@@ -52,5 +52,4 @@ class ImagesController < ApplicationController
   def image_params
     params.require(:image).permit(:image)
   end
-
 end
