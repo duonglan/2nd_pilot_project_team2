@@ -6,30 +6,30 @@
   <h1>
     Friends
   </h1>
-    <div class="row">
-      <aside class="span4">
+  <div class="row">
+    <aside class="span4">
+      <section>
+        <h4>
+          All Friends:
+        </h4>
+          <%= render "friends" %>
+      </section>
+    </aside>
+    <% if current_user?(@user) %>
+      <aside class="span4">   
         <section>
           <h4>
-            All Friends:
+            Pending Friends:
           </h4>
-            <%= render "friends" %>
+          <%= render "pending_friends" %>
+        </section>
+        <section>
+          <h4>
+            Friend Requests Sent:
+          </h4>
+          <%= render "requested_friends" %>
         </section>
       </aside>
-      <% if current_user?(@user) %>
-        <aside class="span4">   
-          <section>
-            <h4>
-              Pending Friends:
-            </h4>
-            <%= render "pending_friends" %>
-          </section>
-          <section>
-            <h4>
-              Friend Requests Sent:
-            </h4>
-              <%= render "requested_friends" %>
-          </section>
-        </aside>
-      <% end %>
-    </div>
+    <% end %>
   </div>
+</div>

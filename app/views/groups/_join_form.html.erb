@@ -1,4 +1,18 @@
-<% if !@group.owned?(current_user)%>
+<% if @group.owned?(current_user)%>
+  <div id="follow_form">
+    <section>
+      <h3>
+        Members (<%= @group.members.count %>)
+      </h3>
+      <% if @group.members.any? %>
+        <ol class="members">
+          <%= render partial: "groups/member", collection: @members %>
+        </ol>
+        <%= will_paginate @members %>
+      <% end %>
+    <section>
+  </div>
+<% else %>
   <div id="follow_form">
     <% if @group.joined?(current_user) %>
       <%= render "quit", object: @group %>
@@ -16,19 +30,5 @@
     <% else %>
       <%= render "join", object: @group %>
     <% end %>
-  </div>
-<% else %>
-  <div id="follow_form">
-    <section>
-      <h3>
-        Members (<%= @group.members.count %>)
-      </h3>
-      <% if @group.members.any? %>
-        <ol class="members">
-          <%= render partial: "groups/member", collection: @members %>
-        </ol>
-        <%= will_paginate @members %>
-      <% end %>
-    <section>
   </div>
 <% end %>

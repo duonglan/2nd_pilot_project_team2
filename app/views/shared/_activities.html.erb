@@ -1,7 +1,7 @@
-<% activities.each do |activity| %>
-  <% if current_user.friends.include?(activity.owner) && activity.trackable %>
-    <% if activity.trackable_type == Comment.name && activity.trackable %>
-      <div class="activity-item">
+<div class="activity-item">
+  <% activities.each do |activity| %>
+    <% if current_user.friends.include?(activity.owner) && activity.trackable %>
+      <% if activity.trackable_type == Comment.name && activity.trackable %>
         <% if activity.owner.avatar.blank? %>
           <%= link_to image_tag("no_ava.jpg"), activity.owner, class: "avatar-small" %>
         <% elsif activity.owner.avatar? %>
@@ -9,10 +9,7 @@
         <% end %>
         <%= link_to activity.owner.name, activity.owner if activity.owner %>
         commented to status:
-        <%= link_to activity.trackable.micropost.content[0..20],  user_micropost_path(activity.trackable.micropost.friend_id,activity.trackable.micropost), class: "activity-content" %>
-      </div>
-    <% elsif activity.trackable_type == Micropost.name && activity.trackable %>
-      <div class="activity-item">
+        <%= link_to activity.trackable.micropost.content[0..20],  user_micropost_path(activity.trackable.micropost.friend_id,activity.trackable.micropost), class: "activity-content" %>      
       <% elsif activity.trackable_type == Micropost.name && activity.trackable %>
         <%if activity.trackable.user_id == activity.trackable.friend_id && activity.trackable.is_public? %>
           <% if activity.owner.avatar.blank? %>
@@ -23,7 +20,7 @@
           <%= link_to activity.owner.name, activity.owner %>
           updated status: <%= link_to activity.trackable.content[0..20], user_micropost_path(activity.trackable.friend_id,activity.trackable), class: "activity-content" %>
         <% end %>
-      </div>
+      <% end %>
     <% end %>
   <% end %>
-<% end %>
+</div>

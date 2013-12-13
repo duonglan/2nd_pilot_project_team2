@@ -9,9 +9,7 @@
     <% end %>
   </section>   
   <% if @group.joined?(current_user) %>
-    <h1>
-      ____ RECENT POSTS ____
-    </h1>
+    <h1>____ RECENT POSTS ____</h1>
     <% if @group_microposts.any? %>
       <ul class="posts">
         <% @group_microposts.each do |group_micropost| %>
@@ -53,7 +51,7 @@
         <% end %>
       </ul>
     <% end %>
-  <%= will_paginate @group_microposts %>
+    <%= will_paginate @group_microposts %>
   <% else %>
     <h3>All Members (<%= @group.members.count %>)</h3>
     <% if @group.members.any? %>

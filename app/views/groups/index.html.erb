@@ -9,25 +9,24 @@
   <%= link_to "New group", new_group_path, class: "btn btn floatright" %>
   <ul class="teams">
     <aside>
-    <% @groups.each do |group| %>
-      <section>
-        <li>
-          <h3>
-            <%= link_to group.name, group %>
-          </h3>
-          Admin: <%= group.owner.name %>
-          <br/>
-          Members: <%= group.members.count %>
-          <% unless group.owned?(current_user) %>
-            <% if group.joined?(current_user) %>
-              <%= render "quit", object: group %>
-            <% else %>
-              <%= render "join", object: group %>
+      <% @groups.each do |group| %>
+        <section>
+          <li>
+            <h3>
+              <%= link_to group.name, group %>
+            </h3>
+            Admin: <%= group.owner.name %><br/>
+            Members: <%= group.members.count %>
+            <% unless group.owned?(current_user) %>
+              <% if group.joined?(current_user) %>
+                <%= render "quit", object: group %>
+              <% else %>
+                <%= render "join", object: group %>
+              <% end %>
             <% end %>
-          <% end %>
-        </li>
-      </section>
-    <% end %>
+          </li>
+        </section>
+      <% end %>
     </aside>
     <%= will_paginate %>
   </ul>
