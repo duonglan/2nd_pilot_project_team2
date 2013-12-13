@@ -19,7 +19,7 @@
             <%= link_to image_tag(activity.owner.avatar), activity.owner, class: "avatar-small" %>
            <% end %>
           <%= link_to activity.owner.name, activity.owner %>
-          create status <%= link_to activity.trackable.content, user_micropost_path(activity.trackable.friend_id,activity.trackable), class: "activity-content" %>
+          create status <%= link_to activity.trackable.content[0..14], user_micropost_path(activity.trackable.friend_id,activity.trackable), class: "activity-content" %>
         <% end %>
       <% end %>
     <% end %>
