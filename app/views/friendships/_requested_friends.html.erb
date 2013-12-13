@@ -1,17 +1,17 @@
 <% unless @user.requested_friends.empty? %>
   <ul class="friends">
-    <% @user.requested_friends.each do |u| %>
+    <% @user.requested_friends.each do |user| %>
       <li>
-        <% if u.avatar.blank? %>
-          <%= link_to image_tag("no_ava.jpg"), u, class: "avatar-medium" %>
-        <% elsif u.avatar? %>
-          <%= link_to image_tag(u.avatar), u, class: "avatar-medium" %>
+        <% if user.avatar.blank? %>
+          <%= link_to image_tag("no_ava.jpg"), user, class: "avatar-medium" %>
+        <% elsif user.avatar? %>
+          <%= link_to image_tag(user.avatar), user, class: "avatar-medium" %>
         <% end %>
         <div class="info">
-          <%= link_to u.name, user_path(u.id) %>
+          <%= link_to user.name, user_path(user.id) %>
           <% if signed_in? && @user = current_user %>
             <br/>
-            <%= link_to "cancel request", user_friendship_path(current_user.id, u.id), method: :delete, confirm: "Reject friend request! Are you sure?", class: "btn btn-mini floatright" %>
+            <%= link_to "cancel request", user_friendship_path(current_user.id, user.id), method: :delete, confirm: "Reject friend request! Are you sure?", class: "btn btn-mini floatright" %>
           <% end %>
         </div>
       </li>

@@ -4,7 +4,7 @@
 </div>
 <div class="main-content">
   <div class="center">
-    <h1> Photo </h1>
+    <h1>Photo</h1>
     <span class="image">
       <%= image_tag @image.image.url(:small) %>
     </span>
@@ -23,16 +23,13 @@
           </li>
           <span class="timestamp">
             about <%= time_ago_in_words @image.created_at %> ago.
-            <% if current_user.id == @image.user_id %>
-              <%= link_to "Delete Photo", "", method: :delete, data: {confirm: "Are you sure?"} %>
-            <% end %>
             <%= render "images/like_image" %> 
             <% if current_user.id == @image.user_id %>
-              <%= link_to "del photo", "", method: :delete, data: {confirm: "Are you sure?"} %>
+              <%= link_to "delete photo", user_album_image_path(current_user, @album, @image), method: :delete, data: {confirm: "Are you sure?"} %>
             <% end %>
           </span> 
         </div>
-      </div>             
+      </div>
       <span class="custom-comment">
         <%if @image.has_comment? %>  
           <% @image.image_comments.each do |image_comment| %>
@@ -49,7 +46,7 @@
               </span>
               <%= render "images/like_image_comment", image_comment: image_comment %>
               <% if image_comment.user_id == current_user.id %>
-                <%= link_to "edit", "", class: "non-redirect edit_comment_btn" %>
+                <%= link_to "edit", "#", class: "non-redirect edit_comment_btn" %>
               <% end %>
               <% if image_comment.user_id == current_user.id || current_user.id == @image.user_id %>
                 <%= link_to "del", user_album_image_image_comment_path(current_user, @album, @image, image_comment), method: :delete, data: {confirm: "Are you sure?"} %>
@@ -75,4 +72,3 @@
     </ul>
   </section>
 </div>
-   
